@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
 	<title>Laboratorio Clinico Emanual-Catalogo</title>
+=======
+	<title>Laboratorio Clinico Emanual-Emisión de Resultados</title>
+	<meta charset="utf-8" />
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/carousel.js"></script>
+>>>>>>> upstream/menu2
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/barra-menu.css">
 	<link rel="stylesheet" type="text/css" href="css/carousel.css">
@@ -13,11 +20,47 @@
 	<!--Contenedor-->
 	<div class="container-fluid">
 		<div class="row">
+<<<<<<< HEAD
 		<!--Aqui Esta Contenida La Barra De Menu-->
 		<div id="barraNav" class="col-lg-3 lista"></div>
         <!--Aqui Esta Finaliza La La Barra De Menu-->
 		
 		<!--Contenido Del Catalogo-->
+=======
+			<!--Aqui Esta Contenida La La Barra De Menu-->
+			<div class="col-lg-3 lista">
+				<div class="col-lg-4">
+					<img src="img/usuario.jpg" class="img-responsive img-circle">
+				</div>
+				<div class="col-lg-7">
+					<label style="margin-top: 10px "><b>nombre_user</b></label>
+					<br>
+					<a href="#">Perfil</a>
+					<br>
+					<a href="#">Cerrar Sesion</a>
+				</div>
+				<!--Lista Anidada-->
+
+				<ul id="menu">
+						<li><input type="checkbox" name="list" id="nivel1-1">  <label for="nivel1-1"> Facturación</label>
+							<ul class="interior">
+								<li><a href="crear_factura.php"> Crear Factura </a></li>
+								<li><a href="historial_factura.php"> Historial De Factura</a></li>
+							</ul>
+						</li> 
+
+						<li><b> <a href="inventario.php">Inventario</a></b></li>
+						<li><b> <a href="catalogo.php">Catalogo De Servicios</a></b></li>
+						<li><b> <a href="#">Emision De Resultados</a></li>
+						<li><b> <a href="cliente.php">Cliente</a></b></li>
+						<li><b> <a href="administracion.php">Administración</a></b></li>
+				</ul>
+			<!--Final De La Lista Anidada-->
+
+			</div>
+			<!--Aqui Esta Finaliza La La Barra De Menu-->
+			<!--Contenido Del Catalogo-->
+>>>>>>> upstream/menu2
 
 			<div class="col-lg-9 well" style="border: black 1px solid;">
 				<!--Barra De Menu-->

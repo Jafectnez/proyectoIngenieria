@@ -95,13 +95,14 @@ body {
   font-family: 'Comic Sans MS', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;   
-  background-image: url(../img/b1.jpg);
+  background-image: url(../img/fondo.jpg);
   background-size: cover;   
 }
 h1
 {
   text-align: center;
   font-family: "Comic Sans MS", sans-serif;
+  color: white;
 }
 
 .reg{
@@ -120,11 +121,17 @@ h1
   margin-top: 10px;
 }
 .cuadro{
-  background-color: rgba(0.5,0.5,0.5,0.5);
+  background-color: white;
   border: black 1px solid;
   padding: 30px;
+  margin-top: 100px;
+  width: 700px;
+  margin-left: 100px;
   border-radius: 10px;
 }
+.format{
+  border-radius: 5px;
+  height: 30px;
   width: 300px;
   padding-bottom: 30px;
 }
