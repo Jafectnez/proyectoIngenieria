@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
+
 <head>
 	<title>Laboratorio Clinico Emanuel-Inventario</title>
     <meta charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/barra-menu.css">
 	<link rel="stylesheet" type="text/css" href="css/carousel.css">
+	<link rel="stylesheet" href="css/styleBarra.css">
+
 	<link href="http://allfont.es/allfont.css?fonts=comic-sans-ms" rel="stylesheet" type="text/css" />
 	
 </head>
@@ -79,7 +81,7 @@
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/carousel.js"></script>
 	<script src="js/menu.js"></script>
-=======
+
 	<head>
 		<title>Laboratorio Clinico Emanuel-Inventario</title>
 		<meta charset="utf-8" />
@@ -301,10 +303,10 @@
 			</div>
 		</div>
 		<!--Fin Del Contenedor-->
->>>>>>> upstream/menu2
 
 	</body>
 	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/menu.js"></script>
 	<script src="js/carousel.js"></script>
 	<script src="js/pestañas.js"></script>
 	<script src="js/highcharts.js"></script>

@@ -28,35 +28,45 @@
                 <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
                     <ul class="nav">        
+                        <li>
+                            <a href="index.html">
+                            <i class="glyphicon glyphicon-home"></i>
+                            Incio </a>
+                        </li>
                         <li class="active">
                             <a id="id_fac" href="#">
-                            <i class="glyphicon glyphicon-home"></i>
+                            <i class="glyphicon glyphicon-user"></i>
                             Facturacion </a>
                             <div class="desplegable">
                                 <ul>
-                                    <li><a href="#">Nueva</a></li>
-                                    <li><a href="#">Historial</a></li>
+                                    <li><a href="crear_factura.php">Nueva</a></li>
+                                    <li><a href="historial_facturas.php">Historial</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li>
-                            <a href="#">
-                            <i class="glyphicon glyphicon-user"></i>
+                            <a href="inventario.php">
+                            <i class="glyphicon glyphicon-ok"></i>
                             Inventario </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="catalogo.php">
                             <i class="glyphicon glyphicon-ok"></i>
                             Catalogo de servicios </a>
                         </li>
                         <li>
-                            <a href="#">
-                            <i class="glyphicon glyphicon-flag"></i>
+                            <a href="resultados.php">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            Emision De Resultados </a>
+                        </li>
+                        <li>
+                            <a href="cliente.php">
+                            <i class="glyphicon glyphicon-ok"></i>
                             Cliente </a>
                         </li>
                         <li>
-                            <a href="#">
-                            <i class="glyphicon glyphicon-flag"></i>
+                            <a href="administracion.php">
+                            <i class="glyphicon glyphicon-ok"></i>
                             Administracion </a>
                         </li>
                     </ul>
