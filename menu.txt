@@ -27,9 +27,9 @@
                 <!-- END SIDEBAR BUTTONS -->
                 <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
-                    <ul class="nav">        
+                    <ul class="nav">
                         <li>
-                            <a href="index.html">
+                            <a id="id_home" href="#">
                             <i class="glyphicon glyphicon-home"></i>
                             Incio </a>
                         </li>
@@ -39,33 +39,33 @@
                             Facturacion </a>
                             <div class="desplegable">
                                 <ul>
-                                    <li><a href="crear_factura.php">Nueva</a></li>
-                                    <li><a href="historial_facturas.php">Historial</a></li>
+                                    <li><a id="id_cfac" href="#">Nueva</a></li>
+                                    <li><a id="id_hfac" href="#">Historial</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li>
-                            <a href="inventario.php">
+                            <a id="id_inv" href="#">
                             <i class="glyphicon glyphicon-ok"></i>
                             Inventario </a>
                         </li>
                         <li>
-                            <a href="catalogo.php">
+                            <a id="id_cata" href="#">
                             <i class="glyphicon glyphicon-ok"></i>
                             Catalogo de servicios </a>
                         </li>
                         <li>
-                            <a href="resultados.php">
+                            <a id="id_res" href="#">
                             <i class="glyphicon glyphicon-ok"></i>
                             Emision De Resultados </a>
                         </li>
                         <li>
-                            <a href="cliente.php">
+                            <a id="id_cli" href="#">
                             <i class="glyphicon glyphicon-ok"></i>
                             Cliente </a>
                         </li>
                         <li>
-                            <a href="administracion.php">
+                            <a id="id_admin" href="#">
                             <i class="glyphicon glyphicon-ok"></i>
                             Administracion </a>
                         </li>
