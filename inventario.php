@@ -7,8 +7,6 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/barra-menu.css">
 	<link rel="stylesheet" type="text/css" href="css/carousel.css">
-	<link rel="stylesheet" href="css/styleBarra.css">
-
 	<link href="http://allfont.es/allfont.css?fonts=comic-sans-ms" rel="stylesheet" type="text/css" />
 	
 </head>

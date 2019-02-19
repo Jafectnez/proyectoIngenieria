@@ -1,5 +1,6 @@
-    <script src="js/menuFun.js"></script>
-
+<script src="js/menuFun.js"></script>
+<link rel="stylesheet" href="css/styleBarra.css">
+<link rel="stylesheet" href="css/styles.css">
 
 <div class="profile-sidebar">
                 <!-- SIDEBAR USERPIC -->
@@ -33,14 +34,21 @@
                             <i class="glyphicon glyphicon-home"></i>
                             Incio </a>
                         </li>
-                        <li class="active">
+                        <li> 
                             <a id="id_fac" href="#">
-                            <i class="glyphicon glyphicon-user"></i>
+                            <i class="glyphicon glyphicon-menu-down"></i>
                             Facturacion </a>
                             <div class="desplegable">
                                 <ul>
-                                    <li><a id="id_cfac" href="#">Nueva</a></li>
-                                    <li><a id="id_hfac" href="#">Historial</a></li>
+                                    <li><a id="id_cfac" href="#">
+                                    <i class="glyphicon glyphicon-plus"></i>
+				    Nueva</a></li>
+
+                                    <li>
+                                    <a id="id_hfac" href="#">
+                                    <i class="glyphicon glyphicon-copy"></i>
+                                    Historial</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
