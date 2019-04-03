@@ -9,7 +9,6 @@
 		<link rel="stylesheet" type="text/css" href="css/pestañas.css">
 		<link rel="stylesheet" type="text/css" href="css/styleBarra.css">
 		<link rel="stylesheet" type="text/css" href="css/administracion.css">
-		<link href="http://allfont.es/allfont.css?fonts=comic-sans-ms" rel="stylesheet" type="text/css"/>
 	</head>
 	<body onload="init()">
 
@@ -81,7 +80,7 @@
 										<span class="glyphicon glyphicon-plus"></span>Agregar Empleado
 									</button>
 
-									<!-- Modal -->
+									<!-- Modal Agregar Empleado -->
 									<div class="modal fade" id="modalAgregarEmpleado" tabindex="-1" role="dialog" aria-labelledby="modalAgregarEmpleadoLabel" aria-hidden="true">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
@@ -154,6 +153,96 @@
 											</div>
 										</div>
 									</div>
+
+									<!-- Modal Ver Empleado -->
+									<div class="modal fade" id="modalVerEmpleado" tabindex="-1" role="dialog" aria-labelledby="modalVerEmpleadoLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="modalVerEmpleadoLabel" style="text-align: center;font-weight: bold;">DATOS DEL EMPLEADO</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="row modal-body">
+													<!-- Formulario -->
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="nombre">Nombre:</label>
+														<input type="text" class="form-control" id="nombre" name="nombre"  placeholder="Nombre" disabled>
+													</div>
+
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="apellido">Apellido:</label>
+														<input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" disabled>
+													</div>
+
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="edad">Edad:</label>
+														<input id="edad" class="form-control" type="text" placeholder="XX" disabled>
+													</div>
+
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="numero-identidad">Número de identidad:</label>
+														<input type="text" class="form-control" id="numero-identidad" name="numero-identidad" placeholder="0102199912345" disabled>
+													</div>
+
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="email">Correo Electrónico:</label>
+														<input type="text" class="form-control" id="email" name="email" placeholder="correo@gmail.com" disabled>
+													</div>
+
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="telefono">Teléfono:</label>
+														<input id="telefono" name="telefono" class="form-control" type="text" placeholder="9900-0000" disabled>
+													</div>
+
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="fecha-ingreso">Fecha Ingreso:</label>
+														<input type="date" id="fecha-ingreso" name="fecha-ingreso" class="form-control" placeholder="2019-03-31" style="padding-top:0" disabled>
+													</div>
+
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="direccion">Dirección:</label>
+														<input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección" disabled>
+													</div>
+
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="fecha-nacimiento">Fecha Nacimiento:</label>
+														<input type="date" id="fecha-nacimiento" class="form-control" placeholder="1999-12-31" style="padding-top:0" disabled>
+													</div>
+
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="slc-genero">Género:</label>
+														<select id="slc-genero" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;" disabled>
+															<option value="1">Masculino</option>
+															<option value="2">Femenino</option>
+															<option value="3">Indefinido</option>
+														</select>
+													</div>
+
+													<h3>Datos de Usuario</h3>
+
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="usuario">Usuario:</label>
+														<input type="text" id="usuario" class="form-control" placeholder="usuarioEjemplo" disabled>
+													</div>
+													
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="fecha-registro">Fecha Registro:</label>
+														<input type="date" id="fecha-registro" style="padding-top:0" class="form-control" disabled>
+													</div>
+
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+													<button type="button" class="btn btn-primary" id="editar-empleado">Editar Empleado</button>
+													<button type="button" class="btn btn-primary hide" id="actualizar-empleado">Actualizar Empleado</button>
+													<button type="button" class="btn btn-primary" id="eliminar-empleado">Eliminar Empleado</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
 								</div>
 							</div>
 						</div>
@@ -209,7 +298,7 @@
 							</div>
 							<!--=====================================================================-->
 						</div> <!-- fin de seccion promociones -->
-						
+
 					</div>
 				</div>
 			</div>

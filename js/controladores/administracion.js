@@ -54,7 +54,7 @@ function cargarSolicitudes() {
         var estadoSolicitud = document.createTextNode(datos[i].ESTADO_SOLICITUD);
         var fecha = document.createTextNode(datos[i].FECHA);
         btnAcciones.className = "form-control";
-        btnAcciones.innerText = "Acciones";
+        btnAcciones.innerText = "Ver más";
   
         tdNombre.appendChild(nombre);
         tdDescripcion.appendChild(descripcion);
@@ -103,8 +103,11 @@ function cargarEmpleados() {
         var fechaIngreso = document.createTextNode(datos[i].FECHA_INGRESO);
         var btnAcciones = document.createElement("button");
         btnAcciones.className = "form-control";
-        btnAcciones.innerText = "Acciones";
-  
+        btnAcciones.innerText = "Ver más";
+        btnAcciones.setAttribute("data-toggle","modal");
+        btnAcciones.setAttribute("data-target","#modalVerEmpleado");
+        btnAcciones.onclick = verEmpleado(datos[i].ID_EMPLEADO);
+        
         tdNombre.appendChild(nombre);
         tdTelefono.appendChild(telefono);
         tdFechaIngreso.appendChild(fechaIngreso);
@@ -152,6 +155,10 @@ $('#guardar-empleado').click(function(){
   });
 
 });
+
+function verEmpleado(idEmpleado){
+  
+}
 
 /* Buscar un Empleado 
 function buscarEmpleado(id){
