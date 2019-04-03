@@ -10,10 +10,6 @@
 		<link rel="stylesheet" type="text/css" href="css/styleBarra.css">
 		<link rel="stylesheet" type="text/css" href="css/administracion.css">
 		<link href="http://allfont.es/allfont.css?fonts=comic-sans-ms" rel="stylesheet" type="text/css"/>
-
-		<link rel="stylesheet" type="text/css" href="plugin/bootstrap-select/css/bootstrap-select.min.css">
-		<link rel="stylesheet" type="text/css" href="plugin/jquery-confim/css/jquery-confirm.css">
-		<link rel="stylesheet" type="text/css" href="plugin/data-tables/css/datatables.min.css">
 	</head>
 	<body onload="init()">
 
@@ -36,8 +32,8 @@
 								<li class="nav-item pestaña" id="nav-adm-usr-li">
 									<a class="nav-item nav-link" id="nav-adm-usr-tab" data-toggle="tab" href="#nav-adm-usr" role="tab" aria-controls="nav-adm-usr" aria-selected="false">Empleados</a>
 								</li>
-								<li class="nav-item pestaña" id="nav-adm-reg-li">
-									<a class="nav-item nav-link" id="nav-adm-reg-tab" data-toggle="tab" href="#nav-adm-reg" role="tab" aria-controls="nav-adm-reg" aria-selected="false">Registros</a>
+								<li class="nav-item pestaña" id="nav-adm-pro-li">
+								<a class="nav-item nav-link" id="nav-adm-pro-tab" data-toggle="tab" href="#nav-adm-pro" role="tab" aria-controls="nav-adm-pro" aria-selected="false">Promociones</a>
 								</li>
 							</ul>
 						</div>
@@ -161,10 +157,59 @@
 								</div>
 							</div>
 						</div>
-						<!--Seccion Registros-->
-						<div class="tab-pane fade" id="nav-adm-reg" role="tabpanel" aria-labelledby="nav-adm-reg-tab">
-							Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem sequi suscipit provident dolorum autem sunt amet hic maxime excepturi, nobis aspernatur earum debitis ad dignissimos, rem alias officiis nulla! Dignissimos.
-						</div>
+						<!--Seccion Promociones-->						
+						<div class="tab-pane fade" id="nav-adm-pro" role="tabpanel" aria-labelledby="nav-adm-pro-tab">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarPromo">
+								<span class="glyphicon glyphicon-plus"></span>Crear promocion
+							</button>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#">
+								<span class="glyphicon glyphicon-eye-open"></span>Promociones actuales
+							</button>							
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#">
+								<span class="glyphicon glyphicon-time"></span>Historial
+							</button>						
+							<!--=====================================================================-->
+							<!-- Modal -->
+							<div class="modal fade" id="modalAgregarPromo" tabindex="-1" role="dialog" aria-labelledby="modalAgregarPromocionLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="modalAgregarPromocionLabel" style="text-align: center;font-weight: bold;">NUEVA PROMOCION</h5>
+										</div>
+										<div class="row modal-body">
+											<!-- Formulario -->
+											<div class="form-group col-md-12">
+												<label for="descripcion">Descripcion:</label>	
+												<br>													
+												<textarea id="descripcion" name="descripcion" cols="55" rows="3"></textarea>
+											</div>
+
+											<div class="form-group col-md-12">
+												<label for="restricciones">Restricciones:</label>
+												<br>													
+												<textarea id="restricciones" name="restricciones" cols="55" rows="3"></textarea>														
+											</div>												
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="fecha-inicio">Fecha Inicio:</label>
+												<input type="date" id="fecha-inicio" class="form-control" placeholder="1999-12-31" style="padding-top:0">
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="fecha-final">Fecha Final:</label>
+												<input type="date" id="fecha-final" class="form-control" placeholder="1999-12-31" style="padding-top:0">
+											</div>													
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+											<button type="button" class="btn btn-primary">Crear</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--=====================================================================-->
+						</div> <!-- fin de seccion promociones -->
+						
 					</div>
 				</div>
 			</div>
