@@ -43,7 +43,7 @@ function cargarSolicitudes() {
         var tdNombre = document.createElement("td");
         var tdDescripcion = document.createElement("td");
         var tdUsuario = document.createElement("td");
-        var tdTelefono = document.createElement("td");
+        var tdEstadoSolicitud = document.createElement("td");
         var tdFecha = document.createElement("td");
         var tdBtnAcciones = document.createElement("td");
         var btnAcciones = document.createElement("button");
@@ -51,7 +51,7 @@ function cargarSolicitudes() {
         var nombre = document.createTextNode(datos[i].NOMBRE + " " + datos[i].APELLIDO);
         var descripcion = document.createTextNode(datos[i].DESCRIPCION);
         var usuario = document.createTextNode(datos[i].USUARIO);
-        var telefono = document.createTextNode(datos[i].TELEFONO);
+        var estadoSolicitud = document.createTextNode(datos[i].ESTADO_SOLICITUD);
         var fecha = document.createTextNode(datos[i].FECHA);
         btnAcciones.className = "form-control";
         btnAcciones.innerText = "Acciones";
@@ -59,14 +59,14 @@ function cargarSolicitudes() {
         tdNombre.appendChild(nombre);
         tdDescripcion.appendChild(descripcion);
         tdUsuario.appendChild(usuario);
-        tdTelefono.appendChild(telefono);
+        tdEstadoSolicitud.appendChild(estadoSolicitud);
         tdFecha.appendChild(fecha);
         tdBtnAcciones.appendChild(btnAcciones);
 
         tr.appendChild(tdNombre);
         tr.appendChild(tdDescripcion);
         tr.appendChild(tdUsuario);
-        tr.appendChild(tdTelefono);
+        tr.appendChild(tdEstadoSolicitud);
         tr.appendChild(tdFecha);
         tr.appendChild(tdBtnAcciones);
 
@@ -120,7 +120,7 @@ function cargarEmpleados() {
   });
 }
 
-/* CRUD Empleado: Create 
+/* CRUD Empleado: Create */
 $('#guardar-empleado').click(function(){
   var settings = {
     "async": true,
@@ -138,6 +138,7 @@ $('#guardar-empleado').click(function(){
       "apellido": $('#apellido').val(),
       "genero": $('#slc-genero').val(),
       "direccion": $('#direccion').val(),
+      "edad": $('#edad').val(),
       "email": $('#email').val(),
       "identidad": $('#numero-identidad').val(),
       "telefono": $('#telefono').val(),
@@ -147,10 +148,10 @@ $('#guardar-empleado').click(function(){
   }
 
   $.ajax(settings).done(function (response) {
-    imprimirMensaje(response);
+    console.log(JSON.stringify(response));
   });
 
-});*/
+});
 
 /* Buscar un Empleado 
 function buscarEmpleado(id){

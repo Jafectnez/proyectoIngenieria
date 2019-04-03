@@ -53,7 +53,7 @@
 												<th scope="col"><b>Nombre</b></th>
 												<th scope="col"><b>Descripcion</b></th>
 												<th scope="col"><b>Usuario</b></th>
-												<th scope="col"><b>Teléfono</b></th>
+												<th scope="col"><b>Estado Solicitud</b></th>
 												<th scope="col"><b>Fecha</b></th>
 												<th scope="col"><b>Acciones</b></th>
 											</tr>
@@ -99,22 +99,22 @@
 													<!-- Formulario -->
 													<div class="form-group col-12 col-sm-6 col-md-6">
 														<label for="nombre">Nombre:</label>
-														<input type="text" class="form-control" id="nombre" name="nombre"  placeholder="Nombre">
+														<input type="text" class="form-control" id="nombre" name="nombre"  placeholder="Nombre" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
 														<label for="apellido">Apellido:</label>
-														<input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido">
+														<input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
 														<label for="edad">Edad:</label>
-														<input id="edad" class="form-control" type="text" placeholder="XX">
+														<input id="edad" class="form-control" type="text" placeholder="XX" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
 														<label for="numero-identidad">Número de identidad:</label>
-														<input type="text" class="form-control" id="numero-identidad" name="numero-identidad" placeholder="0102199912345">
+														<input type="text" class="form-control" id="numero-identidad" name="numero-identidad" placeholder="0102199912345" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
@@ -124,35 +124,36 @@
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
 														<label for="telefono">Teléfono:</label>
-														<input id="telefono" class="form-control" type="text" placeholder="9900-0000">
+														<input id="telefono" name="telefono" class="form-control" type="text" placeholder="9900-0000" >
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
 														<label for="fecha-ingreso">Fecha Ingreso:</label>
-														<input type="date" id="fecha-ingreso" class="form-control" placeholder="1999-12-31" style="padding-top:0">
+														<input type="date" id="fecha-ingreso" name="fecha-ingreso" class="form-control" placeholder="2019-03-31" style="padding-top:0" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
 														<label for="direccion">Dirección:</label>
-														<input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección">
+														<input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
 														<label for="fecha-nacimiento">Fecha Nacimiento:</label>
-														<input type="date" id="fecha-nacimiento" class="form-control" placeholder="1999-12-31" style="padding-top:0">
+														<input type="date" id="fecha-nacimiento" class="form-control" placeholder="1999-12-31" style="padding-top:0" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
 														<label for="slc-genero">Género:</label>
-														<select id="slc-genero" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;">
-															<option value="2">Femenino</option>
+														<select id="slc-genero" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;" required>
 															<option value="1">Masculino</option>
+															<option value="2">Femenino</option>
+															<option value="3">Indefinido</option>
 														</select>
 													</div>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-													<button type="button" class="btn btn-primary">Crear Empleado</button>
+													<button type="button" class="btn btn-primary" id="guardar-empleado">Crear Empleado</button>
 												</div>
 											</div>
 										</div>
@@ -161,7 +162,9 @@
 							</div>
 						</div>
 						<!--Seccion Registros-->
-						<div class="tab-pane fade" id="nav-adm-reg" role="tabpanel" aria-labelledby="nav-adm-reg-tab">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem sequi suscipit provident dolorum autem sunt amet hic maxime excepturi, nobis aspernatur earum debitis ad dignissimos, rem alias officiis nulla! Dignissimos.</div>
+						<div class="tab-pane fade" id="nav-adm-reg" role="tabpanel" aria-labelledby="nav-adm-reg-tab">
+							Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem sequi suscipit provident dolorum autem sunt amet hic maxime excepturi, nobis aspernatur earum debitis ad dignissimos, rem alias officiis nulla! Dignissimos.
+						</div>
 					</div>
 				</div>
 			</div>

@@ -10,6 +10,7 @@ CREATE PROCEDURE `SP_INSERTAR_PERSONA`(
   IN P_IDENTIDAD VARCHAR(13),
   IN P_FECHA_NAC DATE,
   IN P_TELEFONO VARCHAR(50),
+  IN P_EDAD VARCHAR(50),
   
   OUT pO_mensaje VARCHAR(1000),
   OUT pO_error BOOLEAN
@@ -39,8 +40,11 @@ SP:BEGIN
   IF P_ID_GENERO='' OR P_ID_GENERO IS NULL THEN 
     SET mensaje=CONCAT(mensaje, 'Genero vacio, ');
   END IF;
-    IF P_IDENTIDAD='' OR P_IDENTIDAD IS NULL THEN 
+  IF P_IDENTIDAD='' OR P_IDENTIDAD IS NULL THEN 
     SET mensaje=CONCAT(mensaje, 'Numero de identidad vacia, ');
+  END IF;
+  IF P_EDAD='' OR P_EDAD IS NULL THEN 
+    SET mensaje=CONCAT(mensaje, 'Edad vacia, ');
   END IF;
 
     
@@ -117,7 +121,8 @@ SP:BEGIN
                             EMAIL,
                             IDENTIDAD, 
                             FECHA_NAC,
-                            TELEFONO)
+                            TELEFONO,
+                            EDAD)
     VALUES (P_NOMBRE,
             P_APELLIDO, 
             P_ID_GENERO, 
@@ -125,7 +130,8 @@ SP:BEGIN
             P_EMAIL, 
             P_IDENTIDAD, 
             P_FECHA_NAC,
-            P_TELEFONO);
+            P_TELEFONO,
+            P_EDAD);
   COMMIT;
       
   SET mensaje='Inserción exitosa';
@@ -362,7 +368,7 @@ END;
 DROP PROCEDURE IF EXISTS `SP_INSERTAR_USUARIO`;
 CREATE PROCEDURE `SP_INSERTAR_USUARIO`(
   IN P_ID_TIPO_USUARIO INTEGER(11),
-  IN P_USUARIO VARCHAR(50),
+  IN P_USUARIO VARCHAR(150),
   IN P_CONTRASEÑA VARCHAR(50),
   IN P_FECHA_REGISTRO DATE,
   
@@ -488,12 +494,13 @@ CREATE PROCEDURE `SP_INSERTAR_EMPLEADO`(
 
   CALL SP_INSERTAR_PERSONA( P_NOMBRE,
                             P_APELLIDO,
-                            P_GENERO,
+                            P_ID_GENERO,
                             P_DIRECCION,
                             P_EMAIL,
                             P_IDENTIDAD,
                             P_FECHA_NAC,
                             P_TELEFONO,
+                            P_EDAD,
                             @mensajeInsertarPersonaEmpleado,
                             @errorInsertarPesonaEmpleado                           
   );
@@ -508,9 +515,9 @@ CREATE PROCEDURE `SP_INSERTAR_EMPLEADO`(
   END IF;
 
   CALL SP_INSERTAR_USUARIO( 2,
-                            P_NOMBRE || P_APELLIDO,
+                            CONCAT(P_NOMBRE, P_APELLIDO),
                             'asd.456',
-                            SYSDATE,
+                            SYSDATE(),
                             @mensajeInsertarUsuarioEmpleado,
                             @errorInsertarUsuarioEmpleado                           
   );
@@ -521,6 +528,13 @@ CREATE PROCEDURE `SP_INSERTAR_EMPLEADO`(
     SET pO_mensaje=mensaje;
     SET pO_error=error;
     SELECT mensaje,error;
+    
+    SELECT MAX(ID_PERSONA) INTO ultimoIdPersona FROM TBL_PERSONAS;
+    CALL SP_ELIMINAR_PERSONA( ultimoIdPersona,
+                              @mensajeEliminarPersonaEmpleado,
+                              @errorEliminarPersonaEmpleado
+    );
+
     LEAVE SP;
   END IF;
   # Ultimo id persona + Ultimo id usuario + Insercion de empleado
@@ -531,10 +545,10 @@ CREATE PROCEDURE `SP_INSERTAR_EMPLEADO`(
 
   INSERT INTO TBL_EMPLEADO( ID_PERSONA, 
                             ID_USUARIO,
-                            FECHA_CONT) 
+                            FECHA_INGRESO) 
     VALUES( ultimoIdPersona,
             ultimoIdUsuario,
-            SYSDATE);
+            SYSDATE());
   COMMIT;
 
   SET mensaje='Inserción exitosa';

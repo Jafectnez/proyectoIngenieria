@@ -77,7 +77,9 @@
         INNER JOIN TBL_PERSONAS C
         ON (B.ID_PERSONA = C.ID_PERSONA)
         INNER JOIN TBL_USUARIOS D
-        ON (A.ID_USUARIO_EMISOR = D.ID_USUARIO)';
+        ON (A.ID_USUARIO_EMISOR = D.ID_USUARIO)
+        INNER JOIN TBL_ESTADO_SOLICITUD E
+        ON (A.ID_ESTADO_SOLICITUD = E.ID_ESTADO_SOLICITUD)';
       $rows = $conexion->query($sql);
       return $rows;
     }

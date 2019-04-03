@@ -1,5 +1,6 @@
 <?php
   include_once("../class/class-conexion.php");
+  include_once("../class/class-utilidades.php");
   include_once("../class/class-persona.php");
   include_once("../class/class-empleado.php");
   include_once("../class/class-solicitud.php");
@@ -27,12 +28,12 @@
         $genero = ValidarPost::varchar('genero');
         $nombre = ValidarPost::varchar('nombre');
         $apellido = ValidarPost::varchar('apellido');
-        $edad = ValidarPost::varchar('edad');
+        $edad = ValidarPost::int('edad');
         $telefono = ValidarPost::varchar('telefono');
         $email = ValidarPost::varchar('email');
         $fechaNacimiento = ValidarPost::varchar('fecha_nacimiento');
         $direccion = ValidarPost::varchar('direccion');
-        $numeroIdentidad = ValidarPost::varchar('numero_identidad');
+        $numeroIdentidad = ValidarPost::varchar('identidad');
         $fechaIngreso = ValidarPost::date('fecha_ingreso');
         
         $empleado = new Empleado();
