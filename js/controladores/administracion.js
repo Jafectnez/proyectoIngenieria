@@ -142,18 +142,20 @@ $('#guardar-empleado').click(function(){
     "data": {
       "accion": "insertar-empleado",
 
-      "nombre": $('#nombre').val(),
-      "apellido": $('#apellido').val(),
-      "genero": $('#slc-genero').val(),
-      "direccion": $('#direccion').val(),
-      "edad": $('#edad').val(),
-      "email": $('#email').val(),
-      "identidad": $('#numero-identidad').val(),
-      "telefono": $('#telefono').val(),
-      "fecha_nacimiento": $('#fecha-nacimiento').val(),
-      "fecha_ingreso": $('#fecha-ingreso').val()
+      "nombre": $('#nombre-fAgregar').val(),
+      "apellido": $('#apellido-fAgregar').val(),
+      "genero": $('#slc-genero-fAgregar').val(),
+      "direccion": $('#direccion-fAgregar').val(),
+      "edad": $('#edad-fAgregar').val(),
+      "email": $('#email-fAgregar').val(),
+      "identidad": $('#numero-identidad-fAgregar').val(),
+      "telefono": $('#telefono-fAgregar').val(),
+      "fecha_nacimiento": $('#fecha-nacimiento-fAgregar').val(),
+      "fecha_ingreso": $('#fecha-ingreso-fAgregar').val()
     }
   }
+
+  alert(JSON.stringify(settings.data));
 
   $.ajax(settings).done(function (response) {
     alert(response.mensaje);
@@ -207,7 +209,7 @@ function verEmpleado(idEmpleado){
     $('#email-actualizar').val(datosEmpleado.EMAIL);
     $('#numero-identidad-actualizar').val(datosEmpleado.IDENTIDAD);
     $('#telefono-actualizar').val(datosEmpleado.TELEFONO);
-    $('#fecha-ingreso-actualizar').text(datosEmpleado.FECHA_INGRESO);
+    $('#fecha-ingreso-actualizar').val(datosEmpleado.FECHA_INGRESO);
     $('#fecha-nacimiento-actualizar').val(datosEmpleado.FECHA_NAC);
     $('#usuario-actualizar').val(datosEmpleado.USUARIO);
     $('#fecha-registro-actualizar').val(datosEmpleado.FECHA_REGISTRO);
