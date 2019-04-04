@@ -58,6 +58,58 @@
 									</table>
 								</div>
 							</div>
+
+							<!-- Modal Ver Solicitud -->
+							<div class="modal fade" id="modalVerSolicitud" tabindex="-1" role="dialog" aria-labelledby="modalVerSolicitudLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h3 class="modal-title" id="modalVerSolicitudLabel" style="text-align: center;font-weight: bold;">SOLICITUD</h3>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="row modal-body" style="padding-bottom: 0;">
+											<!-- Formulario -->
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="solicitante">Nombre del Solicitante:</label>
+												<span class="form-control" id="solicitante" name="solicitante"></span>
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="descripcion-solicitud">Descripcion:</label>
+												<span id="descripcion-solicitud" name="descripcion-solicitud" class="form-control"></span>
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="usuario-solicitante">Usuario Solicitante:</label>
+												<span type="text" class="form-control" id="usuario-solicitante" name="usuario-solicitante"></span>
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="email-solicitante">Correo Electrónico:</label>
+												<span type="text" class="form-control" id="email-solicitante" name="email-solicitante"></span>
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="estado-solicitud-actualizar">Estado de la Solicitud:</label>
+												<span id="estado-solicitud-actualizar" name="estado-solicitud-actualizar" class="form-control" type="text"></span>
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="fecha-solicitud">Fecha:</label>
+												<span type="date" id="fecha-solicitud" name="fecha-solicitud" class="form-control"></span>
+											</div>
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-primary" id="aceptar-solicitud">Aceptar Solicitud</button>
+											<button type="button" class="btn btn-primary" id="denegar-solicitud">Denegar Solicitud</button>
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<!--Seccion Usuarios (Empleados)-->
 						<div class="tab-pane fade" id="nav-adm-usr" role="tabpanel" aria-labelledby="nav-adm-usr-tab">
@@ -93,53 +145,53 @@
 												<div class="row modal-body">
 													<!-- Formulario -->
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="nombre">Nombre:</label>
-														<input type="text" class="form-control" id="nombre" name="nombre"  placeholder="Nombre" required>
+														<label for="nombre-fAgregar">Nombre:</label>
+														<input type="text" class="form-control" id="nombre-fAgregar" name="nombre-fAgregar"  placeholder="Nombre" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="apellido">Apellido:</label>
-														<input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" required>
+														<label for="apellido-fAgregar">Apellido:</label>
+														<input type="text" class="form-control" id="apellido-fAgregar" name="apellido-fAgregar" placeholder="Apellido" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="edad">Edad:</label>
-														<input id="edad" class="form-control" type="text" placeholder="XX" required>
+														<label for="edad-fAgregar">Edad:</label>
+														<input id="edad-fAgregar" class="form-control" type="text" placeholder="XX" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="numero-identidad">Número de identidad:</label>
-														<input type="text" class="form-control" id="numero-identidad" name="numero-identidad" placeholder="0102199912345" required>
+														<label for="numero-identidad-fAgregar">Número de identidad:</label>
+														<input type="text" class="form-control" id="numero-identidad-fAgregar" name="numero-identidad-fAgregar" placeholder="0102199912345" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="email">Correo Electrónico:</label>
-														<input type="text" class="form-control" id="email" name="email" placeholder="correo@gmail.com">
+														<label for="email-fAgregar">Correo Electrónico:</label>
+														<input type="text" class="form-control" id="email-fAgregar" name="email-fAgregar" placeholder="correo@gmail.com">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="telefono">Teléfono:</label>
-														<input id="telefono" name="telefono" class="form-control" type="text" placeholder="9900-0000" >
+														<label for="telefono-fAgregar">Teléfono:</label>
+														<input id="telefono-fAgregar" name="telefono-fAgregar" class="form-control" type="text" placeholder="9900-0000" >
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="fecha-ingreso">Fecha Ingreso:</label>
-														<input type="date" id="fecha-ingreso" name="fecha-ingreso" class="form-control" placeholder="2019-03-31" style="padding-top:0" required>
+														<label for="fecha-ingreso-fAgregar">Fecha Ingreso:</label>
+														<input type="date" id="fecha-ingreso-fAgregar" name="fecha-ingreso-fAgregar" class="form-control" placeholder="2019-03-31" style="padding-top:0" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="direccion">Dirección:</label>
-														<input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección" required>
+														<label for="direccion-fAgregar">Dirección:</label>
+														<input type="text" class="form-control" id="direccion-fAgregar" name="direccion-fAgregar" placeholder="Dirección" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="fecha-nacimiento">Fecha Nacimiento:</label>
-														<input type="date" id="fecha-nacimiento" class="form-control" placeholder="1999-12-31" style="padding-top:0" required>
+														<label for="fecha-nacimiento-fAgregar">Fecha Nacimiento:</label>
+														<input type="date" id="fecha-nacimiento-fAgregar" name="fecha-nacimiento-fAgregar" class="form-control" placeholder="1999-12-31" style="padding-top:0" required>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="slc-genero">Género:</label>
-														<select id="slc-genero" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;" required>
+														<label for="slc-genero-fAgregar">Género:</label>
+														<select id="slc-genero-fAgregar" name="slc-genero-fAgregar" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;" required>
 															<option value="1">Masculino</option>
 															<option value="2">Femenino</option>
 															<option value="3">Indefinido</option>
@@ -159,85 +211,88 @@
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h5 class="modal-title" id="modalVerEmpleadoLabel" style="text-align: center;font-weight: bold;">DATOS DEL EMPLEADO</h5>
+													<h3 class="modal-title" id="modalVerEmpleadoLabel" style="text-align: center;font-weight: bold;">DATOS DEL EMPLEADO</h3>
 													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-												<div class="row modal-body">
+												<div class="row modal-body" style="padding-bottom: 0;">
 													<!-- Formulario -->
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="nombre">Nombre:</label>
-														<input type="text" class="form-control" id="nombre" name="nombre"  placeholder="Nombre" disabled>
+														<label for="nombre-actualizar">Nombre:</label>
+														<input type="text" class="form-control" id="nombre-actualizar" name="nombre-actualizar"  placeholder="Nombre" disabled>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="apellido">Apellido:</label>
-														<input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" disabled>
+														<label for="apellido-actualizar">Apellido:</label>
+														<input type="text" class="form-control" id="apellido-actualizar" name="apellido-actualizar" placeholder="Apellido" disabled>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="edad">Edad:</label>
-														<input id="edad" class="form-control" type="text" placeholder="XX" disabled>
+														<label for="edad-actualizar">Edad:</label>
+														<input id="edad-actualizar" name="edad-actualizar" class="form-control" type="text" placeholder="XX" disabled>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="numero-identidad">Número de identidad:</label>
-														<input type="text" class="form-control" id="numero-identidad" name="numero-identidad" placeholder="0102199912345" disabled>
+														<label for="numero-identidad-actualizar">Número de identidad:</label>
+														<input type="text" class="form-control" id="numero-identidad-actualizar" name="numero-identidad-actualizar" placeholder="0102199912345" disabled>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="email">Correo Electrónico:</label>
-														<input type="text" class="form-control" id="email" name="email" placeholder="correo@gmail.com" disabled>
+														<label for="email-actualizar">Correo Electrónico:</label>
+														<input type="text" class="form-control" id="email-actualizar" name="email-actualizar" placeholder="correo@gmail.com" disabled>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="telefono">Teléfono:</label>
-														<input id="telefono" name="telefono" class="form-control" type="text" placeholder="9900-0000" disabled>
+														<label for="telefono-actualizar">Teléfono:</label>
+														<input id="telefono-actualizar" name="telefono-actualizar" class="form-control" type="text" placeholder="9900-0000" disabled>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="fecha-ingreso">Fecha Ingreso:</label>
-														<input type="date" id="fecha-ingreso" name="fecha-ingreso" class="form-control" placeholder="2019-03-31" style="padding-top:0" disabled>
+														<label for="fecha-ingreso-actualizar">Fecha Ingreso:</label>
+														<input type="date" id="fecha-ingreso-actualizar" name="fecha-ingreso-actualizar" class="form-control" placeholder="2019-03-31" style="padding-top:0" disabled>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="direccion">Dirección:</label>
-														<input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección" disabled>
+														<label for="direccion-actualizar">Dirección:</label>
+														<input type="text" class="form-control" id="direccion-actualizar" name="direccion-actualizar" placeholder="Dirección" disabled>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="fecha-nacimiento">Fecha Nacimiento:</label>
-														<input type="date" id="fecha-nacimiento" class="form-control" placeholder="1999-12-31" style="padding-top:0" disabled>
+														<label for="fecha-nacimiento-actualizar">Fecha Nacimiento:</label>
+														<input type="date" id="fecha-nacimiento-actualizar" name="fecha-nacimiento-actualizar" class="form-control" placeholder="1999-12-31" style="padding-top:0" disabled>
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="slc-genero">Género:</label>
-														<select id="slc-genero" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;" disabled>
+														<label for="slc-genero-actualizar">Género:</label>
+														<select id="slc-genero-actualizar" name="slc-genero-actualizar" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;" disabled>
 															<option value="1">Masculino</option>
 															<option value="2">Femenino</option>
 															<option value="3">Indefinido</option>
 														</select>
 													</div>
+												</div>
 
-													<h3>Datos de Usuario</h3>
+												<div class="row modal-body" style="padding-top: 0;">
+													<h3 style="text-align: center; margin-top: 0;">Datos de Usuario</h3>
+													<hr>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="usuario">Usuario:</label>
-														<input type="text" id="usuario" class="form-control" placeholder="usuarioEjemplo" disabled>
+														<label for="usuario-actualizar">Usuario:</label>
+														<input type="text" id="usuario-actualizar" name="usuario-actualizar" class="form-control" placeholder="usuarioEjemplo" disabled>
 													</div>
 													
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="fecha-registro">Fecha Registro:</label>
-														<input type="date" id="fecha-registro" style="padding-top:0" class="form-control" disabled>
+														<label for="fecha-registro-actualizar">Fecha Registro:</label>
+														<input type="date" id="fecha-registro-actualizar" name="fecha-registro-actualizar" style="padding-top:0" class="form-control" disabled>
 													</div>
-
 												</div>
+
 												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 													<button type="button" class="btn btn-primary" id="editar-empleado">Editar Empleado</button>
 													<button type="button" class="btn btn-primary hide" id="actualizar-empleado">Actualizar Empleado</button>
 													<button type="button" class="btn btn-primary" id="eliminar-empleado">Eliminar Empleado</button>
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 												</div>
 											</div>
 										</div>

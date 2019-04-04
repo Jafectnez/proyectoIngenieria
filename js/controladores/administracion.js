@@ -22,6 +22,7 @@ $(document).ready(function() {
 
 });
 
+/* Funcion para cargar las solicitudes registradas */
 function cargarSolicitudes() {
   //Obtencion de datos del servidor
   var parametrosAjax = {
@@ -55,6 +56,9 @@ function cargarSolicitudes() {
         var fecha = document.createTextNode(datos[i].FECHA);
         btnAcciones.className = "form-control";
         btnAcciones.innerText = "Ver más";
+        btnAcciones.setAttribute("data-toggle","modal");
+        btnAcciones.setAttribute("data-target","#modalVerSolicitud");
+        btnAcciones.setAttribute("onclick","verSolicitud("+datos[i].ID_SOLICITUD+");");
   
         tdNombre.appendChild(nombre);
         tdDescripcion.appendChild(descripcion);
@@ -76,6 +80,7 @@ function cargarSolicitudes() {
   });
 }
 
+/*Funcion para cargar los empleados registrados */
 function cargarEmpleados() {
   //Obtencion de datos del servidor
   var parametrosAjax = {
@@ -106,7 +111,7 @@ function cargarEmpleados() {
         btnAcciones.innerText = "Ver más";
         btnAcciones.setAttribute("data-toggle","modal");
         btnAcciones.setAttribute("data-target","#modalVerEmpleado");
-        btnAcciones.onclick = verEmpleado(datos[i].ID_EMPLEADO);
+        btnAcciones.setAttribute("onclick",`verEmpleado(${datos[i].ID_EMPLEADO});`);
         
         tdNombre.appendChild(nombre);
         tdTelefono.appendChild(telefono);
@@ -123,7 +128,7 @@ function cargarEmpleados() {
   });
 }
 
-/* CRUD Empleado: Create */
+/* Funcion para guardar empleado nuevo */
 $('#guardar-empleado').click(function(){
   var settings = {
     "async": true,
@@ -151,26 +156,18 @@ $('#guardar-empleado').click(function(){
   }
 
   $.ajax(settings).done(function (response) {
-    console.log(JSON.stringify(response));
+    alert(response.mensaje);
   });
 
 });
 
-function verEmpleado(idEmpleado){
+/* Funcion para ver los datos de una solicitud */
+function verSolicitud(idSolicitud) {
   
 }
 
-/* Buscar un Empleado 
-function buscarEmpleado(id){
-  $("#inputGroupFile").removeClass('is-valid');
-  // Se hace el cambio del footer en el Modal
-  $("#footer-guardar").hide();
-  $("#footer-actualizar").removeClass("d-none");
-  $("#tel-nuevo").show();
-
-  $('.selectpicker').selectpicker('val', '');
-  $('.selectpicker').selectpicker('refresh');
-
+/* Funcion para ver los datos de un empleado */
+function verEmpleado(idEmpleado){
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -182,30 +179,41 @@ function buscarEmpleado(id){
     },
     "data": {
       "accion": "leer-empleado-id",
-      "id_empleado": id
+
+      "id_empleado": parseInt(idEmpleado)
     }
   }
 
-  $.ajax(settings).done(function (response) {
-    console.log(response.data);
-
-    $('#contrasena').prop('readonly', true);
-
-    $('#id-empleado').val(response.data.id_empleado);
-    $('#nombre').val(response.data.nombre);
-    $('#apellido').val(response.data.apellido);
-    $('#slc-genero').selectpicker('val', response.data.genero);
-    $('#direccion').val(response.data.direccion);
-    $('#email').val(response.data.email);
-    $('#numero-identidad').val(response.data.numero_identidad);
-    $('#telefono').val(response.data.telefono.split(',')[0]);
-    $('#fecha-nacimiento').val(response.data.fecha_nacimiento);
-    $('#fecha-ingreso').val(response.data.fecha_ingreso);
-    formaEmpleado.validateAll();
+  $.ajax(settings).done(function (response) {  
+    datosEmpleado = response.data;
+    alert(JSON.stringify(datosEmpleado));
+    $('#nombre-actualizar').val(datosEmpleado.NOMBRE)
+    $('#apellido-actualizar').val(datosEmpleado.APELLIDO)
+    $('#slc-genero-actualizar').val(datosEmpleado.GENERO)
+    $('#direccion-actualizar').val(datosEmpleado.DIRECCION)
+    $('#edad-actualizar').val(datosEmpleado.EDAD)
+    $('#email-actualizar').val(datosEmpleado.EMAIL)
+    $('#numero-identidad-actualizar').val(datosEmpleado.IDENTIDAD)
+    $('#telefono-actualizar').val(datosEmpleado.TELEFONO)
+    $('#fecha-nacimiento-actualizar').val(datosEmpleado.FECHA_NAC)
+    $('#usuario-actualizar').val(datosEmpleado.USUARIO)
+    $('#fecha-registro-actualizar').val(datosEmpleado.FECHA_REGISTRO)
   });
 }
 
+/* Editar Empleado */
+$("#editar-empleado").click(function(){
+  $("#actualizar-empleado").removeClass("hide");
+  $("#eliminar-empleado").addClass("hide");
+  $("#editar-empleado").addClass("hide");
+});
+
+/* Actualizar empleado */
 $("#actualizar-empleado").click(function(){
+  $("#actualizar-empleado").addClass("hide");
+  $("#eliminar-empleado").removeClass("hide");
+  $("#editar-empleado").removeClass("hide");
+  /*
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -232,10 +240,12 @@ $("#actualizar-empleado").click(function(){
   }
 
   $.ajax(settings).done(function (response) {
-    imprimirMensaje(response);
-  });
+    alert(response.mensaje);
+    $("#actualizar-empleado").addClass("hide");
+    $("#eliminar-empleado").removeClass("hide");
+  });*/
 
-});*/
+});
 
 /* CRUD Empleado: Delete 
 function funcionBorrar(id){

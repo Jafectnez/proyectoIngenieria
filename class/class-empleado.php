@@ -51,6 +51,8 @@
       ' SELECT * FROM TBL_EMPLEADO A
         INNER JOIN TBL_PERSONAS B
         ON (A.ID_PERSONA = B.ID_PERSONA)
+        INNER JOIN TBL_USUARIO C
+        ON (A.ID_USUARIO = C.ID_USUARIO)
         WHERE ID_EMPLEADO = %s
       ';
       $valores = [$this->getIdEmpleado()];

@@ -20,7 +20,7 @@
         $empleado = new Empleado();
         $empleado->setIdEmpleado($idEmpleado);
         $res['data'] = $empleado->leerPorId($conexion);
-        $res['data']['mensaje'] = 'Empleado con id ' + $idEmpleado;
+        $res['data']['mensaje'] = "Empleado con id ". $idEmpleado;
         $res['data']['resultado'] = true;
         echo json_encode($res);
       break;
@@ -133,7 +133,6 @@
         echo json_encode($res);
       break;
 
-      break;
       // DEFAULT
       default:
         $res['data']['mensaje']='Accion no reconocida';
