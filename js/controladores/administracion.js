@@ -186,23 +186,38 @@ function verEmpleado(idEmpleado){
 
   $.ajax(settings).done(function (response) {  
     datosEmpleado = response.data;
-    alert(JSON.stringify(datosEmpleado));
-    $('#nombre-actualizar').val(datosEmpleado.NOMBRE)
-    $('#apellido-actualizar').val(datosEmpleado.APELLIDO)
-    $('#slc-genero-actualizar').val(datosEmpleado.GENERO)
-    $('#direccion-actualizar').val(datosEmpleado.DIRECCION)
-    $('#edad-actualizar').val(datosEmpleado.EDAD)
-    $('#email-actualizar').val(datosEmpleado.EMAIL)
-    $('#numero-identidad-actualizar').val(datosEmpleado.IDENTIDAD)
-    $('#telefono-actualizar').val(datosEmpleado.TELEFONO)
-    $('#fecha-nacimiento-actualizar').val(datosEmpleado.FECHA_NAC)
-    $('#usuario-actualizar').val(datosEmpleado.USUARIO)
-    $('#fecha-registro-actualizar').val(datosEmpleado.FECHA_REGISTRO)
+    $('#spn-nombre').text(datosEmpleado.NOMBRE);
+    $('#spn-apellido').text(datosEmpleado.APELLIDO);
+    $('#spn-genero').text(datosEmpleado.GENERO);
+    $('#spn-direccion').text(datosEmpleado.DIRECCION);
+    $('#spn-edad').text(datosEmpleado.EDAD);
+    $('#spn-email').text(datosEmpleado.EMAIL);
+    $('#spn-numero-identidad').text(datosEmpleado.IDENTIDAD);
+    $('#spn-telefono').text(datosEmpleado.TELEFONO);
+    $('#spn-fecha-ingreso').text(datosEmpleado.FECHA_INGRESO);
+    $('#spn-fecha-nacimiento').text(datosEmpleado.FECHA_NAC);
+    $('#spn-usuario').text(datosEmpleado.USUARIO);
+    $('#spn-fecha-registro').text(datosEmpleado.FECHA_REGISTRO);
+    
+    $('#nombre-actualizar').val(datosEmpleado.NOMBRE);
+    $('#apellido-actualizar').val(datosEmpleado.APELLIDO);
+    $('#slc-genero-actualizar option[value="'+datosEmpleado.ID_GENERO+'"]').attr("selected",true);
+    $('#direccion-actualizar').val(datosEmpleado.DIRECCION);
+    $('#edad-actualizar').val(datosEmpleado.EDAD);
+    $('#email-actualizar').val(datosEmpleado.EMAIL);
+    $('#numero-identidad-actualizar').val(datosEmpleado.IDENTIDAD);
+    $('#telefono-actualizar').val(datosEmpleado.TELEFONO);
+    $('#fecha-ingreso-actualizar').text(datosEmpleado.FECHA_INGRESO);
+    $('#fecha-nacimiento-actualizar').val(datosEmpleado.FECHA_NAC);
+    $('#usuario-actualizar').val(datosEmpleado.USUARIO);
+    $('#fecha-registro-actualizar').val(datosEmpleado.FECHA_REGISTRO);
   });
 }
 
 /* Editar Empleado */
 $("#editar-empleado").click(function(){
+  $("#formulario-actualizar-empleado").removeClass("hide");
+  $("#datos-empleado").addClass("hide");
   $("#actualizar-empleado").removeClass("hide");
   $("#eliminar-empleado").addClass("hide");
   $("#editar-empleado").addClass("hide");
@@ -210,6 +225,8 @@ $("#editar-empleado").click(function(){
 
 /* Actualizar empleado */
 $("#actualizar-empleado").click(function(){
+  $("#formulario-actualizar-empleado").addClass("hide");
+  $("#datos-empleado").removeClass("hide");
   $("#actualizar-empleado").addClass("hide");
   $("#eliminar-empleado").removeClass("hide");
   $("#editar-empleado").removeClass("hide");

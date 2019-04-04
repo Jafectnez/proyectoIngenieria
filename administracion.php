@@ -218,73 +218,141 @@
 												</div>
 												<div class="row modal-body" style="padding-bottom: 0;">
 													<!-- Formulario -->
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="nombre-actualizar">Nombre:</label>
-														<input type="text" class="form-control" id="nombre-actualizar" name="nombre-actualizar"  placeholder="Nombre" disabled>
+													<div class="hide" id="formulario-actualizar-empleado">
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="nombre-actualizar">Nombre:</label>
+															<input type="text" class="form-control" id="nombre-actualizar" name="nombre-actualizar"  placeholder="Nombre">
+														</div>
+
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="apellido-actualizar">Apellido:</label>
+															<input type="text" class="form-control" id="apellido-actualizar" name="apellido-actualizar" placeholder="Apellido">
+														</div>
+
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="edad-actualizar">Edad:</label>
+															<input id="edad-actualizar" name="edad-actualizar" class="form-control" type="text" placeholder="XX">
+														</div>
+
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="numero-identidad-actualizar">Número de identidad:</label>
+															<input type="text" class="form-control" id="numero-identidad-actualizar" name="numero-identidad-actualizar" placeholder="0102199912345">
+														</div>
+
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="email-actualizar">Correo Electrónico:</label>
+															<input type="text" class="form-control" id="email-actualizar" name="email-actualizar" placeholder="correo@gmail.com">
+														</div>
+
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="telefono-actualizar">Teléfono:</label>
+															<input id="telefono-actualizar" name="telefono-actualizar" class="form-control" type="text" placeholder="9900-0000">
+														</div>
+
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="fecha-ingreso-actualizar">Fecha Ingreso:</label>
+															<input type="date" id="fecha-ingreso-actualizar" name="fecha-ingreso-actualizar" class="form-control" placeholder="2019-03-31" style="padding-top:0">
+														</div>
+
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="direccion-actualizar">Dirección:</label>
+															<input type="text" class="form-control" id="direccion-actualizar" name="direccion-actualizar" placeholder="Dirección">
+														</div>
+
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="fecha-nacimiento-actualizar">Fecha Nacimiento:</label>
+															<input type="date" id="fecha-nacimiento-actualizar" name="fecha-nacimiento-actualizar" class="form-control" placeholder="1999-12-31" style="padding-top:0">
+														</div>
+
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="slc-genero-actualizar">Género:</label>
+															<select id="slc-genero-actualizar" name="slc-genero-actualizar" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;">
+																<option value="1">Masculino</option>
+																<option value="2">Femenino</option>
+																<option value="3">Indefinido</option>
+															</select>
+														</div>
+														<div class="row modal-body" style="padding-top: 0;">
+															<h3 style="text-align: center; margin-top: 0;">Datos de Usuario</h3>
+															<hr>
+
+															<div class="form-group col-12 col-sm-6 col-md-6">
+																<label for="usuario-actualizar">Usuario:</label>
+																<input type="text" id="usuario-actualizar" name="usuario-actualizar" class="form-control" placeholder="usuarioEjemplo">
+															</div>
+															
+															<div class="form-group col-12 col-sm-6 col-md-6">
+																<label for="fecha-registro-actualizar">Fecha Registro:</label>
+																<input type="date" id="fecha-registro-actualizar" name="fecha-registro-actualizar" style="padding-top:0" class="form-control">
+															</div>
+														</div>
 													</div>
 
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="apellido-actualizar">Apellido:</label>
-														<input type="text" class="form-control" id="apellido-actualizar" name="apellido-actualizar" placeholder="Apellido" disabled>
-													</div>
+													<div id="datos-empleado">
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="spn-nombre">Nombre:</label>
+															<span class="form-control" id="spn-nombre" name="spn-nombre"></span>
+														</div>
 
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="edad-actualizar">Edad:</label>
-														<input id="edad-actualizar" name="edad-actualizar" class="form-control" type="text" placeholder="XX" disabled>
-													</div>
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="spn-apellido">Apellido:</label>
+															<span class="form-control" id="spn-apellido" name="spn-apellido"></span>
+														</div>
 
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="numero-identidad-actualizar">Número de identidad:</label>
-														<input type="text" class="form-control" id="numero-identidad-actualizar" name="numero-identidad-actualizar" placeholder="0102199912345" disabled>
-													</div>
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="spn-edad">Edad:</label>
+															<span id="spn-edad" name="spn-edad" class="form-control"></span>
+														</div>
 
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="email-actualizar">Correo Electrónico:</label>
-														<input type="text" class="form-control" id="email-actualizar" name="email-actualizar" placeholder="correo@gmail.com" disabled>
-													</div>
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="spn-numero-identidad">Número de identidad:</label>
+															<span class="form-control" id="spn-numero-identidad" name="spn-numero-identidad"></span>
+														</div>
 
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="telefono-actualizar">Teléfono:</label>
-														<input id="telefono-actualizar" name="telefono-actualizar" class="form-control" type="text" placeholder="9900-0000" disabled>
-													</div>
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="spn-email">Correo Electrónico:</label>
+															<span type="text" class="form-control" id="spn-email" name="spn-email"></span>
+														</div>
 
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="fecha-ingreso-actualizar">Fecha Ingreso:</label>
-														<input type="date" id="fecha-ingreso-actualizar" name="fecha-ingreso-actualizar" class="form-control" placeholder="2019-03-31" style="padding-top:0" disabled>
-													</div>
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="spn-telefono">Teléfono:</label>
+															<span id="spn-telefono" name="spn-telefono" class="form-control"></span>
+														</div>
 
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="direccion-actualizar">Dirección:</label>
-														<input type="text" class="form-control" id="direccion-actualizar" name="direccion-actualizar" placeholder="Dirección" disabled>
-													</div>
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="spn-fecha-ingreso">Fecha Ingreso:</label>
+															<span id="spn-fecha-ingreso" name="spn-fecha-ingreso" class="form-control"></span>
+														</div>
 
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="fecha-nacimiento-actualizar">Fecha Nacimiento:</label>
-														<input type="date" id="fecha-nacimiento-actualizar" name="fecha-nacimiento-actualizar" class="form-control" placeholder="1999-12-31" style="padding-top:0" disabled>
-													</div>
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="spn-direccion">Dirección:</label>
+															<span class="form-control" id="spn-direccion" name="spn-direccion"></span>
+														</div>
 
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="slc-genero-actualizar">Género:</label>
-														<select id="slc-genero-actualizar" name="slc-genero-actualizar" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;" disabled>
-															<option value="1">Masculino</option>
-															<option value="2">Femenino</option>
-															<option value="3">Indefinido</option>
-														</select>
-													</div>
-												</div>
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="spn-fecha-nacimiento">Fecha Nacimiento:</label>
+															<span id="spn-fecha-nacimiento" name="spn-fecha-nacimiento" class="form-control"></span>
+														</div>
 
-												<div class="row modal-body" style="padding-top: 0;">
-													<h3 style="text-align: center; margin-top: 0;">Datos de Usuario</h3>
-													<hr>
+														<div class="form-group col-12 col-sm-6 col-md-6">
+															<label for="spn-genero">Género:</label>
+															<span id="spn-genero" name="spn-genero" class="form-control"></span>
+														</div>
+														
+														<div class="row modal-body" style="padding-top: 0;">
+															<h3 style="text-align: center; margin-top: 0;">Datos de Usuario</h3>
+															<hr>
 
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="usuario-actualizar">Usuario:</label>
-														<input type="text" id="usuario-actualizar" name="usuario-actualizar" class="form-control" placeholder="usuarioEjemplo" disabled>
-													</div>
-													
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="fecha-registro-actualizar">Fecha Registro:</label>
-														<input type="date" id="fecha-registro-actualizar" name="fecha-registro-actualizar" style="padding-top:0" class="form-control" disabled>
+															<div class="form-group col-12 col-sm-6 col-md-6">
+																<label for="spn-usuario">Usuario:</label>
+																<span id="spn-usuario" name="spn-usuario" class="form-control"></span>
+															</div>
+															
+															<div class="form-group col-12 col-sm-6 col-md-6">
+																<label for="spn-fecha-registro">Fecha Registro:</label>
+																<span id="spn-fecha-registro" name="spn-fecha-registro" class="form-control"></span>
+															</div>
+														</div>
 													</div>
 												</div>
 
