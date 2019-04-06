@@ -9,6 +9,9 @@
 		<link rel="stylesheet" type="text/css" href="css/pestañas.css">
 		<link rel="stylesheet" type="text/css" href="css/styleBarra.css">
 		<link rel="stylesheet" type="text/css" href="css/administracion.css">
+
+		<!--Extension-->
+		<link rel="stylesheet" type="text/css" href="extensiones/datatables.min.css">
 	</head>
 	<body onload="init()">
 
@@ -41,20 +44,8 @@
 						<!--Seccion Solicitudes-->
 						<div class="tab-pane fade" id="nav-adm-soli" role="tabpanel" aria-labelledby="nav-adm-soli-tab">
 							<div class="row">
-								<div class="col-lg-12 col-sm-3">
-									<table class="table table-striped table-bordered w-100">
-										<thead>
-											<tr>
-												<th scope="col"><b>Nombre</b></th>
-												<th scope="col"><b>Descripcion</b></th>
-												<th scope="col"><b>Usuario</b></th>
-												<th scope="col"><b>Estado Solicitud</b></th>
-												<th scope="col"><b>Fecha</b></th>
-												<th scope="col"><b>Acciones</b></th>
-											</tr>
-										</thead>
-										<tbody id="table-solicitudes">
-										</tbody>
+								<div class="col-lg-12 col-sm-12">
+									<table class="table table-striped table-bordered" id="table-solicitudes">
 									</table>
 								</div>
 							</div>
@@ -111,263 +102,253 @@
 								</div>
 							</div>
 						</div>
+
 						<!--Seccion Usuarios (Empleados)-->
 						<div class="tab-pane fade" id="nav-adm-usr" role="tabpanel" aria-labelledby="nav-adm-usr-tab">
 							<div class="row">
 								<div class="col-lg-12 col-sm-12">
-									<table class="table table-striped table-bordered w-100">
-										<thead>
-											<tr>
-												<th scope="col"><b>Nombre</b></th>
-												<th scope="col"><b>Teléfono</b></th>
-												<th scope="col"><b>Fecha Contratación</b></th>
-												<th scope="col"><b>Acciones</b></th>
-											</tr>
-										</thead>
-										<tbody id="table-empleados">
-
-										</tbody>
+									<table class="table table-striped table-bordered w-100" id="table-empleados" style="width:100%;">
 									</table>
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarEmpleado">
-										<span class="glyphicon glyphicon-plus"></span>Agregar Empleado
-									</button>
+								</div>
+							</div>
 
-									<!-- Modal Agregar Empleado -->
-									<div class="modal fade" id="modalAgregarEmpleado" tabindex="-1" role="dialog" aria-labelledby="modalAgregarEmpleadoLabel" aria-hidden="true">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="modalAgregarEmpleadoLabel" style="text-align: center;font-weight: bold;">AGREGAR EMPLEADO</h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="row modal-body">
-													<!-- Formulario -->
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarEmpleado">
+								<span class="glyphicon glyphicon-plus"></span>Agregar Empleado
+							</button>
+
+							<!-- Modal Agregar Empleado -->
+							<div class="modal fade" id="modalAgregarEmpleado" tabindex="-1" role="dialog" aria-labelledby="modalAgregarEmpleadoLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="modalAgregarEmpleadoLabel" style="text-align: center;font-weight: bold;">AGREGAR EMPLEADO</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<!-- Formulario -->
+										<div class="row modal-body">
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="nombre-fAgregar">Nombre:</label>
+												<input type="text" class="form-control" id="nombre-fAgregar" name="nombre-fAgregar"  placeholder="Nombre" required>
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="apellido-fAgregar">Apellido:</label>
+												<input type="text" class="form-control" id="apellido-fAgregar" name="apellido-fAgregar" placeholder="Apellido" required>
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="edad-fAgregar">Edad:</label>
+												<input id="edad-fAgregar" class="form-control" type="text" placeholder="XX" required>
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="numero-identidad-fAgregar">Número de identidad:</label>
+												<input type="text" class="form-control" id="numero-identidad-fAgregar" name="numero-identidad-fAgregar" placeholder="0102199912345" required>
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="email-fAgregar">Correo Electrónico:</label>
+												<input type="text" class="form-control" id="email-fAgregar" name="email-fAgregar" placeholder="correo@gmail.com">
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="telefono-fAgregar">Teléfono:</label>
+												<input id="telefono-fAgregar" name="telefono-fAgregar" class="form-control" type="text" placeholder="9900-0000" >
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="fecha-ingreso-fAgregar">Fecha Ingreso:</label>
+												<input type="date" id="fecha-ingreso-fAgregar" name="fecha-ingreso-fAgregar" class="form-control" placeholder="2019-03-31" style="padding-top:0" required>
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="direccion-fAgregar">Dirección:</label>
+												<input type="text" class="form-control" id="direccion-fAgregar" name="direccion-fAgregar" placeholder="Dirección" required>
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="fecha-nacimiento-fAgregar">Fecha Nacimiento:</label>
+												<input type="date" id="fecha-nacimiento-fAgregar" name="fecha-nacimiento-fAgregar" class="form-control" placeholder="1999-12-31" style="padding-top:0" required>
+											</div>
+
+											<div class="form-group col-12 col-sm-6 col-md-6">
+												<label for="slc-genero-fAgregar">Género:</label>
+												<select id="slc-genero-fAgregar" name="slc-genero-fAgregar" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;" required>
+													<option value="1">Masculino</option>
+													<option value="2">Femenino</option>
+													<option value="3">Indefinido</option>
+												</select>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+											<button type="button" class="btn btn-primary" id="guardar-empleado">Crear Empleado</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Modal Ver Empleado -->
+							<div class="modal fade" id="modalVerEmpleado" tabindex="-1" role="dialog" aria-labelledby="modalVerEmpleadoLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h3 class="modal-title" id="modalVerEmpleadoLabel" style="text-align: center;font-weight: bold;">DATOS DEL EMPLEADO</h3>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="row modal-body">
+											<!-- Formulario -->
+											<div class="hide" id="formulario-actualizar-empleado">
+												<div class="row modal-body" style="padding-bottom: 0;">
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="nombre-fAgregar">Nombre:</label>
-														<input type="text" class="form-control" id="nombre-fAgregar" name="nombre-fAgregar"  placeholder="Nombre" required>
+														<label for="nombre-actualizar">Nombre:</label>
+														<input type="text" class="form-control" id="nombre-actualizar" name="nombre-actualizar"  placeholder="Nombre">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="apellido-fAgregar">Apellido:</label>
-														<input type="text" class="form-control" id="apellido-fAgregar" name="apellido-fAgregar" placeholder="Apellido" required>
+														<label for="apellido-actualizar">Apellido:</label>
+														<input type="text" class="form-control" id="apellido-actualizar" name="apellido-actualizar" placeholder="Apellido">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="edad-fAgregar">Edad:</label>
-														<input id="edad-fAgregar" class="form-control" type="text" placeholder="XX" required>
+														<label for="edad-actualizar">Edad:</label>
+														<input id="edad-actualizar" name="edad-actualizar" class="form-control" type="text" placeholder="XX">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="numero-identidad-fAgregar">Número de identidad:</label>
-														<input type="text" class="form-control" id="numero-identidad-fAgregar" name="numero-identidad-fAgregar" placeholder="0102199912345" required>
+														<label for="numero-identidad-actualizar">Número de identidad:</label>
+														<input type="text" class="form-control" id="numero-identidad-actualizar" name="numero-identidad-actualizar" placeholder="0102199912345">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="email-fAgregar">Correo Electrónico:</label>
-														<input type="text" class="form-control" id="email-fAgregar" name="email-fAgregar" placeholder="correo@gmail.com">
+														<label for="email-actualizar">Correo Electrónico:</label>
+														<input type="text" class="form-control" id="email-actualizar" name="email-actualizar" placeholder="correo@gmail.com">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="telefono-fAgregar">Teléfono:</label>
-														<input id="telefono-fAgregar" name="telefono-fAgregar" class="form-control" type="text" placeholder="9900-0000" >
+														<label for="telefono-actualizar">Teléfono:</label>
+														<input id="telefono-actualizar" name="telefono-actualizar" class="form-control" type="text" placeholder="9900-0000">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="fecha-ingreso-fAgregar">Fecha Ingreso:</label>
-														<input type="date" id="fecha-ingreso-fAgregar" name="fecha-ingreso-fAgregar" class="form-control" placeholder="2019-03-31" style="padding-top:0" required>
+														<label for="fecha-ingreso-actualizar">Fecha Ingreso:</label>
+														<input type="date" id="fecha-ingreso-actualizar" name="fecha-ingreso-actualizar" class="form-control" placeholder="2019-03-31" style="padding-top:0">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="direccion-fAgregar">Dirección:</label>
-														<input type="text" class="form-control" id="direccion-fAgregar" name="direccion-fAgregar" placeholder="Dirección" required>
+														<label for="direccion-actualizar">Dirección:</label>
+														<input type="text" class="form-control" id="direccion-actualizar" name="direccion-actualizar" placeholder="Dirección">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="fecha-nacimiento-fAgregar">Fecha Nacimiento:</label>
-														<input type="date" id="fecha-nacimiento-fAgregar" name="fecha-nacimiento-fAgregar" class="form-control" placeholder="1999-12-31" style="padding-top:0" required>
+														<label for="fecha-nacimiento-actualizar">Fecha Nacimiento:</label>
+														<input type="date" id="fecha-nacimiento-actualizar" name="fecha-nacimiento-actualizar" class="form-control" placeholder="1999-12-31" style="padding-top:0">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="slc-genero-fAgregar">Género:</label>
-														<select id="slc-genero-fAgregar" name="slc-genero-fAgregar" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;" required>
+														<label for="slc-genero-actualizar">Género:</label>
+														<select id="slc-genero-actualizar" name="slc-genero-actualizar" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;">
 															<option value="1">Masculino</option>
 															<option value="2">Femenino</option>
 															<option value="3">Indefinido</option>
 														</select>
 													</div>
 												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-													<button type="button" class="btn btn-primary" id="guardar-empleado">Crear Empleado</button>
+												<div class="row modal-body" style="padding-top: 0;">
+													<h3 style="text-align: center; margin-top: 0;">Datos de Usuario</h3>
+													<hr>
+
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="usuario-actualizar">Usuario:</label>
+														<input type="text" id="usuario-actualizar" name="usuario-actualizar" class="form-control" placeholder="usuarioEjemplo">
+													</div>
+													
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="fecha-registro-actualizar">Fecha Registro:</label>
+														<input type="date" id="fecha-registro-actualizar" name="fecha-registro-actualizar" style="padding-top:0" class="form-control">
+													</div>
+												</div>
+											</div>
+
+											<div id="datos-empleado">
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label for="spn-nombre">Nombre:</label>
+													<span class="form-control" id="spn-nombre" name="spn-nombre"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label for="spn-apellido">Apellido:</label>
+													<span class="form-control" id="spn-apellido" name="spn-apellido"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label for="spn-edad">Edad:</label>
+													<span id="spn-edad" name="spn-edad" class="form-control"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label for="spn-numero-identidad">Número de identidad:</label>
+													<span class="form-control" id="spn-numero-identidad" name="spn-numero-identidad"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label for="spn-email">Correo Electrónico:</label>
+													<span type="text" class="form-control" id="spn-email" name="spn-email"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label for="spn-telefono">Teléfono:</label>
+													<span id="spn-telefono" name="spn-telefono" class="form-control"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label for="spn-fecha-ingreso">Fecha Ingreso:</label>
+													<span id="spn-fecha-ingreso" name="spn-fecha-ingreso" class="form-control"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label for="spn-direccion">Dirección:</label>
+													<span class="form-control" id="spn-direccion" name="spn-direccion"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label for="spn-fecha-nacimiento">Fecha Nacimiento:</label>
+													<span id="spn-fecha-nacimiento" name="spn-fecha-nacimiento" class="form-control"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label for="spn-genero">Género:</label>
+													<span id="spn-genero" name="spn-genero" class="form-control"></span>
+												</div>
+												
+												<div class="row modal-body" style="padding-top: 0;">
+													<h3 style="text-align: center; margin-top: 0;">Datos de Usuario</h3>
+													<hr>
+
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="spn-usuario">Usuario:</label>
+														<span id="spn-usuario" name="spn-usuario" class="form-control"></span>
+													</div>
+													
+													<div class="form-group col-12 col-sm-6 col-md-6">
+														<label for="spn-fecha-registro">Fecha Registro:</label>
+														<span id="spn-fecha-registro" name="spn-fecha-registro" class="form-control"></span>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
 
-									<!-- Modal Ver Empleado -->
-									<div class="modal fade" id="modalVerEmpleado" tabindex="-1" role="dialog" aria-labelledby="modalVerEmpleadoLabel" aria-hidden="true">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h3 class="modal-title" id="modalVerEmpleadoLabel" style="text-align: center;font-weight: bold;">DATOS DEL EMPLEADO</h3>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="row modal-body">
-													<!-- Formulario -->
-													<div class="hide" id="formulario-actualizar-empleado">
-														<div class="row modal-body" style="padding-bottom: 0;">
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="nombre-actualizar">Nombre:</label>
-																<input type="text" class="form-control" id="nombre-actualizar" name="nombre-actualizar"  placeholder="Nombre">
-															</div>
-
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="apellido-actualizar">Apellido:</label>
-																<input type="text" class="form-control" id="apellido-actualizar" name="apellido-actualizar" placeholder="Apellido">
-															</div>
-
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="edad-actualizar">Edad:</label>
-																<input id="edad-actualizar" name="edad-actualizar" class="form-control" type="text" placeholder="XX">
-															</div>
-
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="numero-identidad-actualizar">Número de identidad:</label>
-																<input type="text" class="form-control" id="numero-identidad-actualizar" name="numero-identidad-actualizar" placeholder="0102199912345">
-															</div>
-
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="email-actualizar">Correo Electrónico:</label>
-																<input type="text" class="form-control" id="email-actualizar" name="email-actualizar" placeholder="correo@gmail.com">
-															</div>
-
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="telefono-actualizar">Teléfono:</label>
-																<input id="telefono-actualizar" name="telefono-actualizar" class="form-control" type="text" placeholder="9900-0000">
-															</div>
-
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="fecha-ingreso-actualizar">Fecha Ingreso:</label>
-																<input type="date" id="fecha-ingreso-actualizar" name="fecha-ingreso-actualizar" class="form-control" placeholder="2019-03-31" style="padding-top:0">
-															</div>
-
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="direccion-actualizar">Dirección:</label>
-																<input type="text" class="form-control" id="direccion-actualizar" name="direccion-actualizar" placeholder="Dirección">
-															</div>
-
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="fecha-nacimiento-actualizar">Fecha Nacimiento:</label>
-																<input type="date" id="fecha-nacimiento-actualizar" name="fecha-nacimiento-actualizar" class="form-control" placeholder="1999-12-31" style="padding-top:0">
-															</div>
-
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="slc-genero-actualizar">Género:</label>
-																<select id="slc-genero-actualizar" name="slc-genero-actualizar" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;">
-																	<option value="1">Masculino</option>
-																	<option value="2">Femenino</option>
-																	<option value="3">Indefinido</option>
-																</select>
-															</div>
-														</div>
-														<div class="row modal-body" style="padding-top: 0;">
-															<h3 style="text-align: center; margin-top: 0;">Datos de Usuario</h3>
-															<hr>
-
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="usuario-actualizar">Usuario:</label>
-																<input type="text" id="usuario-actualizar" name="usuario-actualizar" class="form-control" placeholder="usuarioEjemplo">
-															</div>
-															
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="fecha-registro-actualizar">Fecha Registro:</label>
-																<input type="date" id="fecha-registro-actualizar" name="fecha-registro-actualizar" style="padding-top:0" class="form-control">
-															</div>
-														</div>
-													</div>
-
-													<div id="datos-empleado">
-														<div class="form-group col-12 col-sm-6 col-md-6">
-															<label for="spn-nombre">Nombre:</label>
-															<span class="form-control" id="spn-nombre" name="spn-nombre"></span>
-														</div>
-
-														<div class="form-group col-12 col-sm-6 col-md-6">
-															<label for="spn-apellido">Apellido:</label>
-															<span class="form-control" id="spn-apellido" name="spn-apellido"></span>
-														</div>
-
-														<div class="form-group col-12 col-sm-6 col-md-6">
-															<label for="spn-edad">Edad:</label>
-															<span id="spn-edad" name="spn-edad" class="form-control"></span>
-														</div>
-
-														<div class="form-group col-12 col-sm-6 col-md-6">
-															<label for="spn-numero-identidad">Número de identidad:</label>
-															<span class="form-control" id="spn-numero-identidad" name="spn-numero-identidad"></span>
-														</div>
-
-														<div class="form-group col-12 col-sm-6 col-md-6">
-															<label for="spn-email">Correo Electrónico:</label>
-															<span type="text" class="form-control" id="spn-email" name="spn-email"></span>
-														</div>
-
-														<div class="form-group col-12 col-sm-6 col-md-6">
-															<label for="spn-telefono">Teléfono:</label>
-															<span id="spn-telefono" name="spn-telefono" class="form-control"></span>
-														</div>
-
-														<div class="form-group col-12 col-sm-6 col-md-6">
-															<label for="spn-fecha-ingreso">Fecha Ingreso:</label>
-															<span id="spn-fecha-ingreso" name="spn-fecha-ingreso" class="form-control"></span>
-														</div>
-
-														<div class="form-group col-12 col-sm-6 col-md-6">
-															<label for="spn-direccion">Dirección:</label>
-															<span class="form-control" id="spn-direccion" name="spn-direccion"></span>
-														</div>
-
-														<div class="form-group col-12 col-sm-6 col-md-6">
-															<label for="spn-fecha-nacimiento">Fecha Nacimiento:</label>
-															<span id="spn-fecha-nacimiento" name="spn-fecha-nacimiento" class="form-control"></span>
-														</div>
-
-														<div class="form-group col-12 col-sm-6 col-md-6">
-															<label for="spn-genero">Género:</label>
-															<span id="spn-genero" name="spn-genero" class="form-control"></span>
-														</div>
-														
-														<div class="row modal-body" style="padding-top: 0;">
-															<h3 style="text-align: center; margin-top: 0;">Datos de Usuario</h3>
-															<hr>
-
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="spn-usuario">Usuario:</label>
-																<span id="spn-usuario" name="spn-usuario" class="form-control"></span>
-															</div>
-															
-															<div class="form-group col-12 col-sm-6 col-md-6">
-																<label for="spn-fecha-registro">Fecha Registro:</label>
-																<span id="spn-fecha-registro" name="spn-fecha-registro" class="form-control"></span>
-															</div>
-														</div>
-													</div>
-												</div>
-
-												<div class="modal-footer">
-													<button type="button" class="btn btn-primary" id="editar-empleado">Editar Empleado</button>
-													<button type="button" class="btn btn-primary hide" id="actualizar-empleado">Actualizar Empleado</button>
-													<button type="button" class="btn btn-primary" id="eliminar-empleado">Eliminar Empleado</button>
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-												</div>
-											</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-primary" id="editar-empleado">Editar Empleado</button>
+											<button type="button" class="btn btn-primary hide" id="actualizar-empleado">Actualizar Empleado</button>
+											<button type="button" class="btn btn-primary" id="eliminar-empleado">Eliminar Empleado</button>
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 										</div>
 									</div>
-
 								</div>
 							</div>
 						</div>
@@ -439,4 +420,7 @@
 
 	<script src="js/controladores/validaciones.js"></script>
 	<script src="js/controladores/administracion.js"></script>
+
+	<!--Extensiones-->
+	<script src="extensiones/datatables.min.js"></script>
 </html>

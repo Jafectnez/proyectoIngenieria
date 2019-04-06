@@ -11,8 +11,6 @@
       //Acciones con los empleados
       case 'leer-empleados':
         $res['data'] = Empleado::leer($conexion);
-        $res['data']['mensaje'] = 'Listado de Empleados';
-        $res['data']['resultado'] = true;
         echo json_encode($res);
       break;
       case 'leer-empleado-id':
@@ -102,8 +100,6 @@
       //Acciones con las solicitudes
       case 'leer-solicitudes':
         $res['data'] = Solicitud::leer($conexion);
-        $res['data']['mensaje'] = 'Listado de Solicitudes';
-        $res['data']['resultado'] = true;
         echo json_encode($res);
       break;
       case 'leer-solicitud-id':
