@@ -1,0 +1,5 @@
+<link rel="stylesheet" type="text/css" href="css/popup.css">
+<div id="alerta" onclick="Popup.ocultar();">
+  <span id="icono-alerta" class="glyphicon glyphicon-ok"></span>
+  <h1 id="text-alerta"></h1>
+</div>

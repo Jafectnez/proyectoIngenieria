@@ -26,21 +26,28 @@
 				<!--Contenido De La Administracion-->
 				<div class="col-lg-10 col-sm-10 well sector-contenido" style="border: black 1px solid;">
 					<nav>
+						<!--Pestañas-->
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
 							<ul class="nav nav-tabs" id="myTab">
+
+								<!--Pestaña Solicitudes-->
 								<li class="nav-item pestaña" id="nav-adm-soli-li">
 									<a class="nav-item nav-link" id="nav-adm-soli-tab" data-toggle="tab" href="#nav-adm-soli" role="tab" aria-controls="nav-adm-soli" aria-selected="false">Solicitudes</a>
 								</li>
+								<!--Pestaña Empleados-->
 								<li class="nav-item pestaña" id="nav-adm-usr-li">
 									<a class="nav-item nav-link" id="nav-adm-usr-tab" data-toggle="tab" href="#nav-adm-usr" role="tab" aria-controls="nav-adm-usr" aria-selected="false">Empleados</a>
 								</li>
+								<!--Pestaña Promociones-->
 								<li class="nav-item pestaña" id="nav-adm-pro-li">
-								<a class="nav-item nav-link" id="nav-adm-pro-tab" data-toggle="tab" href="#nav-adm-pro" role="tab" aria-controls="nav-adm-pro" aria-selected="false">Promociones</a>
+									<a class="nav-item nav-link" id="nav-adm-pro-tab" data-toggle="tab" href="#nav-adm-pro" role="tab" aria-controls="nav-adm-pro" aria-selected="false">Promociones</a>
 								</li>
+
 							</ul>
 						</div>
 					</nav>
 					<div class="tab-content" id="nav-tabContent">
+
 						<!--Seccion Solicitudes-->
 						<div class="tab-pane fade" id="nav-adm-soli" role="tabpanel" aria-labelledby="nav-adm-soli-tab">
 							<div class="row">
@@ -63,39 +70,39 @@
 										<div class="row modal-body" style="padding-bottom: 0;">
 											<!-- Formulario -->
 											<div class="form-group col-12 col-sm-6 col-md-6">
-												<label for="solicitante">Nombre del Solicitante:</label>
-												<span class="form-control" id="solicitante" name="solicitante"></span>
+												<h4 class="palido">Nombre del Solicitante:</h4>
+												<span id="solicitante" name="solicitante"></span>
 											</div>
 
 											<div class="form-group col-12 col-sm-6 col-md-6">
-												<label for="descripcion-solicitud">Descripcion:</label>
-												<span id="descripcion-solicitud" name="descripcion-solicitud" class="form-control"></span>
+												<h4 class="palido">Descripcion:</h4>
+												<span id="descripcion-solicitud" name="descripcion-solicitud" ></span>
 											</div>
 
 											<div class="form-group col-12 col-sm-6 col-md-6">
-												<label for="usuario-solicitante">Usuario Solicitante:</label>
-												<span type="text" class="form-control" id="usuario-solicitante" name="usuario-solicitante"></span>
+												<h4 class="palido">Usuario Solicitante:</h4>
+												<span type="text" id="usuario-solicitante" name="usuario-solicitante"></span>
 											</div>
 
 											<div class="form-group col-12 col-sm-6 col-md-6">
-												<label for="email-solicitante">Correo Electrónico:</label>
-												<span type="text" class="form-control" id="email-solicitante" name="email-solicitante"></span>
+												<h4 class="palido">Correo Electrónico:</h4>
+												<span type="text" id="email-solicitante" name="email-solicitante"></span>
 											</div>
 
 											<div class="form-group col-12 col-sm-6 col-md-6">
-												<label for="estado-solicitud-actualizar">Estado de la Solicitud:</label>
-												<span id="estado-solicitud-actualizar" name="estado-solicitud-actualizar" class="form-control" type="text"></span>
+												<h4 class="palido">Estado de la Solicitud:</h4>
+												<span id="estado-solicitud" name="estado-solicitud" style="font-weight: bold"></span>
 											</div>
 
 											<div class="form-group col-12 col-sm-6 col-md-6">
-												<label for="fecha-solicitud">Fecha:</label>
-												<span type="date" id="fecha-solicitud" name="fecha-solicitud" class="form-control"></span>
+												<h4 class="palido">Fecha:</h4>
+												<span type="date" id="fecha-solicitud" name="fecha-solicitud"></span>
 											</div>
 										</div>
 
 										<div class="modal-footer">
-											<button type="button" class="btn btn-primary" id="aceptar-solicitud">Aceptar Solicitud</button>
-											<button type="button" class="btn btn-primary" id="denegar-solicitud">Denegar Solicitud</button>
+											<button type="button" class="btn btn-success" id="aceptar-solicitud">Aceptar Solicitud</button>
+											<button type="button" class="btn btn-danger" id="denegar-solicitud">Denegar Solicitud</button>
 											<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 										</div>
 									</div>
@@ -183,14 +190,14 @@
 											</div>
 										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 											<button type="button" class="btn btn-primary" id="guardar-empleado">Crear Empleado</button>
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 										</div>
 									</div>
 								</div>
 							</div>
 
-							<!-- Modal Ver Empleado -->
+							<!-- Modal Ver/Actualizar Empleado -->
 							<div class="modal fade" id="modalVerEmpleado" tabindex="-1" role="dialog" aria-labelledby="modalVerEmpleadoLabel" aria-hidden="true">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
@@ -203,54 +210,54 @@
 										<div class="row modal-body">
 											<!-- Formulario -->
 											<div class="hide" id="formulario-actualizar-empleado">
-												<div class="row modal-body" style="padding-bottom: 0;">
+												<div class="row modal-body" style="padding: 0;">
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="nombre-actualizar">Nombre:</label>
+														<label class="palido" for="nombre-actualizar">Nombre:</label>
 														<input type="text" class="form-control" id="nombre-actualizar" name="nombre-actualizar"  placeholder="Nombre">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="apellido-actualizar">Apellido:</label>
+														<label class="palido" for="apellido-actualizar">Apellido:</label>
 														<input type="text" class="form-control" id="apellido-actualizar" name="apellido-actualizar" placeholder="Apellido">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="edad-actualizar">Edad:</label>
+														<label class="palido" for="edad-actualizar">Edad:</label>
 														<input id="edad-actualizar" name="edad-actualizar" class="form-control" type="text" placeholder="XX">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="numero-identidad-actualizar">Número de identidad:</label>
+														<label class="palido" for="numero-identidad-actualizar">Número de identidad:</label>
 														<input type="text" class="form-control" id="numero-identidad-actualizar" name="numero-identidad-actualizar" placeholder="0102199912345">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="email-actualizar">Correo Electrónico:</label>
+														<label class="palido" for="email-actualizar">Correo Electrónico:</label>
 														<input type="text" class="form-control" id="email-actualizar" name="email-actualizar" placeholder="correo@gmail.com">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="telefono-actualizar">Teléfono:</label>
+														<label class="palido" for="telefono-actualizar">Teléfono:</label>
 														<input id="telefono-actualizar" name="telefono-actualizar" class="form-control" type="text" placeholder="9900-0000">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="fecha-ingreso-actualizar">Fecha Ingreso:</label>
+														<label class="palido" for="fecha-ingreso-actualizar">Fecha Ingreso:</label>
 														<input type="date" id="fecha-ingreso-actualizar" name="fecha-ingreso-actualizar" class="form-control" placeholder="2019-03-31" style="padding-top:0">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="direccion-actualizar">Dirección:</label>
+														<label class="palido" for="direccion-actualizar">Dirección:</label>
 														<input type="text" class="form-control" id="direccion-actualizar" name="direccion-actualizar" placeholder="Dirección">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="fecha-nacimiento-actualizar">Fecha Nacimiento:</label>
+														<label class="palido" for="fecha-nacimiento-actualizar">Fecha Nacimiento:</label>
 														<input type="date" id="fecha-nacimiento-actualizar" name="fecha-nacimiento-actualizar" class="form-control" placeholder="1999-12-31" style="padding-top:0">
 													</div>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="slc-genero-actualizar">Género:</label>
+														<label class="palido" for="slc-genero-actualizar">Género:</label>
 														<select id="slc-genero-actualizar" name="slc-genero-actualizar" class="form-control" title="genero" data-style="btn-primary" style="margin-left: 4%;margin-top: 10px;">
 															<option value="1">Masculino</option>
 															<option value="2">Femenino</option>
@@ -258,85 +265,71 @@
 														</select>
 													</div>
 												</div>
-												<div class="row modal-body" style="padding-top: 0;">
-													<h3 style="text-align: center; margin-top: 0;">Datos de Usuario</h3>
-													<hr>
-
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="usuario-actualizar">Usuario:</label>
-														<input type="text" id="usuario-actualizar" name="usuario-actualizar" class="form-control" placeholder="usuarioEjemplo">
-													</div>
-													
-													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="fecha-registro-actualizar">Fecha Registro:</label>
-														<input type="date" id="fecha-registro-actualizar" name="fecha-registro-actualizar" style="padding-top:0" class="form-control">
-													</div>
-												</div>
 											</div>
 
 											<div id="datos-empleado">
 												<div class="form-group col-12 col-sm-6 col-md-6">
-													<label for="spn-nombre">Nombre:</label>
-													<span class="form-control" id="spn-nombre" name="spn-nombre"></span>
+													<h4 class="palido">Nombre:</h4>
+													<span id="spn-nombre" name="spn-nombre"></span>
 												</div>
 
 												<div class="form-group col-12 col-sm-6 col-md-6">
-													<label for="spn-apellido">Apellido:</label>
-													<span class="form-control" id="spn-apellido" name="spn-apellido"></span>
+													<h4 class="palido">Apellido:</h4>
+													<span id="spn-apellido" name="spn-apellido"></span>
 												</div>
 
 												<div class="form-group col-12 col-sm-6 col-md-6">
-													<label for="spn-edad">Edad:</label>
-													<span id="spn-edad" name="spn-edad" class="form-control"></span>
+													<h4 class="palido">Edad:</h4>
+													<span id="spn-edad" name="spn-edad"></span>
 												</div>
 
 												<div class="form-group col-12 col-sm-6 col-md-6">
-													<label for="spn-numero-identidad">Número de identidad:</label>
-													<span class="form-control" id="spn-numero-identidad" name="spn-numero-identidad"></span>
+													<h4 class="palido">Número de identidad:</h4>
+													<span id="spn-numero-identidad" name="spn-numero-identidad"></span>
 												</div>
 
 												<div class="form-group col-12 col-sm-6 col-md-6">
-													<label for="spn-email">Correo Electrónico:</label>
-													<span type="text" class="form-control" id="spn-email" name="spn-email"></span>
+													<h4 class="palido">Correo Electrónico:</h4>
+													<span type="text" id="spn-email" name="spn-email"></span>
 												</div>
 
 												<div class="form-group col-12 col-sm-6 col-md-6">
-													<label for="spn-telefono">Teléfono:</label>
-													<span id="spn-telefono" name="spn-telefono" class="form-control"></span>
+													<h4 class="palido">Teléfono:</h4>
+													<span id="spn-telefono" name="spn-telefono"></span>
 												</div>
 
 												<div class="form-group col-12 col-sm-6 col-md-6">
-													<label for="spn-fecha-ingreso">Fecha Ingreso:</label>
-													<span id="spn-fecha-ingreso" name="spn-fecha-ingreso" class="form-control"></span>
+													<h4 class="palido">Fecha Ingreso:</h4>
+													<span id="spn-fecha-ingreso" name="spn-fecha-ingreso"></span>
 												</div>
 
 												<div class="form-group col-12 col-sm-6 col-md-6">
-													<label for="spn-direccion">Dirección:</label>
-													<span class="form-control" id="spn-direccion" name="spn-direccion"></span>
+													<h4 class="palido">Dirección:</h4>
+													<span id="spn-direccion" name="spn-direccion"></span>
 												</div>
 
 												<div class="form-group col-12 col-sm-6 col-md-6">
-													<label for="spn-fecha-nacimiento">Fecha Nacimiento:</label>
-													<span id="spn-fecha-nacimiento" name="spn-fecha-nacimiento" class="form-control"></span>
+													<h4 class="palido">Fecha Nacimiento:</h4>
+													<span id="spn-fecha-nacimiento" name="spn-fecha-nacimiento"></span>
 												</div>
 
 												<div class="form-group col-12 col-sm-6 col-md-6">
-													<label for="spn-genero">Género:</label>
-													<span id="spn-genero" name="spn-genero" class="form-control"></span>
+													<h4 class="palido">Género:</h4>
+													<span id="spn-genero" name="spn-genero"></span>
 												</div>
 												
 												<div class="row modal-body" style="padding-top: 0;">
-													<h3 style="text-align: center; margin-top: 0;">Datos de Usuario</h3>
+													<h3 style="text-align: center; margin-top: 2%;">Datos de Usuario</h3>
 													<hr>
 
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="spn-usuario">Usuario:</label>
-														<span id="spn-usuario" name="spn-usuario" class="form-control"></span>
+														<h4 class="palido">Usuario:</h4>
+														<span id="spn-usuario" name="spn-usuario"></span>
 													</div>
 													
 													<div class="form-group col-12 col-sm-6 col-md-6">
-														<label for="spn-fecha-registro">Fecha Registro:</label>
-														<span id="spn-fecha-registro" name="spn-fecha-registro" class="form-control"></span>
+														<h4 class="palido">Fecha Registro:</h4>
+														<span id="spn-fecha-registro" name="spn-fecha-registro"></span>
 													</div>
 												</div>
 											</div>
@@ -344,14 +337,15 @@
 
 										<div class="modal-footer">
 											<button type="button" class="btn btn-primary" id="editar-empleado">Editar Empleado</button>
-											<button type="button" class="btn btn-primary hide" id="actualizar-empleado">Actualizar Empleado</button>
-											<button type="button" class="btn btn-primary" id="eliminar-empleado">Eliminar Empleado</button>
+											<button type="button" class="btn btn-success hide" id="actualizar-empleado">Actualizar Empleado</button>
+											<button type="button" class="btn btn-danger" id="eliminar-empleado">Eliminar Empleado</button>
 											<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+
 						<!--Seccion Promociones-->						
 						<div class="tab-pane fade" id="nav-adm-pro" role="tabpanel" aria-labelledby="nav-adm-pro-tab">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarPromo">
@@ -403,7 +397,7 @@
 								</div>
 							</div>
 							<!--=====================================================================-->
-						</div> <!-- fin de seccion promociones -->
+						</div>
 
 					</div>
 				</div>
@@ -419,6 +413,7 @@
 	<script src="js/menu.js"></script>
 
 	<script src="js/controladores/validaciones.js"></script>
+	<script src="js/controladores/popup.js"></script>
 	<script src="js/controladores/administracion.js"></script>
 
 	<!--Extensiones-->
