@@ -104,8 +104,17 @@ $('#guardar-empleado').click(function(){
   }
 
   $.ajax(settings).done(function (response) {
-    console.log(response.data.mensaje);
-    $('#table-empleados').DataTable().ajax.reload();
+    if(response.data.error == "1"){
+      popUp.setTexto(response.data.mensaje);
+      popUp.incorrecto();
+      popUp.mostrar();
+    }
+    else{
+      popUp.setTextoAlerta(response.data.mensaje);
+      popUp.correcto();
+      popUp.mostrarAlerta();
+      $('#table-empleados').DataTable().ajax.reload();
+    }
   });
 
 });
@@ -230,14 +239,14 @@ $("#actualizar-empleado").click(function(){
 
   $.ajax(settings).done(function (response) {
     if(response.data.error == "1"){
-      popUp.setTexto(response.data.mensaje);
+      popUp.setTextoAlerta(response.data.mensaje);
       popUp.incorrecto();
-      popUp.mostrar();
+      popUp.mostrarAlerta();
     }
     else{
-      popUp.setTexto(response.data.mensaje);
+      popUp.setTextoAlerta(response.data.mensaje);
       popUp.correcto();
-      popUp.mostrar();
+      popUp.mostrarAlerta();
       $("#formulario-actualizar-empleado").addClass("hide");
       $("#datos-empleado").removeClass("hide");
       $("#actualizar-empleado").addClass("hide");
@@ -250,116 +259,49 @@ $("#actualizar-empleado").click(function(){
 
 });
 
-/* CRUD Empleado: Delete 
-function funcionBorrar(id){
-  var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
-    "method": "POST",
-    "dataType": "json",
-    "headers": {
-      "content-type": "application/x-www-form-urlencoded"
-    },
-    "data": {
-      "accion": "leer-empleado-id",
-      "id_empleado": id
-    }
-  }
-
-  $.ajax(settings).done(function (response) {
-      $.confirm({
-       icon: 'fa fa-trash',
-       theme: 'modern',
-       closeIcon: true,
-       type: 'blue',
-       title:'Alerta!',
-       content:'¿Esta seguro de eliminar a ' + response.data.nombre_completo + ' ?',
-       buttons:{
-         Eliminar:{
-            text:"Si, seguro!",
-            btnClass:"btn-blue",
-            action:function(){
-              var settings = {
-                "async": true,
-                "crossDomain": true,
-                "url": "http://farma/services/empleado.php",
-                "method": "POST",
-                "dataType": "json",
-                "headers": {
-                  "content-type": "application/x-www-form-urlencoded"
-                },
-                "data": {
-                  "accion": "eliminar-empleado",
-                  "id_empleado": id
-                }
-              }
-
-              $.ajax(settings).done(function (response) {
-                $.alert({
-                  title: response.data.mensaje,
-                  icon: 'fa fa-check',
-                  type: 'blue',
-                  content: '',
-                });
-
-              $('#table-empleados').DataTable().ajax.reload();
-              })
-            }
-
-         },
-         Cancelar:function(){
-
-         }
-       }
-     })
+/* Eliminar empleado*/ 
+$("#eliminar-empleado").click(function(){
+  popUp.setTextoDecision('Desea eliminar?');
+  Popup.mantenerDecision();
+  $("#decision-no").click(function() { 
+    Popup.ocultarDecision();
   });
-}*/
-/*
-function imprimirMensaje(response){
-  if (response.data.error == 0) {
-    console.log(response.data);
-    $('#table-empleados').DataTable().ajax.reload(); // Se encarga de refrescar las tablas
 
-    $("#div-exito").html(response.data.mensaje);
-    $("#div-exito").removeClass("d-none");
+  $("#decision-si").click(function() {
+    Popup.ocultarDecision();
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+      "method": "POST",
+      "dataType": "json",
+      "headers": {
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      "data": {
+        "accion": "eliminar-empleado",
+        "id_empleado": idEmpleadoVisible
+      }
+    }
+  
+    $.ajax(settings).done(function (response) {
+      if(response.data.error == "1"){
+        popUp.setTexto(response.data.mensaje);
+        popUp.incorrecto();
+        popUp.mostrar();
+      }
+      else{
+        popUp.setTextoAlerta(response.data.mensaje);
+        popUp.correcto();
+        popUp.mostrarAlerta();
+        $('#table-empleados').DataTable().ajax.reload();
 
-    $("#div-exito").hide(8000, function(){
-      $('#div-exito').addClass("d-none");
-      $("#div-exito").show();
-      $("#div-exito").html("");
+        setTimeout(function(){
+          $("#modalVerEmpleado").modal('hide');
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
+        }, 1000);
+      }
     });
-  } else {
-    console.log(response);
-    $("#div-error").html(response.data.mensaje);
-    $("#div-error").removeClass("d-none");
-
-    $("#div-error").hide(8000, function(){
-      $('#div-error').show();
-      $('#div-error').addClass("d-none");
-      $("#div-error").html("");
-    });
-  }
-}
-*/
-/* Función que se encarga de dejar los campos por defecto 
-$(".reset").click(function(){
-  $("#footer-actualizar").addClass("d-none");
-  $("#footer-guardar").show();
-
-  $('.selectpicker').selectpicker('val', '');
-  $('.selectpicker').selectpicker('refresh');
-
-  $('#telefono').prop('readonly', false); // Deshabilita los campos
-
-  $('#id-empleado').val("");
-  $('#nombre').val("");
-  $('#apellido').val("");
-  $('#direccion').val("");
-  $('#email').val("");
-  $('#numero-identidad').val("");
-  $('#telefono').val("");
-  $('#fecha-nacimiento').val("");
-  $('#fecha-ingreso').val("");
-
-});*/
+  });
+});

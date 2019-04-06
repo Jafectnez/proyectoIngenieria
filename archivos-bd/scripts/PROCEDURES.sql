@@ -44,7 +44,7 @@ SP:BEGIN
   END IF;
 
   IF P_IDENTIDAD='' OR P_IDENTIDAD IS NULL THEN 
-    SET mensaje=CONCAT(mensaje, 'número de identidad vacía, ');
+    SET mensaje=CONCAT(mensaje, 'Número de identidad vacía, ');
   END IF;
 
   IF P_EDAD='' OR P_EDAD IS NULL THEN 
@@ -65,7 +65,7 @@ SP:BEGIN
 
   IF NOT (P_IDENTIDAD='' OR P_IDENTIDAD IS NULL) THEN
     IF (P_IDENTIDAD REGEXP '^(0[1-9]|1[0-8])(0[1-9]|1[0-9]|2[1-8])(19|2[0-9])[0-9]{2}[0-9]{5}$' ) = 0 THEN
-      SET mensaje=CONCAT(mensaje,'número de identidad inválido, ');
+      SET mensaje=CONCAT(mensaje,'Número de identidad inválido, ');
     END IF;
   END IF;
 
@@ -103,7 +103,7 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje,error;
-    ROLLBACK;
+    
     LEAVE SP;
   END IF;
 
@@ -173,7 +173,7 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje, error;
-    ROLLBACK;
+    
     LEAVE SP;
   END IF;
 
@@ -273,7 +273,7 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje, error;
-    ROLLBACK;
+    
     LEAVE SP;
   END IF;
 
@@ -331,7 +331,7 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje, error;
-    ROLLBACK;
+    
     LEAVE SP;
   END IF;
 
@@ -404,7 +404,7 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje,error;
-    ROLLBACK;
+    
     LEAVE SP;
   END IF;
 
@@ -464,7 +464,7 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje, error;
-    ROLLBACK;
+    
     LEAVE SP;
   END IF;
 
@@ -533,7 +533,7 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje,error;
-    ROLLBACK;
+    
     LEAVE SP;
   END IF;
 
@@ -556,7 +556,7 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje,error;
-    ROLLBACK;
+    
     LEAVE SP;
   END IF;
 
@@ -574,7 +574,7 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje,error;
-    ROLLBACK;
+    
     LEAVE SP;
   END IF;
 
@@ -623,7 +623,7 @@ SP:BEGIN
 
   # Validaciones
   IF P_ID_EMPLEADO='' OR P_ID_EMPLEADO IS NULL THEN 
-    SET mensaje=CONCAT('Identificador de empleado vacío, ');
+    SET mensaje=CONCAT(mensaje, 'Identificador de empleado vacío, ');
   ELSE
     SELECT COUNT(*) INTO contador
     FROM TBL_EMPLEADO
@@ -640,16 +640,21 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje, error;
-    ROLLBACK;
+    
     LEAVE SP;
   END IF;
-
-  DELETE FROM TBL_EMPLEADO
-  WHERE TBL_EMPLEADO.ID_EMPLEADO = P_ID_EMPLEADO;
 
   SELECT ID_USUARIO INTO idUsuario
   FROM TBL_EMPLEADO
   WHERE TBL_EMPLEADO.ID_EMPLEADO = P_ID_EMPLEADO;
+
+  SELECT ID_PERSONA INTO idPersona
+  FROM TBL_EMPLEADO
+  WHERE TBL_EMPLEADO.ID_EMPLEADO = P_ID_EMPLEADO;
+
+  DELETE FROM TBL_EMPLEADO
+  WHERE TBL_EMPLEADO.ID_EMPLEADO = P_ID_EMPLEADO;
+
 
   CALL SP_ELIMINAR_USUARIO( idUsuario,
                             @mensajeEliminarUsuarioEmpleado,
@@ -661,13 +666,9 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje,error;
-    ROLLBACK;
+    
     LEAVE SP;
   END IF;
-
-  SELECT ID_PERSONA INTO idPersona
-  FROM TBL_EMPLEADO
-  WHERE TBL_EMPLEADO.ID_EMPLEADO = P_ID_EMPLEADO;
 
   CALL SP_ELIMINAR_PERSONA( idPersona,
                             @mensajeEliminarPersonaEmpleado,
@@ -679,7 +680,7 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje,error;
-    ROLLBACK;
+    
     LEAVE SP;
   END IF;
 
@@ -769,7 +770,7 @@ SP:BEGIN
       SET P_MENSAJE=mensaje;
       SET P_ERROR=error;
       SELECT mensaje,error;
-      ROLLBACK;
+      
       LEAVE SP;
   END IF;
 
@@ -796,7 +797,7 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje,error;
-    ROLLBACK;
+    
     LEAVE SP;
   END IF;
   

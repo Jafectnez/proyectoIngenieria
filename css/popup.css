@@ -1,4 +1,4 @@
-#alerta{
+#alerta, #decision{
   display: none;
   width: 500px;
   overflow: hidden;
@@ -14,22 +14,54 @@
   text-align: center;
 }
 
-#alerta #icono-alerta{
+#alerta #icono-alerta, #decision #icono-decision{
    font-size: 40px;
    display: inline-block !important;
    margin: 20px 0;
 }
-
-#alerta #text-alerta{
-  color: #333;
+#decision #icono-decision{
+  font-size: 80px;
+  color: #ffc400;
+  margin-left: 18%;
+  transform: translate(-50%, 0%);
 }
 
-#alerta #alerta-close{
+#alerta #text-alerta, #decision #text-decision{
+  color: #333;
+}
+#decision #text-decision{
+  margin-top: 0;
+}
+
+#decision #decision-si, #decision #decision-no{
+  width: 80px;
+  height: 50px;
   font-size: 18px;
   color: white;
   padding: 0;
   cursor: pointer;
-  background: none;
   display: inline-block !important;
+  border: none;
   border-radius: 4px;
+}
+
+#decision #decision-si{
+  background: #3498db;
+  margin-right: 25%;
+  transition: 0.6s;
+}
+
+#decision #decision-si:hover{
+  background: #133246;
+  transition: 0.6s;
+}
+
+#decision #decision-no{
+  background: red;
+  transition: 0.6s;
+}
+
+#decision #decision-no:hover{
+  background: #5e0000;
+  transition: 0.6s;
 }

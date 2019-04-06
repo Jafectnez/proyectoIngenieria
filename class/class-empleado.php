@@ -89,12 +89,11 @@
         $this->getApellido(),
         $this->getGenero(),
         $this->getDireccion(),
-        $this->getEdad(),
         $this->getEmail(),
         $this->getNumeroIdentidad(),
         $this->getFechaNacimiento(),
         $this->getTelefono(),
-        $this->getFechaIngreso()
+        $this->getEdad()
       ];
       $rows = $conexion->query($sql, $valores);
       return $rows[0];

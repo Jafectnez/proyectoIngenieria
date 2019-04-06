@@ -18,8 +18,6 @@
         $empleado = new Empleado();
         $empleado->setIdEmpleado($idEmpleado);
         $res['data'] = $empleado->leerPorId($conexion);
-        $res['data']['mensaje'] = "Empleado con id ". $idEmpleado;
-        $res['data']['resultado'] = true;
         echo json_encode($res);
       break;
       case 'insertar-empleado':

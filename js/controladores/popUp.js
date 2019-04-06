@@ -9,9 +9,10 @@ class Popup {
         $("body").prepend(data);
       }
     });
+    $("#text-alerta").text("Prueba");
   }
 
-  setTexto(texto){
+  setTextoAlerta(texto){
     $("#text-alerta").text(texto);
   }
 
@@ -27,16 +28,33 @@ class Popup {
     $("#icono-alerta").css("color", "red");
   }
 
-  mostrar() {
+  mostrarAlerta() {
     $("#alerta").fadeIn(1000);
     $("#alerta").fadeOut(4000);
   }
 
-  static ocultar() {
+  setTextoDecision(texto){
+    $("#text-decision").text(texto);
+  }
+
+  mostrarDecision() {
+    $("#decision").fadeIn(500);
+    $("#decision").fadeOut(2000);
+  }
+
+  static ocultarAlerta() {
     $("#alerta").hide();
   }
 
-  static mantener(){
+  static mantenerAlerta(){
     $("#alerta").show();
+  }
+
+  static ocultarDecision() {
+    $("#decision").hide("slow");
+  }
+
+  static mantenerDecision(){
+    $("#decision").show();
   }
 }

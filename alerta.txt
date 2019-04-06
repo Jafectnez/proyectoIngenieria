@@ -1,5 +1,11 @@
 <link rel="stylesheet" type="text/css" href="css/popup.css">
-<div id="alerta" onclick="Popup.ocultar();">
+<div id="alerta" onclick="Popup.ocultarAlerta();">
   <span id="icono-alerta" class="glyphicon glyphicon-ok"></span>
   <h1 id="text-alerta"></h1>
+</div>
+<div id="decision">
+  <h1 id="icono-decision" class="glyphicon glyphicon-alert"></h1>
+  <h1 id="text-decision"></h1>
+  <button id="decision-si">SI</button>
+  <button id="decision-no">NO</button>
 </div>
