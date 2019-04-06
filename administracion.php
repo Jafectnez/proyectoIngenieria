@@ -411,11 +411,12 @@
 	<script src="js/carousel.js"></script>
 	<script src="js/pestañas.js"></script>
 	<script src="js/menu.js"></script>
+	
+	<!--Extensiones-->
+	<script src="extensiones/datatables.min.js"></script>
 
 	<script src="js/controladores/validaciones.js"></script>
 	<script src="js/controladores/popup.js"></script>
 	<script src="js/controladores/administracion.js"></script>
 
-	<!--Extensiones-->
-	<script src="extensiones/datatables.min.js"></script>
 </html>
