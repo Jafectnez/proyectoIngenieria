@@ -367,8 +367,8 @@
 										</div>
 										<div class="row modal-body">
 											<!-- Formulario -->
-											<div class="form-group col-md-12">
-												<label for="descripcion">Descripcion:</label>	
+											<div class="form-group col-md-12"> 
+												<label for="descripcion">Descripcion: <label style="color:red;">*</label></label>	
 												<br>													
 												<textarea id="descripcion" name="descripcion" cols="55" rows="3"></textarea>
 											</div>
@@ -380,18 +380,22 @@
 											</div>												
 
 											<div class="form-group col-12 col-sm-6 col-md-6">
-												<label for="fecha-inicio">Fecha Inicio:</label>
+												<label for="fecha-inicio">Fecha Inicio: <label style="color:red;">*</label></label>
 												<input type="date" id="fecha-inicio" class="form-control" placeholder="1999-12-31" style="padding-top:0">
 											</div>
 
 											<div class="form-group col-12 col-sm-6 col-md-6">
-												<label for="fecha-final">Fecha Final:</label>
+												<label for="fecha-final">Fecha Final: <label style="color:red;">*</label></label>
 												<input type="date" id="fecha-final" class="form-control" placeholder="1999-12-31" style="padding-top:0">
-											</div>													
+											</div>	
+
+											<div class="form-group col-12 col-sm-12 centroMsj">
+												<p id="msj"></p>
+											</div>												
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-											<button type="button" class="btn btn-primary">Crear</button>
+											<button id="crearPromo" type="button" class="btn btn-primary">Crear</button>
 										</div>
 									</div>
 								</div>

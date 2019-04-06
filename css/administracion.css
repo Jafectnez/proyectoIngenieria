@@ -22,3 +22,8 @@ body{
 .palido{
   color: #7a98b1;
 }
+
+.centroMsj{
+  text-align: center;
+  color: red;
+}
