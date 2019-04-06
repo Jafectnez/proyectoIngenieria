@@ -11,8 +11,6 @@
       //Acciones con los empleados
       case 'leer-empleados':
         $res['data'] = Empleado::leer($conexion);
-        $res['data']['mensaje'] = 'Listado de Empleados';
-        $res['data']['resultado'] = true;
         echo json_encode($res);
       break;
       case 'leer-empleado-id':
@@ -52,15 +50,15 @@
       break;
       case 'actualizar-empleado':
         $idEmpleado = ValidarPost::unsigned('id_empleado');
-        $genero = ValidarPost::varchar('genero');
         $nombre = ValidarPost::varchar('nombre');
         $apellido = ValidarPost::varchar('apellido');
-        $edad = ValidarPost::varchar('edad');
-        $telefono = ValidarPost::varchar('telefono');
-        $email = ValidarPost::varchar('email');
-        $fechaNacimiento = ValidarPost::varchar('fecha_nacimiento');
+        $genero = ValidarPost::varchar('genero');
         $direccion = ValidarPost::varchar('direccion');
+        $edad = ValidarPost::varchar('edad');
+        $email = ValidarPost::varchar('email');
         $numeroIdentidad = ValidarPost::varchar('numero_identidad');
+        $fechaNacimiento = ValidarPost::varchar('fecha_nacimiento');
+        $telefono = ValidarPost::varchar('telefono');
         $fechaIngreso = ValidarPost::date('fecha_ingreso');
         
         $empleado = new Empleado();
@@ -78,19 +76,6 @@
         $res['data'] = $empleado->actualizar($conexion);
         echo json_encode($res);
       break;
-      case 'actualizar-perfil':
-        $idEmpleado = ValidarPost::unsigned('id_empleado');
-        $email = ValidarPost::varchar('email');
-        $telefono = ValidarPost::varchar('telefono');
-        $direccion = ValidarPost::varchar('direccion');
-        $empleado = new Empleado();
-        $empleado->setIdEmpleado($idEmpleado);
-        $empleado->setEmail($email);
-        $empleado->setTelefono($telefono);
-        $empleado->setDireccion($direccion);
-        $res['data'] = $empleado->actualizarPerfil($conexion);
-        echo json_encode($res);
-      break;
       case 'eliminar-empleado':
         $idEmpleado = ValidarPost::unsigned('id_empleado');
         $empleado = new Empleado();
@@ -102,8 +87,6 @@
       //Acciones con las solicitudes
       case 'leer-solicitudes':
         $res['data'] = Solicitud::leer($conexion);
-        $res['data']['mensaje'] = 'Listado de Solicitudes';
-        $res['data']['resultado'] = true;
         echo json_encode($res);
       break;
       case 'leer-solicitud-id':
@@ -111,7 +94,7 @@
         $solicitud = new Solicitud();
         $solicitud->setIdSolicitud($idSolicitud);
         $res['data'] = $solicitud->leerPorId($conexion);
-        $res['data']['mensaje'] = 'Solicitud con id ' + $idSolicitud;
+        $res['data']['mensaje'] = 'Solicitud con id '. $idSolicitud;
         $res['data']['resultado'] = true;
         echo json_encode($res);
       break;

@@ -1,5 +1,6 @@
 //  FORMAS
-let formaEmpleado = new Forma('agregarempleado');
+let popUp = new Popup();
+/*let popUp = new PopUp();
 formaEmpleado.addInput('slc-genero');
 formaEmpleado.addInput('nombre', /^[A-Z]+[A-Za-záéíóúñ]+$/, true);
 formaEmpleado.addInput('apellido', /^[A-Z]+[A-Za-záéíóúñ]+$/, true);
@@ -13,120 +14,67 @@ formaEmpleado.addInput('fecha-ingreso');
 
 formaEmpleado.setButtonEnvio('guardar-empleado');
 formaEmpleado.setButtonUpdate('actualizar-empleado');
-Forma.addTrigger(formaEmpleado);
+Forma.addTrigger(formaEmpleado);*/
 
 $(document).ready(function() {
 
-  cargarSolicitudes();
-  cargarEmpleados();
+  //Carga las solicitudes registradas
+  $("#table-solicitudes").DataTable({
+    pageLength: 10,
+    searching: true,
+    ordering: true,
+    paging: true,
+    responsive: true,
+    serverSide: true,
+    ajax: {
+      "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+      "method": "POST",
+      "dataType": "json",
+      "data": {
+        "accion" : "leer-solicitudes"
+      }
+    },
+    columns: [
+      {data: "NOMBRE", title: "Nombre"},
+      {data: "DESCRIPCION", title: "Descripcion"},
+      {data: "USUARIO", title: "Usuario"},
+      {data: "ESTADO_SOLICITUD", title: "Estado Solicitud"},
+      {data: "FECHA", title: "Fecha"},
+      {data: null, title: "Acciones",
+      render: function (data, type, row, meta) {
+        return `<button class="form-control" data-toggle="modal" data-target="#modalVerSolicitud" onclick="verSolicitud(${row.ID_SOLICITUD});">Ver más</button>`;
+      }}
+    ]
+  });
+  
+  //Carga los empleados registrados 
+  $("#table-empleados").DataTable({
+    pageLength: 10,
+    searching: true,
+    ordering: true,
+    paging: true,
+    responsive: true,
+    serverSide: true,
+    ajax: {
+      "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+      "method": "POST",
+      "dataType": "json",
+      "data": {
+        "accion" : "leer-empleados"
+      }
+    },
+    columns: [
+      {data: "NOMBRE", title: "Nombre"},
+      {data: "TELEFONO", title: "Teléfono"},
+      {data: "FECHA_INGRESO", title: "Fecha de Ingreso"},
+      {data: null, title: "Acciones",
+      render: function (data, type, row, meta) {
+        return `<button class="form-control" data-toggle="modal" data-target="#modalVerEmpleado" onclick="verEmpleado(${row.ID_EMPLEADO});">Ver más</button>`;
+      }}
+    ]
+  });
 
 });
-
-/* Funcion para cargar las solicitudes registradas */
-function cargarSolicitudes() {
-  //Obtencion de datos del servidor
-  var parametrosAjax = {
-    "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
-    "method": "POST",
-    "dataType": "json",
-    "data": {
-      "accion" : "leer-solicitudes"
-    }
-  };
-
-  $.ajax(parametrosAjax).done(function (response) {
-    var datos = response.data;
-    //Creacion de los registros de la tabla
-    for(let i in datos){
-      if(datos[i] != datos.mensaje && datos[i] != datos.resultado){
-        var tr = document.createElement("tr");
-
-        var tdNombre = document.createElement("td");
-        var tdDescripcion = document.createElement("td");
-        var tdUsuario = document.createElement("td");
-        var tdEstadoSolicitud = document.createElement("td");
-        var tdFecha = document.createElement("td");
-        var tdBtnAcciones = document.createElement("td");
-        var btnAcciones = document.createElement("button");
-
-        var nombre = document.createTextNode(datos[i].NOMBRE + " " + datos[i].APELLIDO);
-        var descripcion = document.createTextNode(datos[i].DESCRIPCION);
-        var usuario = document.createTextNode(datos[i].USUARIO);
-        var estadoSolicitud = document.createTextNode(datos[i].ESTADO_SOLICITUD);
-        var fecha = document.createTextNode(datos[i].FECHA);
-        btnAcciones.className = "form-control";
-        btnAcciones.innerText = "Ver más";
-        btnAcciones.setAttribute("data-toggle","modal");
-        btnAcciones.setAttribute("data-target","#modalVerSolicitud");
-        btnAcciones.setAttribute("onclick","verSolicitud("+datos[i].ID_SOLICITUD+");");
-  
-        tdNombre.appendChild(nombre);
-        tdDescripcion.appendChild(descripcion);
-        tdUsuario.appendChild(usuario);
-        tdEstadoSolicitud.appendChild(estadoSolicitud);
-        tdFecha.appendChild(fecha);
-        tdBtnAcciones.appendChild(btnAcciones);
-
-        tr.appendChild(tdNombre);
-        tr.appendChild(tdDescripcion);
-        tr.appendChild(tdUsuario);
-        tr.appendChild(tdEstadoSolicitud);
-        tr.appendChild(tdFecha);
-        tr.appendChild(tdBtnAcciones);
-
-        $("#table-solicitudes").append(tr);
-      }
-    }
-  });
-}
-
-/*Funcion para cargar los empleados registrados */
-function cargarEmpleados() {
-  //Obtencion de datos del servidor
-  var parametrosAjax = {
-    "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
-    "method": "POST",
-    "dataType": "json",
-    "data": {
-      "accion" : "leer-empleados"
-    }
-  };
-
-  $.ajax(parametrosAjax).done(function (response) {
-    var datos = response.data;
-    //Creacion de los registros de la tabla
-    for(let i in datos){
-      if(datos[i] != datos.mensaje && datos[i] != datos.resultado){
-        var tr = document.createElement("tr");
-
-        var tdNombre = document.createElement("td");
-        var tdTelefono = document.createElement("td");
-        var tdFechaIngreso = document.createElement("td");
-        var tdBtnAcciones = document.createElement("td");
-        var nombre = document.createTextNode(datos[i].NOMBRE + " " + datos[i].APELLIDO);
-        var telefono = document.createTextNode(datos[i].TELEFONO);
-        var fechaIngreso = document.createTextNode(datos[i].FECHA_INGRESO);
-        var btnAcciones = document.createElement("button");
-        btnAcciones.className = "form-control";
-        btnAcciones.innerText = "Ver más";
-        btnAcciones.setAttribute("data-toggle","modal");
-        btnAcciones.setAttribute("data-target","#modalVerEmpleado");
-        btnAcciones.setAttribute("onclick",`verEmpleado(${datos[i].ID_EMPLEADO});`);
-        
-        tdNombre.appendChild(nombre);
-        tdTelefono.appendChild(telefono);
-        tdFechaIngreso.appendChild(fechaIngreso);
-        tdBtnAcciones.appendChild(btnAcciones);
-        tr.appendChild(tdNombre);
-        tr.appendChild(tdTelefono);
-        tr.appendChild(tdFechaIngreso);
-        tr.appendChild(tdBtnAcciones);
-
-        $("#table-empleados").append(tr);
-      }
-    }
-  });
-}
 
 /* Funcion para guardar empleado nuevo */
 $('#guardar-empleado').click(function(){
@@ -155,19 +103,46 @@ $('#guardar-empleado').click(function(){
     }
   }
 
-  alert(JSON.stringify(settings.data));
-
   $.ajax(settings).done(function (response) {
-    alert(response.mensaje);
+    console.log(response.data.mensaje);
+    $('#table-empleados').DataTable().ajax.reload();
   });
 
 });
 
+var idSolicitudVisible;
 /* Funcion para ver los datos de una solicitud */
 function verSolicitud(idSolicitud) {
-  
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+    "method": "POST",
+    "dataType": "json",
+    "headers": {
+      "content-type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "accion": "leer-solicitud-id",
+
+      "id_solicitud": parseInt(idSolicitud)
+    }
+  }
+
+  $.ajax(settings).done(function (response) {
+    datosSolicitud = response.data;
+    $('#solicitante').text(`${datosSolicitud.NOMBRE} ${datosSolicitud.APELLIDO}`);
+    $('#descripcion-solicitud').text(datosSolicitud.DESCRIPCION);
+    $('#usuario-solicitante').text(datosSolicitud.USUARIO);
+    $('#email-solicitante').text(datosSolicitud.EMAIL);
+    $('#estado-solicitud').text(datosSolicitud.ESTADO_SOLICITUD);
+    $('#fecha-solicitud').text(datosSolicitud.FECHA);
+
+    idSolicitudVisible = idSolicitud;
+  });
 }
 
+var idEmpleadoVisible;
 /* Funcion para ver los datos de un empleado */
 function verEmpleado(idEmpleado){
   var settings = {
@@ -186,7 +161,7 @@ function verEmpleado(idEmpleado){
     }
   }
 
-  $.ajax(settings).done(function (response) {  
+  $.ajax(settings).done(function (response) {
     datosEmpleado = response.data;
     $('#spn-nombre').text(datosEmpleado.NOMBRE);
     $('#spn-apellido').text(datosEmpleado.APELLIDO);
@@ -211,8 +186,8 @@ function verEmpleado(idEmpleado){
     $('#telefono-actualizar').val(datosEmpleado.TELEFONO);
     $('#fecha-ingreso-actualizar').val(datosEmpleado.FECHA_INGRESO);
     $('#fecha-nacimiento-actualizar').val(datosEmpleado.FECHA_NAC);
-    $('#usuario-actualizar').val(datosEmpleado.USUARIO);
-    $('#fecha-registro-actualizar').val(datosEmpleado.FECHA_REGISTRO);
+
+    idEmpleadoVisible = idEmpleado;
   });
 }
 
@@ -227,12 +202,6 @@ $("#editar-empleado").click(function(){
 
 /* Actualizar empleado */
 $("#actualizar-empleado").click(function(){
-  $("#formulario-actualizar-empleado").addClass("hide");
-  $("#datos-empleado").removeClass("hide");
-  $("#actualizar-empleado").addClass("hide");
-  $("#eliminar-empleado").removeClass("hide");
-  $("#editar-empleado").removeClass("hide");
-  /*
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -245,24 +214,39 @@ $("#actualizar-empleado").click(function(){
     "data": {
       "accion": "actualizar-empleado",
 
-      "id_empleado": $('#id-empleado').val(),
-      "nombre": $('#nombre').val(),
-      "apellido": $('#apellido').val(),
-      "genero": $('#slc-genero').val(),
-      "direccion": $('#direccion').val(),
-      "email": $('#email').val(),
-      "identidad": $('#numero-identidad').val(),
-      "fecha_nacimiento": $('#fecha-nacimiento').val(),
-      "telefono": $('#telefono').val(),
-      "fecha_ingreso": $('#fecha-ingreso').val(),
+      "id_empleado": idEmpleadoVisible,
+      "nombre": $('#nombre-actualizar').val(),
+      "apellido": $('#apellido-actualizar').val(),
+      "genero": $('#slc-genero-actualizar').val(),
+      "direccion": $('#direccion-actualizar').val(),
+      "edad": $('#edad-actualizar').val(),
+      "email": $('#email-actualizar').val(),
+      "numero_identidad": $('#numero-identidad-actualizar').val(),
+      "fecha_nacimiento": $('#fecha-nacimiento-actualizar').val(),
+      "telefono": $('#telefono-actualizar').val(),
+      "fecha_ingreso": $('#fecha-ingreso-actualizar').val(),
     }
   }
 
   $.ajax(settings).done(function (response) {
-    alert(response.mensaje);
-    $("#actualizar-empleado").addClass("hide");
-    $("#eliminar-empleado").removeClass("hide");
-  });*/
+    if(response.data.error == "1"){
+      popUp.setTexto(response.data.mensaje);
+      popUp.incorrecto();
+      popUp.mostrar();
+    }
+    else{
+      popUp.setTexto(response.data.mensaje);
+      popUp.correcto();
+      popUp.mostrar();
+      $("#formulario-actualizar-empleado").addClass("hide");
+      $("#datos-empleado").removeClass("hide");
+      $("#actualizar-empleado").addClass("hide");
+      $("#eliminar-empleado").removeClass("hide");
+      $("#editar-empleado").removeClass("hide");
+
+      verEmpleado(idEmpleadoVisible);
+    }
+  });
 
 });
 

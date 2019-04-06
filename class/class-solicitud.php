@@ -8,12 +8,12 @@
     private $descripcion;
     private $fechaEmision;
     public function __construct(
-      $idSolicitud,
-      $idUsuarioEmisor,
-      $idUsuarioReceptor,
-      $idEstadoSolicitud,
-      $descripcion,
-      $fechaEmision
+      $idSolicitud = null,
+      $idUsuarioEmisor = null,
+      $idUsuarioReceptor = null,
+      $idEstadoSolicitud = null,
+      $descripcion = null,
+      $fechaEmision = null
     ){
       $this->idSolicitud = $idSolicitud;
       $this->idUsuarioEmisor = $idUsuarioEmisor;
@@ -71,7 +71,13 @@
 
     public static function leer($conexion){
       $sql = 
-      ' SELECT * FROM TBL_SOLICITUDES A
+      ' SELECT A.ID_SOLICITUD,
+               C.NOMBRE,
+               A.DESCRIPCION,
+               D.USUARIO,
+               E.ESTADO_SOLICITUD,
+               A.FECHA
+        FROM TBL_SOLICITUDES A
         INNER JOIN TBL_EMPLEADO B
         ON (A.ID_USUARIO_EMISOR = B.ID_USUARIO)
         INNER JOIN TBL_PERSONAS C
@@ -85,11 +91,22 @@
     }
     public function leerPorId($conexion){
       $sql = 
-      ' SELECT * FROM TBL_SOLICITUDES A
+      ' SELECT C.NOMBRE,
+               C.APELLIDO,
+               A.DESCRIPCION,
+               E.USUARIO,
+               C.EMAIL,
+               D.ESTADO_SOLICITUD,
+               A.FECHA
+        FROM TBL_SOLICITUDES A
         INNER JOIN TBL_EMPLEADO B
         ON (A.ID_USUARIO_EMISOR = B.ID_USUARIO)
-        INNER JOIN TBL_PERSONA C
+        INNER JOIN TBL_PERSONAS C
         ON (B.ID_PERSONA = C.ID_PERSONA)
+        INNER JOIN TBL_ESTADO_SOLICITUD D
+        ON (A.ID_ESTADO_SOLICITUD = D.ID_ESTADO_SOLICITUD)
+        INNER JOIN TBL_USUARIOS E
+        ON (A.ID_USUARIO_EMISOR = E.ID_USUARIO)
         WHERE ID_SOLICITUD = %s
       ';
       $valores = [$this->getIdSolicitud()];

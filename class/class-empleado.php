@@ -40,7 +40,11 @@
     }
     public static function leer($conexion){
       $sql = 
-      ' SELECT * FROM TBL_EMPLEADO A
+      ' SELECT A.ID_EMPLEADO,
+               B.NOMBRE,
+               B.TELEFONO,
+               A.FECHA_INGRESO
+        FROM TBL_EMPLEADO A
         INNER JOIN TBL_PERSONAS B
         ON (A.ID_PERSONA = B.ID_PERSONA)';
       $rows = $conexion->query($sql);
@@ -48,7 +52,19 @@
     }
     public function leerPorId($conexion){
       $sql = 
-      ' SELECT * FROM TBL_EMPLEADO A
+      ' SELECT B.NOMBRE,
+               B.APELLIDO,
+               D.GENERO,
+               B.DIRECCION,
+               B.EDAD,
+               B.EMAIL,
+               B.IDENTIDAD,
+               B.TELEFONO,
+               A.FECHA_INGRESO,
+               B.FECHA_NAC,
+               C.USUARIO,
+               C.FECHA_REGISTRO
+        FROM TBL_EMPLEADO A
         INNER JOIN TBL_PERSONAS B
         ON (A.ID_PERSONA = B.ID_PERSONA)
         INNER JOIN TBL_USUARIOS C
@@ -73,11 +89,12 @@
         $this->getApellido(),
         $this->getGenero(),
         $this->getDireccion(),
+        $this->getEdad(),
         $this->getEmail(),
         $this->getNumeroIdentidad(),
         $this->getFechaNacimiento(),
         $this->getTelefono(),
-        $this->getEdad()
+        $this->getFechaIngreso()
       ];
       $rows = $conexion->query($sql, $valores);
       return $rows[0];
@@ -93,7 +110,7 @@
     public function actualizar($conexion){
       $sql = "
       CALL SP_ACTUALIZAR_EMPLEADO(
-        '%d','%s','%s','%s','%s','%s','%s',DATE('%s'),'%s','%s', @mensaje, @error
+        '%d','%s','%s','%d','%s','%s','%s',DATE('%s'),'%s','%s', @mensaje, @error
       );
       ";
       $valores = [
@@ -110,19 +127,6 @@
       ];
       $rows = $conexion->query($sql, $valores);
       return $rows[0];
-    }
-    public function actualizarPerfil($conexion){
-      $sql = "
-        CALL SP_ACTUALIZAR_PERFIL(
-          '%d','%s','%s','%s', @mensaje, @error
-        );
-      ";
-      $valores = [
-        $this->getIdEmpleado(),
-        $this->getEmail(),
-        $this->getTelefono(),
-        $this->getDireccion()
-      ];
     }
   }
 
