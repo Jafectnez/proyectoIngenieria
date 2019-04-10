@@ -1,27 +1,11 @@
-//  FORMAS
+// Alerta
 let popUp = new Popup();
-/*let popUp = new PopUp();
-formaEmpleado.addInput('slc-genero');
-formaEmpleado.addInput('nombre', /^[A-Z]+[A-Za-záéíóúñ]+$/, true);
-formaEmpleado.addInput('apellido', /^[A-Z]+[A-Za-záéíóúñ]+$/, true);
-formaEmpleado.addInput('edad', /^[1-9][0-9]{2}$/,true);
-formaEmpleado.addInput('telefono',/^(2|3|8|9)[0-9]{3}\-[0-9]{4}$/,true);
-formaEmpleado.addInput('email', /^[a-zA-Z0-9\._-]+@([_a-zA-Z0-9])+(\.[a-zA-Z]+)+$/, true);
-formaEmpleado.addInput('fecha-nacimiento');
-formaEmpleado.addInput('direccion', /.+/, true);
-formaEmpleado.addInput('numero-identidad', /^(0[1-9]|1[0-8])(0[1-9]|1[0-9]|2[1-8])(19|20)[0-1][0-9][0-9]{5}$/, true);
-formaEmpleado.addInput('fecha-ingreso');
-
-formaEmpleado.setButtonEnvio('guardar-empleado');
-formaEmpleado.setButtonUpdate('actualizar-empleado');
-Forma.addTrigger(formaEmpleado);*/
 
 $(document).ready(function() {
 
   //Carga las solicitudes registradas
   $("#table-solicitudes").DataTable({
     pageLength: 10,
-    searching: true,
     ordering: true,
     paging: true,
     responsive: true,
@@ -38,7 +22,9 @@ $(document).ready(function() {
       {data: "NOMBRE", title: "Nombre"},
       {data: "DESCRIPCION", title: "Descripcion"},
       {data: "USUARIO", title: "Usuario"},
-      {data: "ESTADO_SOLICITUD", title: "Estado Solicitud"},
+      {data: "ESTADO_SOLICITUD", title: "Estado Solicitud", render: function ( data, type, row, meta ) {
+        return `<b>${data}</b>`;
+      }},
       {data: "FECHA", title: "Fecha"},
       {data: null, title: "Acciones",
       render: function (data, type, row, meta) {
@@ -50,7 +36,6 @@ $(document).ready(function() {
   //Carga los empleados registrados 
   $("#table-empleados").DataTable({
     pageLength: 10,
-    searching: true,
     ordering: true,
     paging: true,
     responsive: true,
@@ -76,48 +61,28 @@ $(document).ready(function() {
 
 });
 
-/* Funcion para guardar empleado nuevo */
-$('#guardar-empleado').click(function(){
-  var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
-    "method": "POST",
-    "dataType": "json",
-    "headers": {
-      "content-type": "application/x-www-form-urlencoded"
-    },
-    "data": {
-      "accion": "insertar-empleado",
-
-      "nombre": $('#nombre-fAgregar').val(),
-      "apellido": $('#apellido-fAgregar').val(),
-      "genero": $('#slc-genero-fAgregar').val(),
-      "direccion": $('#direccion-fAgregar').val(),
-      "edad": $('#edad-fAgregar').val(),
-      "email": $('#email-fAgregar').val(),
-      "identidad": $('#numero-identidad-fAgregar').val(),
-      "telefono": $('#telefono-fAgregar').val(),
-      "fecha_nacimiento": $('#fecha-nacimiento-fAgregar').val(),
-      "fecha_ingreso": $('#fecha-ingreso-fAgregar').val()
-    }
+function validarEmpleado(parametros) {
+  var control = true
+  var regexEmpleado = {
+                "nombre": /^[A-Z]+[A-Za-záéíóúñ]+$/,
+                "apellido": /^[A-Z]+[A-Za-záéíóúñ]+$/,
+                "genero": /.+$/,
+                "direccion": /.+/,
+                "edad": /^[1-9]{2}$/,
+                "email": /^[a-zA-Z0-9\._-]+@([_a-zA-Z0-9])+(\.[a-zA-Z]+)+$/,
+                "identidad": /^(0[1-9]|1[0-8])(0[1-9]|1[0-9]|2[1-8])(19|20)[0-1][0-9][0-9]{5}$/,
+                "telefono": /^(2|3|8|9)[0-9]{3}\-[0-9]{4}$/,
+                "fecha_nacimiento": /.+/,
+                "fecha_ingreso": /.+/
+              };
+  
+  for(let i in parametros){
+    if(!validarCampoVacio(parametros[i], regexEmpleado[i])) 
+      control = false;
   }
 
-  $.ajax(settings).done(function (response) {
-    if(response.data.error == "1"){
-      popUp.setTexto(response.data.mensaje);
-      popUp.incorrecto();
-      popUp.mostrar();
-    }
-    else{
-      popUp.setTextoAlerta(response.data.mensaje);
-      popUp.correcto();
-      popUp.mostrarAlerta();
-      $('#table-empleados').DataTable().ajax.reload();
-    }
-  });
-
-});
+  return control;
+}
 
 var idSolicitudVisible;
 /* Funcion para ver los datos de una solicitud */
@@ -148,6 +113,16 @@ function verSolicitud(idSolicitud) {
     $('#fecha-solicitud').text(datosSolicitud.FECHA);
 
     idSolicitudVisible = idSolicitud;
+
+    if(datosSolicitud.ID_ESTADO_SOLICITUD == 2)
+      $('#estado-solicitud').css("color", "rgb(255,0,0)");
+    else if(datosSolicitud.ID_ESTADO_SOLICITUD == 3)
+      $('#estado-solicitud').css("color", "rgb(0,255,0)");
+
+    if(datosSolicitud.ID_ESTADO_SOLICITUD != 1){
+      $("#denegar-solicitud").addClass("hide");
+      $("#aceptar-solicitud").addClass("hide");
+    }
   });
 }
 
@@ -200,6 +175,69 @@ function verEmpleado(idEmpleado){
   });
 }
 
+/* Funcion para guardar empleado nuevo */
+$('#guardar-empleado').click(function(){
+  parametros = {
+                "nombre": 'nombre-fAgregar',
+                "apellido": 'apellido-fAgregar',
+                "genero": 'slc-genero-fAgregar',
+                "direccion": 'direccion-fAgregar',
+                "edad": 'edad-fAgregar',
+                "email": 'email-fAgregar',
+                "identidad": 'numero-identidad-fAgregar',
+                "telefono": 'telefono-fAgregar',
+                "fecha_nacimiento": 'fecha-nacimiento-fAgregar',
+                "fecha_ingreso": 'fecha-ingreso-fAgregar'
+              };
+
+  validacion = validarEmpleado(parametros);
+  if(validacion){
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+      "method": "POST",
+      "dataType": "json",
+      "headers": {
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      "data": {
+        "accion": "insertar-empleado",
+  
+        "nombre": $('#nombre-fAgregar').val(),
+        "apellido": $('#apellido-fAgregar').val(),
+        "genero": $('#slc-genero-fAgregar').val(),
+        "direccion": $('#direccion-fAgregar').val(),
+        "edad": $('#edad-fAgregar').val(),
+        "email": $('#email-fAgregar').val(),
+        "identidad": $('#numero-identidad-fAgregar').val(),
+        "telefono": $('#telefono-fAgregar').val(),
+        "fecha_nacimiento": $('#fecha-nacimiento-fAgregar').val(),
+        "fecha_ingreso": $('#fecha-ingreso-fAgregar').val()
+      }
+    }
+  
+    $.ajax(settings).done(function (response) {
+      if(response.data.error == "1"){
+        popUp.setTextoAlerta(response.data.mensaje);
+        popUp.incorrecto();
+        popUp.mostrarAlerta();
+      }
+      else{
+        popUp.setTextoAlerta(response.data.mensaje);
+        popUp.correcto();
+        popUp.mostrarAlerta();
+        $('#table-empleados').DataTable().ajax.reload();
+      }
+    });
+  }else{
+    popUp.setTextoAlerta("Formato incorrecto en un dato, verifique e intente nuevamente");
+    popUp.incorrecto();
+    popUp.mostrarAlerta();
+  }
+
+});
+
 /* Editar Empleado */
 $("#editar-empleado").click(function(){
   $("#formulario-actualizar-empleado").removeClass("hide");
@@ -211,51 +249,71 @@ $("#editar-empleado").click(function(){
 
 /* Actualizar empleado */
 $("#actualizar-empleado").click(function(){
-  var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
-    "method": "POST",
-    "dataType": "json",
-    "headers": {
-      "content-type": "application/x-www-form-urlencoded"
-    },
-    "data": {
-      "accion": "actualizar-empleado",
+  parametros = {
+                "nombre": 'nombre-actualizar',
+                "apellido": 'apellido-actualizar',
+                "genero": 'slc-genero-actualizar',
+                "direccion": 'direccion-actualizar',
+                "edad": 'edad-actualizar',
+                "email": 'email-actualizar',
+                "identidad": 'numero-identidad-actualizar',
+                "telefono": 'telefono-actualizar',
+                "fecha_nacimiento": 'fecha-nacimiento-actualizar',
+                "fecha_ingreso": 'fecha-ingreso-actualizar'
+              };
 
-      "id_empleado": idEmpleadoVisible,
-      "nombre": $('#nombre-actualizar').val(),
-      "apellido": $('#apellido-actualizar').val(),
-      "genero": $('#slc-genero-actualizar').val(),
-      "direccion": $('#direccion-actualizar').val(),
-      "edad": $('#edad-actualizar').val(),
-      "email": $('#email-actualizar').val(),
-      "numero_identidad": $('#numero-identidad-actualizar').val(),
-      "fecha_nacimiento": $('#fecha-nacimiento-actualizar').val(),
-      "telefono": $('#telefono-actualizar').val(),
-      "fecha_ingreso": $('#fecha-ingreso-actualizar').val(),
+  validacion = validarEmpleado(parametros);
+  if(validacion){
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+      "method": "POST",
+      "dataType": "json",
+      "headers": {
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      "data": {
+        "accion": "actualizar-empleado",
+
+        "id_empleado": idEmpleadoVisible,
+        "nombre": $('#nombre-actualizar').val(),
+        "apellido": $('#apellido-actualizar').val(),
+        "genero": $('#slc-genero-actualizar').val(),
+        "direccion": $('#direccion-actualizar').val(),
+        "edad": $('#edad-actualizar').val(),
+        "email": $('#email-actualizar').val(),
+        "numero_identidad": $('#numero-identidad-actualizar').val(),
+        "fecha_nacimiento": $('#fecha-nacimiento-actualizar').val(),
+        "telefono": $('#telefono-actualizar').val(),
+        "fecha_ingreso": $('#fecha-ingreso-actualizar').val()
+      }
     }
+
+    $.ajax(settings).done(function (response) {
+      if(response.data.error == "1"){
+        popUp.setTextoAlerta(response.data.mensaje);
+        popUp.incorrecto();
+        popUp.mostrarAlerta();
+      }
+      else{
+        popUp.setTextoAlerta(response.data.mensaje);
+        popUp.correcto();
+        popUp.mostrarAlerta();
+        $("#formulario-actualizar-empleado").addClass("hide");
+        $("#datos-empleado").removeClass("hide");
+        $("#actualizar-empleado").addClass("hide");
+        $("#eliminar-empleado").removeClass("hide");
+        $("#editar-empleado").removeClass("hide");
+
+        verEmpleado(idEmpleadoVisible);
+      }
+    });
+  }else{
+    popUp.setTextoAlerta("Formato incorrecto en un dato, verifique e intente nuevamente");
+    popUp.incorrecto();
+    popUp.mostrarAlerta();
   }
-
-  $.ajax(settings).done(function (response) {
-    if(response.data.error == "1"){
-      popUp.setTextoAlerta(response.data.mensaje);
-      popUp.incorrecto();
-      popUp.mostrarAlerta();
-    }
-    else{
-      popUp.setTextoAlerta(response.data.mensaje);
-      popUp.correcto();
-      popUp.mostrarAlerta();
-      $("#formulario-actualizar-empleado").addClass("hide");
-      $("#datos-empleado").removeClass("hide");
-      $("#actualizar-empleado").addClass("hide");
-      $("#eliminar-empleado").removeClass("hide");
-      $("#editar-empleado").removeClass("hide");
-
-      verEmpleado(idEmpleadoVisible);
-    }
-  });
 
 });
 
@@ -286,9 +344,9 @@ $("#eliminar-empleado").click(function(){
   
     $.ajax(settings).done(function (response) {
       if(response.data.error == "1"){
-        popUp.setTexto(response.data.mensaje);
+        popUp.setTextoAlerta(response.data.mensaje);
         popUp.incorrecto();
-        popUp.mostrar();
+        popUp.mostrarAlerta();
       }
       else{
         popUp.setTextoAlerta(response.data.mensaje);
@@ -306,3 +364,76 @@ $("#eliminar-empleado").click(function(){
   });
 });
 
+/* Aceptar solicitud */
+$("#aceptar-solicitud").click(function(){
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+    "method": "POST",
+    "dataType": "json",
+    "headers": {
+      "content-type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "accion": "aceptar-solicitud",
+
+      "id_solicitud": idSolicitudVisible
+    }
+  }
+
+  $.ajax(settings).done(function (response) {
+    if(response.data.error == "1"){
+      popUp.setTextoAlerta(response.data.mensaje);
+      popUp.incorrecto();
+      popUp.mostrarAlerta();
+    }
+    else{
+      popUp.setTextoAlerta(response.data.mensaje);
+      popUp.correcto();
+      popUp.mostrarAlerta();
+      $("#denegar-solicitud").addClass("hide");
+      $('#table-solicitudes').DataTable().ajax.reload();
+
+      verSolicitud(idSolicitudVisible);
+    }
+  });
+
+});
+
+/* Denegar solicitud */
+$("#denegar-solicitud").click(function(){
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+    "method": "POST",
+    "dataType": "json",
+    "headers": {
+      "content-type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "accion": "denegar-solicitud",
+
+      "id_solicitud": idSolicitudVisible
+    }
+  }
+
+  $.ajax(settings).done(function (response) {
+    if(response.data.error == "1"){
+      popUp.setTextoAlerta(response.data.mensaje);
+      popUp.incorrecto();
+      popUp.mostrarAlerta();
+    }
+    else{
+      popUp.setTextoAlerta(response.data.mensaje);
+      popUp.correcto();
+      popUp.mostrarAlerta();
+      $("#aceptar-solicitud").addClass("hide");
+      $('#table-solicitudes').DataTable().ajax.reload();
+
+      verSolicitud(idSolicitudVisible);
+    }
+  });
+
+});

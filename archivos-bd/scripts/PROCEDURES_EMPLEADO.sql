@@ -125,13 +125,13 @@ SP:BEGIN
             P_FECHA_NAC,
             P_TELEFONO,
             P_EDAD);
+  COMMIT;
       
-  SET mensaje='Inserción exitosa';
+  SET mensaje='Creación exitosa';
   SET error=FALSE;
   SET P_MENSAJE=mensaje;
   SET P_ERROR=error;
   SELECT mensaje, error;
-  COMMIT;
 
 END;
 
@@ -179,13 +179,13 @@ SP:BEGIN
 
   DELETE FROM TBL_PERSONAS
   WHERE TBL_PERSONAS.ID_PERSONA = P_ID_PERSONA;
+  COMMIT;
       
   SET mensaje='Eliminación exitosa';
   SET error=FALSE;
   SET P_MENSAJE=mensaje;
   SET P_ERROR=error;
   SELECT mensaje, error;
-  COMMIT;
 
 END;
 
@@ -347,13 +347,13 @@ SP:BEGIN
     TBL_PERSONAS.DIRECCION = P_DIRECCION,
     TBL_PERSONAS.IDENTIDAD = P_IDENTIDAD
   WHERE TBL_PERSONAS.ID_PERSONA= P_ID_PERSONA;
+  COMMIT;
     
   SET mensaje='Actualización exitosa';
   SET error=FALSE;
   SET P_MENSAJE=mensaje;
   SET P_ERROR=error;
   SELECT mensaje, error;
-  COMMIT;
     
 END;
 
@@ -416,13 +416,13 @@ SP:BEGIN
             P_USUARIO,
             P_CONTRASEÑA,
             P_FECHA_REGISTRO);
+  COMMIT;
 
-  SET mensaje='Inserción exitosa';
+  SET mensaje='Creación exitosa';
   SET error = FALSE;
   SET P_MENSAJE=mensaje;
   SET P_ERROR=error;
   SELECT mensaje,error;
-  COMMIT;
 
 END ;
 
@@ -470,13 +470,13 @@ SP:BEGIN
 
   DELETE FROM TBL_USUARIOS
   WHERE TBL_USUARIOS.ID_USUARIO = P_ID_USUARIO;
+  COMMIT;
       
   SET mensaje='Eliminación exitosa';
   SET error=FALSE;
   SET P_MENSAJE=mensaje;
   SET P_ERROR=error;
   SELECT mensaje, error;
-  COMMIT;
 
 END;
 
@@ -588,13 +588,13 @@ SP:BEGIN
     VALUES( ultimoIdPersona,
             ultimoIdUsuario,
             SYSDATE());
+  COMMIT;
 
-  SET mensaje='Inserción exitosa';
+  SET mensaje='Creación exitosa';
   SET error = FALSE;
   SET P_MENSAJE=mensaje;
   SET P_ERROR=error;
   SELECT mensaje,error;
-  COMMIT;
 
 END ;
 
@@ -655,7 +655,6 @@ SP:BEGIN
   DELETE FROM TBL_EMPLEADO
   WHERE TBL_EMPLEADO.ID_EMPLEADO = P_ID_EMPLEADO;
 
-
   CALL SP_ELIMINAR_USUARIO( idUsuario,
                             @mensajeEliminarUsuarioEmpleado,
                             @errorEliminarUsuarioEmpleado
@@ -683,13 +682,13 @@ SP:BEGIN
     
     LEAVE SP;
   END IF;
+  COMMIT;
 
   SET mensaje='Eliminación exitosa';
   SET error=FALSE;
   SET P_MENSAJE=mensaje;
   SET P_ERROR=error;
   SELECT mensaje, error;
-  COMMIT;
   
 END;
 
@@ -797,15 +796,14 @@ SP:BEGIN
     SET P_MENSAJE=mensaje;
     SET P_ERROR=error;
     SELECT mensaje,error;
-    
     LEAVE SP;
   END IF;
+  COMMIT;
   
   SET mensaje='Actualización exitosa';
   SET error=FALSE;
   SET P_MENSAJE=mensaje;
   SET P_ERROR=error;
   SELECT mensaje,error;
-  COMMIT;
   
 END;

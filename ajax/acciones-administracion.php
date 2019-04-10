@@ -96,21 +96,20 @@
         $res['data']['resultado'] = true;
         echo json_encode($res);
       break;
-      case 'actualizar-solicitud':
-        $idSolicitud = ValidarPost::unsigned('id_solicitud');
-        $idEstadoSolicitud = ValidarPost::varchar('id_estado_solicitud');
-        
+      case 'aceptar-solicitud':
+        $idSolicitud = ValidarPost::unsigned('id_solicitud');        
         $solicitud = new Solicitud();
         $solicitud->setIdSolicitud($idSolicitud);
-        $solicitud->setIdEstadoSolicitud($idEstadoSolicitud);
+        $solicitud->setIdEstadoSolicitud(3);
         $res['data'] = $solicitud->actualizar($conexion);
         echo json_encode($res);
       break;
-      case 'eliminar-solicitud':
-        $idSolicitud = ValidarPost::unsigned('id_solicitud');
+      case 'denegar-solicitud':
+        $idSolicitud = ValidarPost::unsigned('id_solicitud');        
         $solicitud = new Solicitud();
         $solicitud->setIdSolicitud($idSolicitud);
-        $res['data'] = $solicitud->borrar($conexion);
+        $solicitud->setIdEstadoSolicitud(2);
+        $res['data'] = $solicitud->actualizar($conexion);
         echo json_encode($res);
       break;
 

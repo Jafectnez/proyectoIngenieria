@@ -91,7 +91,8 @@
     }
     public function leerPorId($conexion){
       $sql = 
-      ' SELECT C.NOMBRE,
+      ' SELECT A.ID_ESTADO_SOLICITUD,
+               C.NOMBRE,
                C.APELLIDO,
                A.DESCRIPCION,
                E.USUARIO,
@@ -117,15 +118,13 @@
     public function crear($conexion){
       $sql = "
         CALL SP_Insertar_Solicitud(
-          '%d','%d','%d','%s',DATE('%s'), @mensaje, @error
+          '%d','%d','%s', @mensaje, @error
         );
       ";
       $valores = [
         $this->getIdUsuarioEmisor(),
         $this->getIdUsuarioReceptor(),
-        $this->getIdEstadoSolicitud(),
-        $this->getDescripcion(),
-        $this->getFechaEmision()
+        $this->getDescripcion()
       ];
       $rows = $conexion->query($sql, $valores);
       return $rows[0];
@@ -141,10 +140,11 @@
     public function actualizar($conexion){
       $sql = "
       CALL SP_Actualizar_Solicitud(
-        '%d', @mensaje, @error
+        '%d','%d', @mensaje, @error
       );
       ";
       $valores = [
+        $this->getIdSolicitud(),
         $this->getIdEstadoSolicitud()
       ];
       $rows = $conexion->query($sql, $valores);
