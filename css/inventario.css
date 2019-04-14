@@ -1,0 +1,29 @@
+body{
+  padding: 0;
+}
+
+.container-fluid{
+  padding: 0 !important;
+  margin: 0;
+}
+
+.row{
+  margin: 0 !important;
+}
+
+#barraNav{
+  padding-bottom: 100%;
+}
+
+.sector-contenido{
+  padding-bottom: 100%;
+}
+
+.palido{
+  color: #7a98b1;
+}
+
+.centroMsj{
+  text-align: center;
+  color: red;
+}
