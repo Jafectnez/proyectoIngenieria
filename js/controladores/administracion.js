@@ -1,7 +1,8 @@
 // Alerta
-let popUp = new Popup();
+//
 
 $(document).ready(function() {
+  let popUp = new Popup();
 
   //Carga las solicitudes registradas
   $("#table-solicitudes").DataTable({
@@ -59,7 +60,6 @@ $(document).ready(function() {
     ]
   });
 
-});
 
 function validarEmpleado(parametros) {
   var control = true
@@ -68,7 +68,7 @@ function validarEmpleado(parametros) {
                 "apellido": /^[A-Z]+[A-Za-záéíóúñ]+$/,
                 "genero": /.+$/,
                 "direccion": /.+/,
-                "edad": /^[1-9]{2}$/,
+                "edad": /^[1-9][0-9]$/,
                 "email": /^[a-zA-Z0-9\._-]+@([_a-zA-Z0-9])+(\.[a-zA-Z]+)+$/,
                 "identidad": /^(0[1-9]|1[0-8])(0[1-9]|1[0-9]|2[1-8])(19|20)[0-1][0-9][0-9]{5}$/,
                 "telefono": /^(2|3|8|9)[0-9]{3}\-[0-9]{4}$/,
@@ -177,6 +177,7 @@ function verEmpleado(idEmpleado){
 
 /* Funcion para guardar empleado nuevo */
 $('#guardar-empleado').click(function(){
+  //alert("Este puto boton");
   parametros = {
                 "nombre": 'nombre-fAgregar',
                 "apellido": 'apellido-fAgregar',
@@ -437,3 +438,5 @@ $("#denegar-solicitud").click(function(){
   });
 
 });
+
+}); // fin document ready
