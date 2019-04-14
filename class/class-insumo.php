@@ -115,6 +115,20 @@
       $rows = $conexion->query($sql);
       return $rows;
     }
+    public static function leerTiposInsumo($conexion){
+      $sql = 
+      ' SELECT *
+        FROM TBL_TIPOS_INSUMOS';
+      $rows = $conexion->query($sql);
+      return $rows;
+    }
+    public static function leerProveedores($conexion){
+      $sql = 
+      ' SELECT *
+        FROM TBL_PROVEEDORES';
+      $rows = $conexion->query($sql);
+      return $rows;
+    }
     public function leerMenorCantidad($conexion){
       $sql = 
       ' SELECT A.ID_INSUMO,
@@ -176,9 +190,10 @@
       return $rows[0];
     }
     public function disminuir($conexion){
-      $sql = 'CALL SP_Disminuir_Insumo(%d, @mensaje, @error);';
+      $sql = "CALL SP_Disminuir_Insumo('%d','%d', @mensaje, @error);";
       $valores = [
-        $this->getIdInsumo()
+        $this->getIdInsumo(),
+        $this->getCantidad()
       ];
       $rows = $conexion->query($sql, $valores);
       return $rows[0];
@@ -186,10 +201,11 @@
     public function actualizar($conexion){
       $sql = "
         CALL SP_Actualizar_Insumo(
-          '%d','%d','%s','%s','%s','%s',DATE('%s'),DATE('%s'), @mensaje, @error
+          '%d','%d','%d','%s','%s','%s','%s',DATE('%s'),DATE('%s'), @mensaje, @error
         );
       ";
       $valores = [
+        $this->getIdInsumo(),
         $this->getIdTipoInsumo(),
         $this->getIdProveedor(),
         $this->getInsumo(),

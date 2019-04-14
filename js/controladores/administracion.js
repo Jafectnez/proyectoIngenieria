@@ -1,8 +1,7 @@
 // Alerta
-//
+let popUp = new Popup();
 
 $(document).ready(function() {
-  let popUp = new Popup();
 
   //Carga las solicitudes registradas
   $("#table-solicitudes").DataTable({
@@ -60,20 +59,22 @@ $(document).ready(function() {
     ]
   });
 
+}); // fin document ready
+
 
 function validarEmpleado(parametros) {
   var control = true
   var regexEmpleado = {
-                "nombre": /^[A-Z]+[A-Za-záéíóúñ]+$/,
-                "apellido": /^[A-Z]+[A-Za-záéíóúñ]+$/,
-                "genero": /.+$/,
-                "direccion": /.+/,
+                "nombre": /((^[A-Z]+[A-Za-záéíóúñ]+)((\s)(^[A-Z]+[A-Za-záéíóúñ]+)))*$/,
+                "apellido": /((^[A-Z]+[A-Za-záéíóúñ]+)((\s)(^[A-Z]+[A-Za-záéíóúñ]+)))*$/,
+                "genero": /[1-3]$/,
+                "direccion": /((^[A-Za-záéíóúñ0-9]+)((\s)(^[A-Z]+[A-Za-záéíóúñ0-9]+)))*$/,
                 "edad": /^[1-9][0-9]$/,
                 "email": /^[a-zA-Z0-9\._-]+@([_a-zA-Z0-9])+(\.[a-zA-Z]+)+$/,
                 "identidad": /^(0[1-9]|1[0-8])(0[1-9]|1[0-9]|2[1-8])(19|20)[0-1][0-9][0-9]{5}$/,
                 "telefono": /^(2|3|8|9)[0-9]{3}\-[0-9]{4}$/,
-                "fecha_nacimiento": /.+/,
-                "fecha_ingreso": /.+/
+                "fecha_nacimiento": /^(19[6-9][0-9]|200[0-9])\-(0[0-9]|1[0-2])\-([0-2][0-9]|3[0-1])$/,
+                "fecha_ingreso": /^(19[6-9][0-9]|20[0-1][0-9])\-(0[0-9]|1[0-2])\-([0-2][0-9]|3[0-1])$/
               };
   
   for(let i in parametros){
@@ -177,7 +178,6 @@ function verEmpleado(idEmpleado){
 
 /* Funcion para guardar empleado nuevo */
 $('#guardar-empleado').click(function(){
-  //alert("Este puto boton");
   parametros = {
                 "nombre": 'nombre-fAgregar',
                 "apellido": 'apellido-fAgregar',
@@ -438,5 +438,3 @@ $("#denegar-solicitud").click(function(){
   });
 
 });
-
-}); // fin document ready

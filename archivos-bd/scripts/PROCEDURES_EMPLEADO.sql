@@ -97,6 +97,14 @@ SP:BEGIN
     SET mensaje = CONCAT(mensaje, 'El correo electrónico ya existe, ');
   END IF;
 
+  IF P_FECHA_NAC ='' OR P_FECHA_NAC IS NULL THEN 
+    SET mensaje=CONCAT(mensaje, 'Fecha de nacimiento vacía, ');
+  ELSE 
+    IF P_FECHA_NAC > SYSDATE() THEN
+      SET mensaje=CONCAT(mensaje, 'Fecha de nacimiento es superior a la fecha actual, ');
+    END IF;
+  END IF;
+
   IF mensaje <> '' THEN
     SET mensaje=mensaje;
     SET error = TRUE;
@@ -267,6 +275,14 @@ SP:BEGIN
     END IF;
   END IF;
 
+  IF P_FECHA_NAC ='' OR P_FECHA_NAC IS NULL THEN 
+    SET mensaje=CONCAT(mensaje, 'Fecha de nacimiento vacía, ');
+  ELSE 
+    IF P_FECHA_NAC > SYSDATE() THEN
+      SET mensaje=CONCAT(mensaje, 'Fecha de nacimiento es superior a la fecha actual, ');
+    END IF;
+  END IF;
+
   IF mensaje <> '' THEN
     SET mensaje=mensaje;
     SET error=TRUE;
@@ -386,16 +402,20 @@ SP:BEGIN
     SET mensaje=CONCAT(mensaje, 'Tipo Usuario vacío, ');
   END IF;
 
-  IF P_FECHA_REGISTRO='' OR P_FECHA_REGISTRO IS NULL THEN 
-    SET mensaje=CONCAT(mensaje, 'Fecha de registro vacía, ');
-  END IF;
-
   IF P_USUARIO='' OR P_USUARIO IS NULL THEN 
     SET mensaje=CONCAT(mensaje, 'Usuario vacío, ');
   END IF;
 
   IF P_CONTRASEÑA='' OR P_CONTRASEÑA IS NULL THEN 
     SET mensaje=CONCAT(mensaje, 'Contraseña vacía, ');
+  END IF;
+
+  IF P_FECHA_REGISTRO ='' OR P_FECHA_REGISTRO IS NULL THEN 
+    SET mensaje=CONCAT(mensaje, 'Fecha de registro vacía, ');
+  ELSE 
+    IF P_FECHA_REGISTRO > SYSDATE() THEN
+      SET mensaje=CONCAT(mensaje, 'Fecha de registro es superior a la fecha actual, ');
+    END IF;
   END IF;
    
   IF mensaje <> '' THEN
@@ -492,6 +512,8 @@ CREATE PROCEDURE `SP_INSERTAR_EMPLEADO`(
   IN P_FECHA_NAC DATE,
   IN P_TELEFONO VARCHAR(50),
   IN P_EDAD VARCHAR(50),
+  IN P_FECHA_INGRESO DATE,
+
   OUT P_MENSAJE VARCHAR(1000),
   OUT P_ERROR BOOLEAN
 )
@@ -515,8 +537,20 @@ SP:BEGIN
     SET mensaje=CONCAT(mensaje, 'Telefono vacío, ');
   END IF;
 
-  IF P_FECHA_NAC='' OR P_FECHA_NAC IS NULL THEN 
+  IF P_FECHA_NAC ='' OR P_FECHA_NAC IS NULL THEN 
     SET mensaje=CONCAT(mensaje, 'Fecha de nacimiento vacía, ');
+  ELSE 
+    IF P_FECHA_NAC > SYSDATE() THEN
+      SET mensaje=CONCAT(mensaje, 'Fecha de nacimiento es superior a la fecha actual, ');
+    END IF;
+  END IF;
+
+  IF P_FECHA_INGRESO ='' OR P_FECHA_INGRESO IS NULL THEN 
+    SET mensaje=CONCAT(mensaje, 'Fecha de ingreso vacía, ');
+  ELSE 
+    IF P_FECHA_INGRESO > SYSDATE() THEN
+      SET mensaje=CONCAT(mensaje, 'Fecha de ingreso es superior a la fecha actual, ');
+    END IF;
   END IF;
 
   IF P_DIRECCION='' OR P_DIRECCION IS NULL THEN 
@@ -587,7 +621,7 @@ SP:BEGIN
                             FECHA_INGRESO) 
     VALUES( ultimoIdPersona,
             ultimoIdUsuario,
-            SYSDATE());
+            P_FECHA_INGRESO);
   COMMIT;
 
   SET mensaje='Creación exitosa';
@@ -705,6 +739,7 @@ CREATE PROCEDURE `SP_ACTUALIZAR_EMPLEADO`(
   IN P_FECHA_NAC DATE,
   IN P_TELEFONO VARCHAR(50),
   IN P_EDAD int(11),
+  IN P_FECHA_INGRESO DATE,
   
   OUT P_MENSAJE VARCHAR(1000),
   OUT P_ERROR BOOLEAN
@@ -739,8 +774,20 @@ SP:BEGIN
     SET mensaje=CONCAT(mensaje,'Correo electrónico vacío, ');
   END IF;
 
-  IF P_FECHA_NAC='' OR P_FECHA_NAC IS NULL THEN
-    SET mensaje=CONCAT(mensaje,'Fecha de nacimiento vacía, ');
+  IF P_FECHA_NAC ='' OR P_FECHA_NAC IS NULL THEN 
+    SET mensaje=CONCAT(mensaje, 'Fecha de nacimiento vacía, ');
+  ELSE 
+    IF P_FECHA_NAC > SYSDATE() THEN
+      SET mensaje=CONCAT(mensaje, 'Fecha de nacimiento es superior a la fecha actual, ');
+    END IF;
+  END IF;
+
+  IF P_FECHA_INGRESO ='' OR P_FECHA_INGRESO IS NULL THEN 
+    SET mensaje=CONCAT(mensaje, 'Fecha de ingreso vacía, ');
+  ELSE 
+    IF P_FECHA_INGRESO > SYSDATE() THEN
+      SET mensaje=CONCAT(mensaje, 'Fecha de ingreso es superior a la fecha actual, ');
+    END IF;
   END IF;
 
   IF P_EDAD='' OR P_EDAD IS NULL THEN
@@ -798,6 +845,10 @@ SP:BEGIN
     SELECT mensaje,error;
     LEAVE SP;
   END IF;
+
+  UPDATE TBL_EMPLEADO
+  SET TBL_EMPLEADO.FECHA_INGRESO = P_FECHA_INGRESO
+  WHERE TBL_EMPLEADO.ID_EMPLEADO = ID_EMPLEADO;
   COMMIT;
   
   SET mensaje='Actualización exitosa';

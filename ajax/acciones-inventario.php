@@ -25,65 +25,67 @@
         $res['data'] = $insumo->leerPorId($conexion);
         echo json_encode($res);
       break;
-      case 'insertar-insumo':
-        $genero = ValidarPost::varchar('genero');
-        $nombre = ValidarPost::varchar('nombre');
-        $apellido = ValidarPost::varchar('apellido');
-        $edad = ValidarPost::int('edad');
-        $telefono = ValidarPost::varchar('telefono');
-        $email = ValidarPost::varchar('email');
-        $fechaNacimiento = ValidarPost::varchar('fecha_nacimiento');
-        $direccion = ValidarPost::varchar('direccion');
-        $numeroIdentidad = ValidarPost::varchar('identidad');
-        $fechaIngreso = ValidarPost::date('fecha_ingreso');
-        
-        $empleado = new Empleado();
-        $empleado->setNombre($nombre);
-        $empleado->setApellido($apellido);
-        $empleado->setGenero($genero);
-        $empleado->setDireccion($direccion);
-        $empleado->setEmail($email);
-        $empleado->setNumeroIdentidad($numeroIdentidad);
-        $empleado->setFechaNacimiento($fechaNacimiento);
-        $empleado->setTelefono($telefono);
-        $empleado->setFechaIngreso($fechaIngreso);
-        $empleado->setEdad($edad);
-        $res['data'] = $empleado->crear($conexion);
+      case 'leer-tipos-insumo':
+        $res['data'] = Insumo::leerTiposInsumo($conexion);
         echo json_encode($res);
       break;
-      case 'actualizar-insumo':
-        $idEmpleado = ValidarPost::unsigned('id_empleado');
+      case 'leer-proveedores':
+        $res['data'] = Insumo::leerProveedores($conexion);
+        echo json_encode($res);
+      break;
+      case 'insertar-insumo':
         $nombre = ValidarPost::varchar('nombre');
-        $apellido = ValidarPost::varchar('apellido');
-        $genero = ValidarPost::varchar('genero');
-        $direccion = ValidarPost::varchar('direccion');
-        $edad = ValidarPost::varchar('edad');
-        $email = ValidarPost::varchar('email');
-        $numeroIdentidad = ValidarPost::varchar('numero_identidad');
-        $fechaNacimiento = ValidarPost::varchar('fecha_nacimiento');
-        $telefono = ValidarPost::varchar('telefono');
+        $idTipoInsumo = ValidarPost::int('id_tipo_insumo');
+        $idProveedor = ValidarPost::int('id_proveedor');
+        $cantidad = ValidarPost::int('cantidad');
+        $precio = ValidarPost::float('precio');
+        $descripcion = ValidarPost::varchar('descripcion');
         $fechaIngreso = ValidarPost::date('fecha_ingreso');
+        $fechaVencimiento = ValidarPost::date('fecha_vencimiento');
         
-        $empleado = new Empleado();
-        $empleado->setIdEmpleado($idEmpleado);
-        $empleado->setNombre($nombre);
-        $empleado->setApellido($apellido);
-        $empleado->setGenero($genero);
-        $empleado->setDireccion($direccion);
-        $empleado->setEmail($email);
-        $empleado->setNumeroIdentidad($numeroIdentidad);
-        $empleado->setFechaNacimiento($fechaNacimiento);
-        $empleado->setTelefono($telefono);
-        $empleado->setFechaIngreso($fechaIngreso);
-        $empleado->setEdad($edad);
-        $res['data'] = $empleado->actualizar($conexion);
+        $insumo = new Insumo();
+        $insumo->setIdTipoInsumo($idTipoInsumo);
+        $insumo->setIdProveedor($idProveedor);
+        $insumo->setInsumo($nombre);
+        $insumo->setDescripcion($descripcion);
+        $insumo->setPrecioCosto($precio);
+        $insumo->setCantidad($cantidad);
+        $insumo->setFechaIngreso($fechaIngreso);
+        $insumo->setFechaVencimiento($fechaVencimiento);
+        $res['data'] = $insumo->crear($conexion);
         echo json_encode($res);
       break;
       case 'disminuir-insumo':
-        $idEmpleado = ValidarPost::unsigned('id_empleado');
-        $empleado = new Empleado();
-        $empleado->setIdEmpleado($idEmpleado);
-        $res['data'] = $empleado->borrar($conexion);
+        $idInsumo = ValidarPost::unsigned('id_insumo');
+        $cantidad = ValidarPost::int('cantidad');
+        $insumo = new Insumo();
+        $insumo->setIdInsumo($idInsumo);
+        $insumo->setCantidad($cantidad);
+        $res['data'] = $insumo->borrar($conexion);
+        echo json_encode($res);
+      break;
+      case 'actualizar-insumo':
+        $idInsumo = ValidarPost::unsigned('id_insumo');
+        $nombre = ValidarPost::varchar('nombre');
+        $idTipoInsumo = ValidarPost::int('id_tipo_insumo');
+        $idProveedor = ValidarPost::int('id_proveedor');
+        $cantidad = ValidarPost::int('cantidad');
+        $precio = ValidarPost::float('precio');
+        $descripcion = ValidarPost::varchar('descripcion');
+        $fechaIngreso = ValidarPost::date('fecha_ingreso');
+        $fechaVencimiento = ValidarPost::date('fecha_vencimiento');
+        
+        $insumo = new Insumo();
+        $insumo->setIdInsumo($idInsumo);
+        $insumo->setIdTipoInsumo($idTipoInsumo);
+        $insumo->setIdProveedor($idProveedor);
+        $insumo->setInsumo($nombre);
+        $insumo->setDescripcion($descripcion);
+        $insumo->setPrecioCosto($precio);
+        $insumo->setCantidad($cantidad);
+        $insumo->setFechaIngreso($fechaIngreso);
+        $insumo->setFechaVencimiento($fechaVencimiento);
+        $res['data'] = $insumo->actualizar($conexion);
         echo json_encode($res);
       break;
 

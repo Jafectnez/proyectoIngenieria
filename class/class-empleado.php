@@ -81,7 +81,7 @@
     public function crear($conexion){
       $sql = "
         CALL SP_INSERTAR_EMPLEADO(
-          '%s','%s','%d','%s','%s','%s',DATE('%s'),'%s','%s', @mensaje, @error
+          '%s','%s','%d','%s','%s','%s',DATE('%s'),'%s','%s',DATE('%s'), @mensaje, @error
         );
       ";
       $valores = [
@@ -93,7 +93,8 @@
         $this->getNumeroIdentidad(),
         $this->getFechaNacimiento(),
         $this->getTelefono(),
-        $this->getEdad()
+        $this->getEdad(),
+        $this->getFechaIngreso()
       ];
       $rows = $conexion->query($sql, $valores);
       return $rows[0];
@@ -109,7 +110,7 @@
     public function actualizar($conexion){
       $sql = "
       CALL SP_ACTUALIZAR_EMPLEADO(
-        '%d','%s','%s','%d','%s','%s','%s',DATE('%s'),'%s','%s', @mensaje, @error
+        '%d','%s','%s','%d','%s','%s','%s',DATE('%s'),'%s','%s',DATE('%s'), @mensaje, @error
       );
       ";
       $valores = [
@@ -122,7 +123,8 @@
         $this->getNumeroIdentidad(),
         $this->getFechaNacimiento(),
         $this->getTelefono(),
-        $this->getEdad()
+        $this->getEdad(),
+        $this->getFechaIngreso()
       ];
       $rows = $conexion->query($sql, $valores);
       return $rows[0];
