@@ -419,6 +419,7 @@
 	<!--Extensiones-->
 	<script src="extensiones/datatables.min.js"></script>
 
+	<!--Controladores-->
 	<script src="js/controladores/validaciones.js"></script>
 	<script src="js/controladores/popup.js"></script>
 	<script src="js/controladores/administracion.js"></script>

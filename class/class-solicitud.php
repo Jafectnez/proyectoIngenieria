@@ -130,7 +130,7 @@
       return $rows[0];
     }
     public function borrar($conexion){
-      $sql = 'CALL SP_Eliminar_Solicitud(%s, @mensaje, @error);';
+      $sql = 'CALL SP_Eliminar_Solicitud(%d, @mensaje, @error);';
       $valores = [
         $this->getIdSolicitud()
       ];
