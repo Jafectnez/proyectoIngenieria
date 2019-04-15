@@ -9,6 +9,10 @@ body {
   overflow-y: hidden;
 }
 
+.well{
+  overflow-y: visible;
+}
+
 #barraNav{
   background: white;
 }

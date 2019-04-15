@@ -36,6 +36,7 @@
 						</div>
 					</nav>
 					<div class="tab-content" id="nav-tabContent">
+						<!--Listado de los insumos-->
 						<div class="tab-pane fade show active" id="nav-inv-main" role="tabpanel" aria-labelledby="nav-inv-main-tab">
 							<!--Insumos en menor cantidad-->
 							<table class="table table-striped table-bordered" id="table-insumos-proximos">
@@ -43,15 +44,114 @@
 								<label for="txt-limite">Cantidad menor a: </label>
 								<input style="width: 50px" class="form-control" type="text" id="txt-limite" value="5"> 
 							</table>
+							<hr>
 							<!--Insumos sin problemas-->
-							<table class="table table-striped table-bordered" id="table-insumos" style="width: 100%; text-align: center;">
+							<table class="table table-striped table-bordered" id="table-insumos" style="width: 100%;">
 								<h3>Productos</h3>
 							</table>
+
+							<!-- Modal Ver/Actualizar Insumo -->
+							<div class="modal fade" id="modalVerInsumo" tabindex="-1" role="dialog" aria-labelledby="modalVerInsumoLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h3 class="modal-title" id="modalVerInsumoLabel" style="text-align: center;font-weight: bold;">DATOS DEL INSUMO</h3>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="row modal-body">
+											<!-- Formulario -->
+											<div class="hide" id="formulario-actualizar-insumo">
+												<label for="nombre-insumo-actualizar">Nombre del Insumo</label>
+												<input type="text" id="nombre-insumo-actualizar" class="form-control" placeholder="Ingrese un nombre para el insumo">
+
+												<label for="slc-tipo-insumo-actualizar">Tipo del Insumo</label>
+												<select id="slc-tipo-insumo-actualizar" class="form-control" style="margin-left: 10px;margin-bottom: 10px;">
+													<option>--Seleccione un tipo--</option>
+												</select>
+
+												<label for="cantidad-insumo-actualizar">Cantidad del insumo</label>
+												<input type="text" id="cantidad-insumo-actualizar" class="form-control" placeholder="Ingrese una cantidad">
+												
+												<label for="precio-costo">Precio de costo del Insumo</label>
+												<input type="text" id="precio-costo" class="form-control" placeholder="Ingrese un precio en el formato 999.99">
+												
+												<label for="descripcion-insumo-actualizar">Descripcion del Insumo</label>
+												<input type="text" id="descripcion-insumo-actualizar" class="form-control" placeholder="Ingrese una descripcion">
+												
+												<label for="slc-proveedor-insumo-actualizar">Proveedor del Insumo</label>
+												<select id="slc-proveedor-insumo-actualizar" class="form-control" style="margin-left: 10px;margin-bottom: 10px;">
+													<option>--Seleccione un proveedor--</option>
+												</select>
+												
+												<label for="fecha-ingreso-insumo-actualizar">Fecha de Ingreso del Insumo</label>
+												<input type="date" id="fecha-ingreso-insumo-actualizar" class="form-control" style="padding-top: 0;">
+												
+												<label for="fecha-vencimiento-insumo-actualizar">Fecha de Vencimiento del Insumo</label>
+												<input type="date" id="fecha-vencimiento-insumo-actualizar" class="form-control" style="padding-top: 0;">
+											
+												<button id="actualizar-insumo" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>Actualizar insumo</button>
+											</div>
+
+											<div id="datos-insumo">
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label class="palido" for="spn-nombre-insumo">Nombre del Insumo</label>
+													<span id="spn-nombre-insumo"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label class="palido" for="spn-slc-tipo-insumo">Tipo del Insumo</label>
+													<span id="spn-slc-tipo-insumo"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label class="palido" for="spn-cantidad-insumo">Cantidad del insumo</label>
+													<span id="spn-cantidad-insumo"></span>
+												</div>	
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label class="palido" for="spn-precio-costo">Precio de costo del Insumo</label>
+													<span id="spn-precio-costo"></span>
+												</div>	
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label class="palido" for="spn-descripcion-insumo">Descripcion del Insumo</label>
+													<span id="spn-descripcion-insumo"></span>
+												</div>	
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label class="palido" for="spn-slc-proveedor-insumo">Proveedor del Insumo</label>
+													<span id="spn-slc-proveedor-insumo"></span>
+												</div>	
+
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label class="palido" for="spn-fecha-ingreso-insumo">Fecha de Ingreso del Insumo</label>
+													<span id="spn-fecha-ingreso-insumo" style="padding-top: 0;"></span>
+												</div>	
+													
+												<div class="form-group col-12 col-sm-6 col-md-6">
+													<label class="palido" for="spn-fecha-vencimiento-insumo">Fecha de Vencimiento del Insumo</label>
+													<span id="spn-fecha-vencimiento-insumo" style="padding-top: 0;"></span>
+												</div>
+											</div>
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-primary" id="editar-insumo">Editar Insumo</button>
+											<button type="button" class="btn btn-success hide" id="actualizar-insumo">Actualizar Insumo</button>
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
+
+						<!--Formulario agregar insumo-->
 						<div class="tab-pane fade show active" id="nav-inv-add" role="tabpanel" aria-labelledby="nav-inv-add-tab">
 							<!--Insumos en menor cantidad-->
-							<label for="formulario-insumo"><h2>Agregar Insumo</h2></label>
-							<div id="fomulario-insumo" class="row" style="padding: 20px;">
+							<label for="formulario-agregar-insumo"><h2>Agregar Insumo</h2></label>
+							<div id="fomulario-agregar-insumo" class="row" style="padding: 20px;">
 								<label for="nombre-insumo">Nombre del Insumo</label>
 								<input type="text" id="nombre-insumo" class="form-control" placeholder="Ingrese un nombre para el insumo">
 
@@ -60,7 +160,7 @@
 									<option>--Seleccione un tipo--</option>
 								</select>
 
-								<label for="cantidad-insumo">Cantidad actual del insumo</label>
+								<label for="cantidad-insumo">Cantidad del insumo</label>
 								<input type="text" id="cantidad-insumo" class="form-control" placeholder="Ingrese una cantidad">
 								
 								<label for="precio-costo">Precio de costo del Insumo</label>
