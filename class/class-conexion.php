@@ -85,6 +85,9 @@
 		public function obtenerFila($resultado){
 			return mysqli_fetch_array ($resultado);
 		}
+		public function cantidadRegistros($resultado){
+			return mysqli_num_rows($resultado);
+		}
 		public function cerrar(){
 			mysqli_close($this->link);
 		}
