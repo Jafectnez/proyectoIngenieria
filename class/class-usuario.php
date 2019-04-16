@@ -58,41 +58,37 @@
 		}
 		public static function verificarUsuario($conexion,$usuario,$password){
 			#consulta
-			// $sql="SELECT  id_usuario, id_tipo_usuario, usuario, 
-			// 			  contraseña
-			// 	  FROM tbl_usuarios
-			// 	  WHERE email='$usuario' && contraseña='$password'";
 			$sql="SELECT  ID_USUARIO, ID_TIPO_USUARIO, USUARIO, 
 						  CONTRASEÑA
 				  FROM TBL_USUARIOS
-				  WHERE USUARIO='$usuario' && contraseña='$password'";
+				  WHERE USUARIO='$usuario' && CONTRASEÑA='$password'";
+			
 
 
 			#resultado de la consulta				
 			$resultado=$conexion->ejecutarConsulta($sql);
-			//$cantidadRegistros=$conexion->cantidadRegistros($resultado);
+			$cantidadRegistros=$conexion->cantidadRegistros($resultado);
 			
-		// 	if ($cantidadRegistros==1)  {
-		// 		$fila = $conexion->obtenerFila($resultado);
-		// 		session_start();
-		// 		$_SESSION['status']=true;
-		// 		$_SESSION['id_usuario']=$fila['id_usuario'];
-		// 		$_SESSION['usuario']=$fila['usuario'];
-		// 		$_SESSION['contrasenia']=$fila['contraseña'];
-		// 		$_SESSION['tipo_usuario']=$fila['id_tipo_usuario'];
-		// 		$respuesta['loggedin'] = 1;
-		// 		$respuesta["mensaje"]="tiene acceso" ;
-
-		// 	}
-		// 	else {
-		// 		//echo'correo o contrasenia invalidos';	
-		// 		session_start();
-		// 		$_SESSION['status']=false;
-		// 		$respuesta['loggedin'] = 0;
-		// 		$respuesta["mensaje"]="No tiene acceso" ;
-		// 		}	  
-		// 	echo json_encode($respuesta);
-			echo json_encode($resultado);
+			if ($cantidadRegistros==1)  {
+				$fila = $conexion->obtenerFila($resultado);
+				session_start();
+				$_SESSION['status']=true;
+				$_SESSION['id_usuario']=$fila['ID_USUARIO'];
+				$_SESSION['usuario']=$fila['USUARIO'];
+				$_SESSION['contrasenia']=$fila['CONTRASEÑA'];
+				$_SESSION['tipo_usuario']=$fila['ID_TIPO_USUARIO'];
+				$respuesta['tipo_usuario']=$fila['ID_TIPO_USUARIO'];
+				$respuesta['loggedin'] = 1;
+				$respuesta["mensaje"]="tiene acceso" ;
+			}
+			else {
+				//echo'correo o contrasenia invalidos';	
+				session_start();
+				$_SESSION['status']=false;
+				$respuesta['loggedin'] = 0;
+				$respuesta["mensaje"]="No tiene acceso" ;
+				}	  
+			echo json_encode($respuesta);
 		 }
 	}
 ?>

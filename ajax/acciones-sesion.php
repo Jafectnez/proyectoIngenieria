@@ -12,8 +12,8 @@
 				$password=$_POST["txt-Password"];
 	
 				//$password = hash('sha512',$password); 		
-				Usuario::verificarUsuario($conexion,$usuario,$password);
-				
+				$respuesta = Usuario::verificarUsuario($conexion,$usuario,$password);
+				echo $respuesta;
 				
 				break;
 			case 'cerrar-sesion':
