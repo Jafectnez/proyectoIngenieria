@@ -29,8 +29,10 @@ class Popup {
   }
 
   mostrarAlerta() {
-    $("#alerta").fadeIn(1000);
-    $("#alerta").fadeOut(4000);
+    $("#alerta").css("display", "block");
+    setTimeout(function() {
+      $("#alerta").fadeOut(1000);
+    }, 3000);
   }
 
   setTextoDecision(texto){
@@ -38,8 +40,10 @@ class Popup {
   }
 
   mostrarDecision() {
-    $("#decision").fadeIn(500);
-    $("#decision").fadeOut(2000);
+    $("#decision").css("display", "block");
+    setTimeout(function() {
+      $("#decision").fadeOut(1000);
+    }, 3000);
   }
 
   static ocultarAlerta() {

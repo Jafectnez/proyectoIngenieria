@@ -11,7 +11,7 @@ $(document).ready(function() {
     responsive: true,
     serverSide: true,
     ajax: {
-      "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+      "url": "ajax/acciones-administracion.php",
       "method": "POST",
       "dataType": "json",
       "data": {
@@ -41,7 +41,7 @@ $(document).ready(function() {
     responsive: true,
     serverSide: true,
     ajax: {
-      "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+      "url": "ajax/acciones-administracion.php",
       "method": "POST",
       "dataType": "json",
       "data": {
@@ -91,7 +91,7 @@ function verSolicitud(idSolicitud) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+    "url": "ajax/acciones-administracion.php",
     "method": "POST",
     "dataType": "json",
     "headers": {
@@ -133,7 +133,7 @@ function verEmpleado(idEmpleado){
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+    "url": "ajax/acciones-administracion.php",
     "method": "POST",
     "dataType": "json",
     "headers": {
@@ -196,7 +196,7 @@ $('#guardar-empleado').click(function(){
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+      "url": "ajax/acciones-administracion.php",
       "method": "POST",
       "dataType": "json",
       "headers": {
@@ -239,11 +239,21 @@ $('#guardar-empleado').click(function(){
 
 });
 
+$("#atras").on("click", function(){
+  verEmpleado(idEmpleadoVisible);
+  $("#formulario-actualizar-empleado").addClass("hide");
+  $("#datos-empleado").removeClass("hide");
+  $("#actualizar-empleado").addClass("hide");
+  $("#atras").addClass("hide");
+  $("#editar-empleado").removeClass("hide");
+});
+
 /* Editar Empleado */
 $("#editar-empleado").click(function(){
   $("#formulario-actualizar-empleado").removeClass("hide");
   $("#datos-empleado").addClass("hide");
   $("#actualizar-empleado").removeClass("hide");
+  $("#atras").removeClass("hide");
   $("#eliminar-empleado").addClass("hide");
   $("#editar-empleado").addClass("hide");
 });
@@ -268,7 +278,7 @@ $("#actualizar-empleado").click(function(){
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+      "url": "ajax/acciones-administracion.php",
       "method": "POST",
       "dataType": "json",
       "headers": {
@@ -304,8 +314,10 @@ $("#actualizar-empleado").click(function(){
         $("#formulario-actualizar-empleado").addClass("hide");
         $("#datos-empleado").removeClass("hide");
         $("#actualizar-empleado").addClass("hide");
+        $("#atras").addClass("hide");
         $("#eliminar-empleado").removeClass("hide");
         $("#editar-empleado").removeClass("hide");
+        $('#table-empleados').DataTable().ajax.reload();
 
         verEmpleado(idEmpleadoVisible);
       }
@@ -331,7 +343,7 @@ $("#eliminar-empleado").click(function(){
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+      "url": "ajax/acciones-administracion.php",
       "method": "POST",
       "dataType": "json",
       "headers": {
@@ -370,7 +382,7 @@ $("#aceptar-solicitud").click(function(){
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+    "url": "ajax/acciones-administracion.php",
     "method": "POST",
     "dataType": "json",
     "headers": {
@@ -407,7 +419,7 @@ $("#denegar-solicitud").click(function(){
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+    "url": "ajax/acciones-administracion.php",
     "method": "POST",
     "dataType": "json",
     "headers": {

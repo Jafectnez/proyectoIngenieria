@@ -336,6 +336,7 @@
 										</div>
 
 										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary hide" id="atras">Atrás</button>
 											<button type="button" class="btn btn-primary" id="editar-empleado">Editar Empleado</button>
 											<button type="button" class="btn btn-success hide" id="actualizar-empleado">Actualizar Empleado</button>
 											<button type="button" class="btn btn-danger" id="eliminar-empleado">Eliminar Empleado</button>

@@ -61,7 +61,7 @@
         $insumo = new Insumo();
         $insumo->setIdInsumo($idInsumo);
         $insumo->setCantidad($cantidad);
-        $res['data'] = $insumo->borrar($conexion);
+        $res['data'] = $insumo->disminuir($conexion);
         echo json_encode($res);
       break;
       case 'actualizar-insumo':

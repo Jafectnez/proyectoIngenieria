@@ -150,6 +150,7 @@
     public function leerPorId($conexion){
       $sql = 
       ' SELECT A.ID_INSUMO,
+               B.ID_TIPO_INSUMO,
                B.TIPO_INSUMO,
                A.INSUMO,
                A.DESCRIPCION,
@@ -157,6 +158,7 @@
                A.PRECIO_COSTO,
                A.FECHA_INGRESO,
                A.FECHA_VENC,
+               C.ID_PROVEEDOR,
                C.PROVEEDOR
         FROM TBL_INSUMOS A
         INNER JOIN TBL_TIPOS_INSUMOS B

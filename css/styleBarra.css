@@ -6,11 +6,6 @@ Licensed under MIT
 
 body {
   background: #F1F3FA;
-  overflow-y: hidden;
-}
-
-.well{
-  overflow-y: visible;
 }
 
 #barraNav{
@@ -20,6 +15,7 @@ body {
 /* sub menu de opcion facturacion*/
 .desplegable{
   display: none;
+  transition: 0.8s;
 }
 
 /* Profile container */

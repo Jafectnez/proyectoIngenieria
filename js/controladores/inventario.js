@@ -11,7 +11,7 @@ $(document).ready(function() {
     responsive: true,
     serverSide: true,
     ajax: {
-      "url": "http://laboratorio-emanuel/ajax/acciones-inventario.php",
+      "url": "ajax/acciones-inventario.php",
       "method": "POST",
       "dataType": "json",
       "data": {
@@ -58,7 +58,7 @@ $(document).ready(function() {
     responsive: true,
     serverSide: true,
     ajax: {
-      "url": "http://laboratorio-emanuel/ajax/acciones-inventario.php",
+      "url": "ajax/acciones-inventario.php",
       "method": "POST",
       "dataType": "json",
       "data": {
@@ -95,7 +95,7 @@ function cargarFormulario() {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://laboratorio-emanuel/ajax/acciones-inventario.php",
+    "url": "ajax/acciones-inventario.php",
     "method": "POST",
     "dataType": "json",
     "headers": {
@@ -126,7 +126,7 @@ function cargarFormulario() {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://laboratorio-emanuel/ajax/acciones-inventario.php",
+    "url": "ajax/acciones-inventario.php",
     "method": "POST",
     "dataType": "json",
     "headers": {
@@ -144,8 +144,8 @@ function cargarFormulario() {
       popUp.mostrarAlerta();
     }
     else{
-      var option = document.createElement("option");
       for(var i in response.data){
+        var option = document.createElement("option");
         option.value = response.data[i].ID_PROVEEDOR;
         option.innerText = response.data[i].PROVEEDOR;
         $('#slc-proveedor-insumo').append(option);
@@ -179,20 +179,10 @@ function validarInsumo(parametros) {
 var idInsumoVisible;
 /* Funcion para ver los datos de un insumo */
 function verInsumo(idInsumo) {
-  parametros = {
-                "nombre": 'nombre-insumo',
-                "id_tipo_insumo": 'slc-tipo-insumo',
-                "cantidad": 'cantidad-insumo',
-                "precio": 'precio-costo',
-                "descripcion": 'descripcion-insumo',
-                "id_proveedor": 'slc-proveedor-insumo',
-                "fecha_ingreso": 'fecha-ingreso-insumo',
-                "fecha_vencimiento": 'fecha-vencimiento-insumo'
-              };
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://laboratorio-emanuel/ajax/acciones-inventario.php",
+    "url": "ajax/acciones-inventario.php",
     "method": "POST",
     "dataType": "json",
     "headers": {
@@ -207,24 +197,27 @@ function verInsumo(idInsumo) {
 
   $.ajax(settings).done(function (response) {
     datosInsumo = response.data;
-    $(`#spn-${parametros.nombre}`).text(datosInsumo.INSUMO);
-    $(`#spn-${parametros.id_tipo_insumo}`).text(datosInsumo.TIPO_INSUMO);
-    $(`#spn-${parametros.cantidad}`).text(datosInsumo.CANTIDAD);
-    $(`#spn-${parametros.precio}`).text(datosInsumo.PRECIO_COSTO);
-    $(`#spn-${parametros.descripcion}`).text(datosInsumo.DESCRIPCION);
-    $(`#spn-${parametros.id_preveedor}`).text(datosInsumo.PROVEEDOR);
-    $(`#spn-${parametros.fecha_ingreso}`).text(datosInsumo.FECHA_INGRESO);
-    $(`#spn-${parametros.fecha_vencimiento}`).text(datosInsumo.FECHA_VENC);
+    $(`#spn-nombre-insumo`).text(datosInsumo.INSUMO);
+    $(`#spn-slc-tipo-insumo`).text(datosInsumo.TIPO_INSUMO);
+    $(`#spn-cantidad-insumo`).text(datosInsumo.CANTIDAD);
+    $(`#spn-precio-costo`).text(datosInsumo.PRECIO_COSTO);
+    $(`#spn-descripcion-insumo`).text(datosInsumo.DESCRIPCION);
+    $(`#spn-slc-proveedor-insumo`).text(datosInsumo.PROVEEDOR);
+    $(`#spn-fecha-ingreso-insumo`).text(datosInsumo.FECHA_INGRESO);
+    $(`#spn-fecha-vencimiento-insumo`).text(datosInsumo.FECHA_VENC);
     
-    $(`#${parametros.nombre}-actualizar`).val(datosInsumo.INSUMO);
-    $(`#${parametros.id_tipo_insumo}-actualizar option[value="${datosInsumo.ID_TIPO_INSUMO}"]`).attr("selected",true);
-    $(`#${parametros.cantidad}-actualizar`).val(datosInsumo.CANTIDAD);
-    $(`#${parametros.precio}-actualizar`).val(datosInsumo.PRECIO_COSTO);
-    $(`#${parametros.descripcion}-actualizar`).val(datosInsumo.DESCRIPCION);
-    $(`#${parametros.id_proveedor}-actualizar option[value="${datosInsumo.ID_PROVEEDOR}"]`).attr("selected",true);
-    $(`#${parametros.fecha_ingreso}-actualizar`).val(datosInsumo.FECHA_INGRESO);
-    $(`#${parametros.fecha_vencimiento}-actualizar`).val(datosInsumo.FECHA_VENC);
+    $(`#nombre-insumo-actualizar`).val(datosInsumo.INSUMO);
+    $(`#slc-tipo-insumo-actualizar option[value="${datosInsumo.ID_TIPO_INSUMO}"]`).attr("selected",true);
+    $(`#cantidad-insumo-actualizar`).val(datosInsumo.CANTIDAD);
+    $(`#precio-costo`).val(datosInsumo.PRECIO_COSTO);
+    $(`#descripcion-insumo-actualizar`).val(datosInsumo.DESCRIPCION);
+    $(`#slc-proveedor-insumo-actualizar option[value="${datosInsumo.ID_PROVEEDOR}"]`).attr("selected",true);
+    $(`#fecha-ingreso-insumo-actualizar`).val(datosInsumo.FECHA_INGRESO);
+    $(`#fecha-vencimiento-insumo-actualizar`).val(datosInsumo.FECHA_VENC);
 
+    $("#spn-nombre-insumo-disminuir").text(datosInsumo.INSUMO);
+    $("#spn-cantidad-insumo-disminuir").text(datosInsumo.CANTIDAD);
+    
     idInsumoVisible = idInsumo;
   });
 }
@@ -246,7 +239,7 @@ $("#guardar-insumo").on("click", function(){
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "http://laboratorio-emanuel/ajax/acciones-inventario.php",
+      "url": "ajax/acciones-inventario.php",
       "method": "POST",
       "dataType": "json",
       "headers": {
@@ -286,25 +279,47 @@ $("#guardar-insumo").on("click", function(){
   }
 });
 
+$("#atras").on("click", function(){
+  verInsumo(idInsumoVisible);
+  $("#formulario-actualizar-insumo").addClass("hide");
+  $("#formulario-disminuir-insumo").addClass("hide");
+  $("#datos-insumo").removeClass("hide");
+  $("#actualizar-insumo").addClass("hide");
+  $("#atras").addClass("hide");
+  $("#editar-insumo").removeClass("hide");
+  $("#disminuir-insumo").removeClass("hide");
+});
+
 /* Editar Insumo */
 $("#editar-insumo").click(function(){
   $("#formulario-actualizar-insumo").removeClass("hide");
   $("#datos-insumo").addClass("hide");
   $("#actualizar-insumo").removeClass("hide");
+  $("#atras").removeClass("hide");
   $("#editar-insumo").addClass("hide");
+  $("#disminuir-insumo").addClass("hide");
+});
+
+/* Habilitar Formulario Disminuir Insumo */
+$("#disminuir-insumo").click(function(){
+  $("#formulario-disminuir-insumo").removeClass("hide");
+  $("#datos-insumo").addClass("hide");
+  $("#atras").removeClass("hide");
+  $("#editar-insumo").addClass("hide");
+  $("#disminuir-insumo").addClass("hide");
 });
 
 /* Actualizar insumo */
 $("#actualizar-insumo").click(function(){
   parametros = {
-                "nombre": 'nombre-insumo',
-                "id_tipo_insumo": 'slc-tipo-insumo',
-                "cantidad": 'cantidad-insumo',
+                "nombre": 'nombre-insumo-actualizar',
+                "id_tipo_insumo": 'slc-tipo-insumo-actualizar',
+                "cantidad": 'cantidad-insumo-actualizar',
                 "precio": 'precio-costo',
-                "descripcion": 'descripcion-insumo',
-                "id_proveedor": 'slc-proveedor-insumo',
-                "fecha_ingreso": 'fecha-ingreso-insumo',
-                "fecha_vencimiento": 'fecha-vencimiento-insumo'
+                "descripcion": 'descripcion-insumo-actualizar',
+                "id_proveedor": 'slc-proveedor-insumo-actualizar',
+                "fecha_ingreso": 'fecha-ingreso-insumo-actualizar',
+                "fecha_vencimiento": 'fecha-vencimiento-insumo-actualizar'
               };
 
   validacion = validarInsumo(parametros);
@@ -312,7 +327,7 @@ $("#actualizar-insumo").click(function(){
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "http://laboratorio-emanuel/ajax/acciones-administracion.php",
+      "url": "ajax/acciones-inventario.php",
       "method": "POST",
       "dataType": "json",
       "headers": {
@@ -325,7 +340,7 @@ $("#actualizar-insumo").click(function(){
         "nombre": $('#nombre-insumo-actualizar').val(),
         "id_tipo_insumo": $('#slc-tipo-insumo-actualizar').val(),
         "cantidad": $('#cantidad-insumo-actualizar').val(),
-        "precio": $('#precio-costo-actualizar').val(),
+        "precio": $('#precio-costo').val(),
         "descripcion": $('#descripcion-insumo-actualizar').val(),
         "id_proveedor": $('#slc-proveedor-insumo-actualizar').val(),
         "fecha_ingreso": $('#fecha-ingreso-insumo-actualizar').val(),
@@ -346,7 +361,11 @@ $("#actualizar-insumo").click(function(){
         $("#formulario-actualizar-insumo").addClass("hide");
         $("#datos-insumo").removeClass("hide");
         $("#actualizar-insumo").addClass("hide");
+        $("#atras").addClass("hide");
         $("#editar-insumo").removeClass("hide");
+        $("#disminuir-insumo").removeClass("hide");
+        $('#table-insumos').DataTable().ajax.reload();
+        $('#table-insumos-proximos').DataTable().ajax.reload();
 
         verInsumo(idInsumoVisible);
       }
@@ -358,3 +377,87 @@ $("#actualizar-insumo").click(function(){
   }
 
 });
+
+$("#cantidad-disminuir").on("change", function(){
+  if(validarCampoVacio("cantidad-disminuir", /^[0-9]+$/)){
+    var cantidadVieja = parseInt($("#spn-cantidad-insumo-disminuir").text());
+    var cantidadDisminuir = $("#cantidad-disminuir").val(); 
+    var nuevaCantidad =  cantidadVieja - cantidadDisminuir;
+    $("#spn-nueva-cantidad-insumo").text(nuevaCantidad);
+  }else{
+    $("#cantidad-disminuir").css("color", "red");
+    $("#cantidad-disminuir").css("border", "1px solid red");
+    setTimeout(function(){    
+      $("#cantidad-disminuir").css("color", "");
+      $("#cantidad-disminuir").css("border", "");
+    }, 2000);
+  }
+});
+
+function disminuirInsumo() {
+  if(validarCampoVacio("cantidad-disminuir", /^[0-9]+$/)){
+    var cantidadVieja = parseInt($("#spn-cantidad-insumo-disminuir").text());
+    var cantidadDisminuir = $("#cantidad-disminuir").val(); 
+    var nuevaCantidad =  cantidadVieja - cantidadDisminuir;
+
+    if(nuevaCantidad > 0){
+      popUp.setTextoDecision('Desea disminuir?');
+      Popup.mantenerDecision();
+      $("#decision-no").click(function() { 
+        Popup.ocultarDecision();
+      });
+
+      $("#decision-si").click(function() {
+        Popup.ocultarDecision();
+        alert($("#cantidad-disminuir").val());
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "ajax/acciones-inventario.php",
+          "method": "POST",
+          "dataType": "json",
+          "headers": {
+            "content-type": "application/x-www-form-urlencoded"
+          },
+          "data": {
+            "accion": "disminuir-insumo",
+
+            "id_insumo": idInsumoVisible,
+            "cantidad": cantidadDisminuir
+          }
+        }
+
+        $.ajax(settings).done(function (response) {
+          if(response.data.error == "1"){
+            popUp.setTextoAlerta(response.data.mensaje);
+            popUp.incorrecto();
+            popUp.mostrarAlerta();
+          }
+          else{
+            popUp.setTextoAlerta(response.data.mensaje);
+            popUp.correcto();
+            popUp.mostrarAlerta();
+            $("#formulario-disminuir-insumo").addClass("hide");
+            $("#datos-insumo").removeClass("hide");
+            $("#actualizar-insumo").addClass("hide");
+            $("#atras").addClass("hide");
+            $("#editar-insumo").removeClass("hide");
+            $("#disminuir-insumo").removeClass("hide");
+            $('#table-insumos').DataTable().ajax.reload();
+            $('#table-insumos-proximos').DataTable().ajax.reload();
+
+            verInsumo(idInsumoVisible);
+          }
+        });
+      });
+    }else{
+      popUp.setTextoAlerta("La cantidad a disminuir es mayor que la cantidad actual");
+      popUp.incorrecto();
+      popUp.mostrarAlerta();
+    }
+  }else{
+    popUp.setTextoAlerta("Formato incorrecto en un dato, verifique e intente nuevamente");
+    popUp.incorrecto();
+    popUp.mostrarAlerta();
+  }
+}
