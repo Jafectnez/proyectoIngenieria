@@ -79,4 +79,9 @@ span{
 
 #barraNav{
   background: white;
+  width: 20% !important;
+}
+
+#sector-contenido{
+  width: 80% !important;
 }

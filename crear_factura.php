@@ -15,13 +15,13 @@
 			<div class="row">
 
 				<!--Aqui Esta Contenida La La Barra De Menu-->
-				<div id="barraNav" class="col-lg-2 col-sm-2 col-md-3 lista"></div>
+				<div id="barraNav" class="col-lg-2 col-sm-2 col-md-2 lista"></div>
 				<!--Aqui Esta Finaliza La La Barra De Menu-->
 
 				<!--=============================================================================================-->
 				<!--Contenido De la factura-->
 
-				<div class="col-lg-10 col-md-10 col-sm-10 well" style="border: black 1px solid;background-image:url(img/catalogo.jpg); ">
+				<div id="sector-contenido" class="col-lg-10 col-md-10 col-sm-10 well" style="border: black 1px solid;background-image:url(img/catalogo.jpg); ">
 
 					<div class="col-md-8 col-lg-8 col-sm-8 well" style="background-color: rgba(255,255,255,0.9) ;">
 						<!--Informacion de la factura-->
@@ -146,7 +146,8 @@
 
 	</body>
 
-	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/menu_desplegable.js"></script>
 	<script src="js/menu.js"></script>
+	<script src="js/crearFactura.js"></script>
 </html> 

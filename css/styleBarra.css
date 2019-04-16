@@ -89,7 +89,8 @@ body {
   border-bottom: none;
 }
 
-.profile-usermenu ul li a {
+.profile-usermenu ul li a, 
+.profile-usermenu ul li a span { 
   color: #93a3b5;
   font-size: 14px;
   font-weight: 400;
@@ -109,7 +110,7 @@ body {
   border-bottom: none;
 }
 
-.profile-usermenu ul li.active a {
+.profile-usermenu ul li.active a, .profile-usermenu ul li.active span {
   color: #5b9bd1;
   background-color: #f6f9fb;
   border-left: 2px solid #5b9bd1;
@@ -141,4 +142,19 @@ ul ul {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+#barraNav{
+  background: white;
+  width: 20% !important;
+}
+
+#sector-contenido{
+  width: 80% !important;
+}
+
+
+
+@media only screen and (max-width: 900px){ 
+
 }

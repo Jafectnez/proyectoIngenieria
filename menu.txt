@@ -21,12 +21,21 @@
     <ul class="nav">        
       <li class="active">
         <a id="id_fac" href="#">
-        <i class="glyphicon glyphicon-home"></i>
-        Facturación </a>
+          <i class="glyphicon glyphicon-home"></i>
+          <span>Facturación</span> 
+        </a>
         <div class="desplegable">
           <ul class="menu-interno">
-            <li><a class="item1-menu-interno" href="crear_factura.php">Nueva</a></li>
-            <li><a class="item2-menu-interno" href="historial_facturas.php">Historial</a></li>
+            <li>
+              <a class="item1-menu-interno" href="crear_factura.php">
+                <span>Nueva</span>
+              </a>
+            </li>
+            <li>
+              <a class="item2-menu-interno" href="historial_facturas.php">
+                Historial
+              </a>
+            </li>
           </ul>
         </div>
       </li>
