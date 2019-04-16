@@ -26,7 +26,7 @@
 					<ul class="menu">
 						<li style="padding-right: 170px"><input type="text" placeholder="Perfil"></li>
 						<li><span class="glyphicon glyphicon-plus-sign" style="font-size: 40px"></span> </li>
-						<li><a href="Ingresar_resultados.php">Añadir Resultado</a></li>
+						<li><a href="">Añadir Resultado</a></li>
 					</ul>
 					<!--Fin De Barra De Menu-->
 
