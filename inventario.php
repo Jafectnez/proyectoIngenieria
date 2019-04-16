@@ -19,12 +19,12 @@
 		<div class="container-fluid">
 			<div class="row">
 				<!--Aqui Esta Contenida La Barra De Menu-->
-				<div id="barraNav" class="col-lg-2 col-sm-2 lista">
+				<div id="barraNav" class="col-lg-2 col-sm-2 lista" style="width: 20%">
 				</div>
 				<!--Aqui Esta Finaliza La La Barra De Menu-->
 
 				<!--Contenido Del Inventario-->
-				<div class="col-xl-10 col-lg-10 col-md-6 col-sm-6 well" style="border: black 1px solid;">
+				<div class="col-xl-10 col-lg-10 col-md-6 col-sm-6 well" style="border: black 1px solid;width: 80%">
 					<nav>
 						<!--Pestañas-->
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -49,7 +49,7 @@
 							<!--Insumos en menor cantidad-->
 							<div class="row">
 								<div class="col-lg-12 col-sm-12">
-									<table class="table table-striped table-bordered" id="table-insumos-proximos">
+									<table class="table table-striped table-bordered" id="table-insumos-proximos" style="width: 100%;">
 										<h3>Productos con menor cantidad</h3>
 										<label for="txt-limite">Cantidad menor a: </label>
 										<input style="width: 50px" class="form-control" type="text" id="txt-limite" value="5"> 
@@ -70,7 +70,7 @@
 							<!-- Modal Ver/Actualizar Insumo -->
 							<div class="modal fade" id="modalVerInsumo" tabindex="-1" role="dialog" aria-labelledby="modalVerInsumoLabel" aria-hidden="true">
 								<div class="modal-dialog" role="document">
-									<div class="modal-content" style="width: 650px;">
+									<div class="modal-content">
 										<div class="modal-header">
 											<h3 class="modal-title" id="modalVerInsumoLabel" style="text-align: center;font-weight: bold;">DATOS DEL INSUMO</h3>
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close">

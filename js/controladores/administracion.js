@@ -22,7 +22,8 @@ $(document).ready(function() {
       {data: "NOMBRE", title: "Nombre"},
       {data: "DESCRIPCION", title: "Descripcion"},
       {data: "USUARIO", title: "Usuario"},
-      {data: "ESTADO_SOLICITUD", title: "Estado Solicitud", render: function ( data, type, row, meta ) {
+      {data: "ESTADO_SOLICITUD", title: "Estado Solicitud", 
+      render: function ( data, type, row, meta ) {
         return `<b>${data}</b>`;
       }},
       {data: "FECHA", title: "Fecha"},

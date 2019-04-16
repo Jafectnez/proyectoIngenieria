@@ -8,11 +8,6 @@ body {
   background: #F1F3FA;
 }
 
-#barraNav{
-  background: white;
-  padding-bottom: 100%;
-}
-
 /* sub menu de opcion facturacion*/
 .desplegable{
   display: none;
@@ -101,7 +96,9 @@ body {
   font-size: 14px;
 }
 
-.profile-usermenu ul li a:hover {
+.profile-usermenu ul li a:hover,
+.show-menu-btn:hover,
+.hide-menu-btn:hover{
   background-color: #fafcfd;
   color: #5b9bd1;
 }
@@ -110,11 +107,15 @@ body {
   border-bottom: none;
 }
 
-.profile-usermenu ul li.active a, .profile-usermenu ul li.active span {
+.profile-usermenu ul li.active a {
   color: #5b9bd1;
   background-color: #f6f9fb;
   border-left: 2px solid #5b9bd1;
   margin-left: -2px;
+}
+
+.profile-usermenu ul li.active a span{
+  color: #5b9bd1;
 }
 
 .menu-interno li a{
@@ -146,15 +147,143 @@ ul ul {
 
 #barraNav{
   background: white;
-  width: 20% !important;
 }
 
 #sector-contenido{
-  width: 80% !important;
+  width: 80%;
 }
 
+.show-menu-btn, .hide-menu-btn{
+  transition: 0.4s;
+  font-size: 30px;
+  cursor: pointer;
+  display: none;
+}
 
+.show-menu-btn{
+  display: none;
+  position: absolute;
+  right: 20px;
+}
+
+.show-menu-btn span{
+  display: block;
+  margin: 6px;
+  width: 40px;
+  height: 4px;
+  background: black;
+}
+
+.show-menu-btn:hover > span{
+  background: #5b9bd1;
+}
+
+#chk{
+  position: absolute;
+  visibility: hidden;
+  z-index: -1111;
+}
 
 @media only screen and (max-width: 900px){ 
+  #barraNav .profile-usermenu ul li a i{
+    font-size: 40px;
+    display: block;
+    text-align: center;
+  }
 
+  #barraNav .profile-usermenu ul li a span{
+    width: 100%;
+    position: relative;
+    background-color: #f6f9fb;
+    padding: 5px 0;
+    text-align: center;
+    border-radius: 8px;
+    display: none;
+    margin: 0 auto;
+    opacity: 0;
+    transition: 0.6s opacity;
+  }
+
+  #barraNav .profile-usermenu ul li a:hover > span{
+    display: block;
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 770px){
+
+  #barraNav{
+    width: 100% !important;
+    height: 80px !important;
+    padding: 0 20px;
+    padding-bottom: 0 !important;
+  }
+
+  #barraNav .profile-sidebar{
+    padding-top: 15px;
+  }
+
+  #barraNav .profile-sidebar .profile-usermenu ul li a, 
+  #barraNav .profile-sidebar .profile-usermenu ul li a span{
+    transition: 0.4s;
+    color: #93a3b5;
+    background-color: #f6f9fb;
+  }
+
+  #barraNav .profile-sidebar .profile-usermenu ul li.active a, #barraNav .profile-sidebar .profile-usermenu ul li.active a span {
+    color: #5b9bd1;
+    background-color: #F1F3FA;
+    margin-left: -2px;
+  }
+
+  #barraNav .profile-sidebar .profile-usermenu ul li a span{
+    margin-top: 5px;
+  }
+
+  #barraNav .profile-sidebar .profile-userpic{
+    line-height: 100px;
+    width: 100px;
+    height: 100px;
+    float: left;
+  }
+
+  #barraNav .profile-sidebar .profile-usertitle{
+    display: none;
+  }
+
+  .show-menu-btn, .hide-menu-btn{
+    display: block;
+  }
+  
+  #barraNav .profile-sidebar .profile-usermenu{
+    float: right;
+    position: fixed;
+    width: 100%;
+    height: 100hv;
+    left: 0;
+    top: 0;
+    text-align: center;
+    padding: 80px 0;
+    line-height: normal;
+    transition: 0.7s;
+    margin-top: 0;
+    z-index: 2;
+    background: #f6f9fb;
+    display: none;
+  }
+
+  #barraNav .profile-sidebar .profile-usermenu ul li a{
+    display: block;
+    padding: 20px;
+  }
+
+  .hide-menu-btn{
+    position: absolute;
+    top: 40px;
+    right: 40px;
+  }
+
+  .well{
+    width: 100% !important;
+  }
 }

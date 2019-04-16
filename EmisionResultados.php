@@ -17,11 +17,11 @@
 			<div class="row">
 
 				<!--Aqui Esta Contenida La La Barra De Menu-->
-				<div id="barraNav" class="col-lg-2 col-sm-2 lista"></div>
+				<div id="barraNav" class="col-lg-2 col-sm-2 lista" style="width: 20%"></div>
 				<!--Aqui Esta Finaliza La La Barra De Menu-->
 				<!--Contenido Del Catalogo-->
 
-				<div class="col-lg-10 col-sm-10 well" style="border: black 1px solid;">
+				<div class="col-lg-10 col-sm-10 well" style="border: black 1px solid;width: 80%">
 					<!--Barra De Menu-->
 					<ul class="menu">
 						<li style="padding-right: 170px"><input type="text" placeholder="Perfil"></li>

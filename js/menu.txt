@@ -17,18 +17,24 @@
   </div>
   <!-- END SIDEBAR USER TITLE -->
   <!-- SIDEBAR MENU -->
+  <input type="button" id="chk">
+  <label for="chk" class="show-menu-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
   <div class="profile-usermenu">
     <ul class="nav">        
-      <li class="active">
+      <li id="li-facturacion" class="active">
         <a id="id_fac" href="#">
-          <i class="glyphicon glyphicon-home"></i>
+          <i class="glyphicon glyphicon-file"></i>
           <span>Facturación</span> 
         </a>
         <div class="desplegable">
           <ul class="menu-interno">
             <li>
               <a class="item1-menu-interno" href="crear_factura.php">
-                <span>Nueva</span>
+                Nueva
               </a>
             </li>
             <li>
@@ -39,32 +45,40 @@
           </ul>
         </div>
       </li>
-      <li>
+      <li id="li-inventario">
         <a href="inventario.php">
-        <i class="glyphicon glyphicon-user"></i>
-        Inventario </a>
+          <i class="glyphicon glyphicon-inbox"></i>
+          <span>Inventario</span> 
+        </a>
       </li>
-      <li>
+      <li id="li-emision">
         <a href="EmisionResultados.php">
-        <i class="glyphicon glyphicon-list-alt"></i>
-        Emisión de Resultados </a>
+          <i class="glyphicon glyphicon-list-alt"></i>
+          <span>Emisión de Resultados</span>
+        </a>
       </li>
-      <li>
+      <li id="li-catalogo">
         <a href="catalogo.php">
-        <i class="glyphicon glyphicon-ok"></i>
-        Catálogo de servicios </a>
+          <i class="glyphicon glyphicon-ok"></i>
+          <span>Catálogo de servicios</span>
+        </a>
       </li>
-      <li>
+      <li id="li-cliente">
         <a href="cliente.php">
-        <i class="glyphicon glyphicon-flag"></i>
-        Cliente </a>
+          <i class="glyphicon glyphicon-user"></i>
+          <span>Cliente</span>
+        </a>
       </li>
-      <li>
+      <li id="li-administracion">
         <a href="administracion.php">
-        <i class="glyphicon glyphicon-flag"></i>
-        Administración </a>
+          <i class="glyphicon glyphicon-flag"></i>
+          <span>Administración</span>
+        </a>
       </li>
-    </ul>
+      <label for="chk" class="hide-menu-btn">
+        <i class="glyphicon glyphicon-remove"></i>
+      </label>
+    </ul>  
   </div>
   <!-- END MENU -->
 </div>

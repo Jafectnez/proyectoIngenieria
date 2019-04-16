@@ -21,10 +21,10 @@
 		<div class="row">
 
 		<!--Aqui Esta Contenida La Barra De Menu-->
-		<div id="barraNav" class="col-lg-2 lista"></div>
+		<div id="barraNav" class="col-lg-2 col-md-2 col-sm-2 lista" style="width: 20%"></div>
         <!--Aqui Esta Finaliza La La Barra De Menu-->
 
-			<div id="div-examenes" class="col-xl-10 col-lg-10 col-md-6 col-sm-6 well" style="border: black 1px solid; background-color: #DBEBC6;">
+			<div id="div-examenes" class="col-xl-10 col-lg-10 col-md-6 col-sm-6 well" style="border: black 1px solid; background-color: #DBEBC6;width: 80%">
 				<h4>Ingresar Resultados</h4>
 				<!--Contenido-->
 				 <ul class="collapsible" id="ul-area">

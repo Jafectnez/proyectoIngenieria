@@ -19,12 +19,12 @@
 		<div class="container-fluid">
 			<div class="row">
 				<!--Aqui Esta Contenida La Barra De Menu-->
-				<div id="barraNav" class="col-lg-2 col-sm-2 lista">
+				<div id="barraNav" class="col-lg-2 col-sm-2 lista" style="width: 20%">
 				</div>
 				<!--Aqui Esta Finaliza La La Barra De Menu-->
 				
 				<!--Contenido De La Administracion-->
-				<div class="col-lg-10 col-sm-10 well sector-contenido" style="border: black 1px solid;">
+				<div class="col-lg-10 col-sm-10 well sector-contenido" style="border: black 1px solid; width: 80%">
 					<nav>
 						<!--Pestañas-->
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -52,7 +52,7 @@
 						<div class="tab-pane fade" id="nav-adm-soli" role="tabpanel" aria-labelledby="nav-adm-soli-tab">
 							<div class="row">
 								<div class="col-lg-12 col-sm-12">
-									<table class="table table-striped table-bordered" id="table-solicitudes">
+									<table class="table table-striped table-bordered" id="table-solicitudes" style="width: 100%">
 									</table>
 								</div>
 							</div>

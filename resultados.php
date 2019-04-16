@@ -17,11 +17,11 @@
 			<div class="row">
 
 				<!--Aqui Esta Contenida La La Barra De Menu-->
-				<div id="barraNav" class="col-lg-2 col-md-2 col-sm-2 lista"></div>
+				<div id="barraNav" class="col-lg-2 col-md-2 col-sm-2 lista" style="width: 20%"></div>
 				<!--Aqui Esta Finaliza La La Barra De Menu-->
 
 				<!--Contenido Del Resultado-->
-				<div class="col-lg-10 col-md-10 col-sm-10 well" style="border: black 1px solid;background-image:url(img/catalogo.jpg); ">
+				<div class="col-lg-10 col-md-10 col-sm-10 well" style="border: black 1px solid;background-image:url(img/catalogo.jpg);width: 80%">
 					<div style="background-color: rgba(255,255,255,0.9) ;border-radius: 25px ">
 					<!--Encabezado del resultado del analisis-->
 					<div class="row">
