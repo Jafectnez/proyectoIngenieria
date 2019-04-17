@@ -16,7 +16,7 @@ jQuery(document).ready(function() {
 				emision: /.Emisión de Resultados/,
 				catalogo: /.Catálogo/,
 				cliente: /.Clientes/,
-				administracion: /.Administracion/
+				administracion: /.Administración/
 			}
 			
 			$(`#li-facturacion`).removeClass("active");

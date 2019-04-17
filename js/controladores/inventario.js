@@ -380,10 +380,7 @@ $("#actualizar-insumo").click(function(){
 
 $("#cantidad-disminuir").on("change", function(){
   if(validarCampoVacio("cantidad-disminuir", /^[0-9]+$/)){
-    var cantidadVieja = parseInt($("#spn-cantidad-insumo-disminuir").text());
-    var cantidadDisminuir = $("#cantidad-disminuir").val(); 
-    var nuevaCantidad =  cantidadVieja - cantidadDisminuir;
-    $("#spn-nueva-cantidad-insumo").text(nuevaCantidad);
+    $("#spn-nueva-cantidad-insumo").text(parseInt($("#spn-cantidad-insumo-disminuir").text()) - $("#cantidad-disminuir").val());
   }else{
     $("#cantidad-disminuir").css("color", "red");
     $("#cantidad-disminuir").css("border", "1px solid red");
@@ -403,13 +400,15 @@ function disminuirInsumo() {
     if(nuevaCantidad > 0){
       popUp.setTextoDecision('Desea disminuir?');
       Popup.mantenerDecision();
-      $("#decision-no").click(function() { 
+      $("#decision-no").on("click", function() { 
         Popup.ocultarDecision();
+        $("#decision-no").off();
+        $("#decision-si").off();
       });
 
-      $("#decision-si").click(function() {
+      $("#decision-si").on("click", function() {
         Popup.ocultarDecision();
-        alert($("#cantidad-disminuir").val());
+        
         var settings = {
           "async": true,
           "crossDomain": true,
@@ -447,6 +446,8 @@ function disminuirInsumo() {
             $('#table-insumos-proximos').DataTable().ajax.reload();
 
             verInsumo(idInsumoVisible);
+            $("#decision-no").off();
+            $("#decision-si").off();
           }
         });
       });
