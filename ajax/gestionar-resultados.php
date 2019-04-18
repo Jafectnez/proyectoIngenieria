@@ -6,8 +6,12 @@
 	if(isset($_POST["accion"])){
 		$conexion = new Conexion();
 		switch ($_POST['accion']) {
-			case 'listar-examenes':
-				$res=emision_resultado::Listar_examenes($conexion);
+			case 'listar-areas':
+				$res=emision_resultado::listar_areas($conexion);
+				echo json_encode($res);
+				break;
+			case 'listar-caracteristicas':
+				$res=emision_resultado::listar_caracteristicas($conexion,$_POST["id"]);
 				echo json_encode($res);
 				break;
 			
