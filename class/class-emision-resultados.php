@@ -104,6 +104,8 @@
 			 	// echo $idcaracteristica;
 			 	// echo " _______________________________________ ";
 			 	
+			 	//$row=$conexion->ejecutarConsulta($sql);
+			 	
 			 }
 			 
 			//return $registro;

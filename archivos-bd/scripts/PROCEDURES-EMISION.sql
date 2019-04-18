@@ -17,7 +17,6 @@
       DECLARE mensaje VARCHAR(1000);
       DECLARE error BOOLEAN;
       DECLARE id INT;
-      
 
       # Inicializaciones
       SET AUTOCOMMIT=0;
@@ -33,11 +32,12 @@
       END IF; 
       IF P_ID_EMPLEADO='' OR P_ID_EMPLEADO IS NULL THEN 
         SET mensaje=CONCAT(mensaje, 'Id empleado vacio, ');
-      END IF;  
+      END IF; 
       IF P_ID_EXAMEN='' OR P_ID_CARACTERISTICA IS NULL THEN 
         SET mensaje=CONCAT(mensaje, 'Id caracteristica vacio, ');
       END IF;     
        # Insert y Commit
+
       INSERT INTO TBL_RESULTADOS (
                                   ID_EXAMEN,
                                   ID_CLIENTE, 
@@ -50,11 +50,11 @@
                                   P_ID_EMPLEADO,
                                   NOW(), 
                                   P_OBSERVACION);
-     SELECT @id:= MAX(ID_RESULTADO) FROM TBL_RESULTADOS;
+     SELECT MAX(ID_RESULTADO) INTO id FROM TBL_RESULTADOS;
 
 
-      INSERT INTO CARACTERISTICAS_X_RESULTADO(
-                                  ID_CARACTERISTICA,
+      INSERT INTO CARACTERISTICAS_X_RESULTADOS(
+                                  ID_CARACTERISTICAS,
                                   ID_RESULTADO )
                           VALUES(P_ID_CARACTERISTICA,
                                 id);
