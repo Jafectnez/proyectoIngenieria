@@ -5,6 +5,8 @@
       IN P_ID_CLIENTE INT,
       IN P_ID_EMPLEADO INT, 
       IN P_OBSERVACION VARCHAR(200),
+      IN P_ID_CARACTERISTICA VARCHAR(200),
+
       
       OUT pO_mensaje VARCHAR(1000),
       OUT pO_error BOOLEAN
@@ -21,7 +23,7 @@
       START TRANSACTION;
       SET mensaje = '';
       
-      # ___________________VALIDACONES___________________________
+      # ___________________VALIDACIONES___________________________
        IF P_ID_EXAMEN='' OR P_ID_EXAMEN IS NULL THEN 
         SET mensaje=CONCAT(mensaje, 'Id examen vacio, ');
       END IF; 

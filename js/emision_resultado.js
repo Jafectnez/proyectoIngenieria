@@ -10,14 +10,14 @@ $.ajax({
 		success:function(respuesta){
 			//Parsear respuesta para convertirlo en un objeto y poder acceder a sus valores
 			var type = JSON.parse(respuesta);
-			 console.log(type);
+
 			for (var i = 0; i < type.length; i++) {
 				 var row='<li >'+
 				 		 '<div class="collapsible-header" >'+
 					 	 type[i].NOMBRE+
 					 	 '</div>'+
 					 	 '<div class="collapsible-body" id="div-caracteristica'+type[i].ID_AREA+'">'+
-					 	 '<table>'+
+					 	 '<table>  <thead>'+
 				 	 	 '<tr>'+
 				 	 	 	'<th>'+
 				 	 	 		'<label><b>Caracteristicas</b></label>'+
@@ -28,12 +28,12 @@ $.ajax({
 				 	 	 	'<th>'+
 				 	 	 	'<label><b>resultado</b></label>'
 				 	 	 	'</th>'+
-				 	 	 '</tr>'+
+				 	 	 '</tr>  <thead ><tbody>'+
 				 	 	 cargarCaracteristicas(type[i].ID_AREA);
-				 		 '</table>'
-					 	 +'</div>'+
-					 	 '</li>'+
-					 	 '<button class="btn waves-effect waves-light" >Guardar</button>';
+				 		 '</tbody></table>'+
+					 	 '</div>'+
+					 	 
+					 	 '</li>';
 
 					 	 // console.log(row);
 				 $('#ul-area').append(row);
@@ -68,9 +68,13 @@ function cargarCaracteristicas(idarea){
 				 	 	 		'<label>'+type[i].VALOR_REF+" "+type[i].UNIDADES_MEDIDA+'</label>'+
 				 	 	 	'</td>'+
 				 	 	 	'<td style="width:350px">'+
-				 	 	 		'<input type="text">'+
+				 	 	 		'<input type="text" id="txt-'+type[i].ID_AREA+type[i].CARACTERISTICA+'">'+
+				 	 	 	'</td>'+
+				 	 	 	'<td style="visibility: hidden" >'+
+				 	 	 		'<input type="text" id="txt-caracteristica-'+type[i].ID_CARACTERISTICAS+type[i].CARACTERISTICA+'" value="'+type[i].ID_CARACTERISTICAS+'">'+
 				 	 	 	'</td>'+
 				 	 	 '</tr>';
+				 	 	 
 				 	$('#div-caracteristica'+idarea).append(row);
 			}
 	
@@ -81,3 +85,57 @@ function cargarCaracteristicas(idarea){
 
 	});
 }
+
+$('#btn-guardar').click(function(){
+	ObtenerInputs();
+});
+//Con esta funcion se obtiene los datos que hay en los inputs del formulario
+function ObtenerInputs(){
+	var parametro='';
+	$.ajax({
+		url:"ajax/gestionar-resultados.php",
+		data:{"accion":"obtener-inputs"},
+		method:"post",
+		success:function(respuesta){
+			var type = JSON.parse(respuesta);	
+			for (var i = 0; i < type.length; i++) {
+			
+					var valor=document.getElementById('txt-'+type[i].ID_AREA+type[i].CARACTERISTICA).value;
+					var idcaracteristica=document.getElementById('txt-caracteristica-'+type[i].ID_CARACTERISTICAS+type[i].CARACTERISTICA).value;
+					if (valor==='') {
+						valor='NA';
+					}
+					parametro+="txt-"+type[i].ID_AREA+type[i].CARACTERISTICA+':'+valor+'#'+'txt-caracteristica-'+type[i].ID_CARACTERISTICAS+type[i].CARACTERISTICA+':'+idcaracteristica+',';
+				
+			}
+			parametros(parametro);
+		},
+		error:function(e){
+		alert(e);
+		}
+
+	});
+}
+//Funcion en donde se obtiene la data con el formato correcto para hacer la peticion ajax 
+function parametros(data){
+	var cadena=data;
+	var cadena2=cadena.slice(0,-1);
+	 //console.log(cadena2);
+	//En este punto es en donde se guardara la data en la base de datos
+	$.ajax({
+		url:"ajax/gestionar-resultados.php",
+		data:{"accion":"guardar-resultado",cadena2},
+		method:"post",
+		success:function(respuesta){
+			console.log(respuesta);
+			//var type = JSON.parse(respuesta);	
+			
+		},
+		error:function(e){
+		alert(e);
+		}
+
+	});
+
+}
+

@@ -24,12 +24,15 @@
 		<div id="barraNav" class="col-lg-2 col-md-2 col-sm-2 lista" style="width: 20%"></div>
         <!--Aqui Esta Finaliza La La Barra De Menu-->
 
-			<div id="div-examenes" class="col-xl-10 col-lg-10 col-md-6 col-sm-6 well" style="border: black 1px solid; background-color: #DBEBC6;width: 80%">
+			<div id="div-examenes" class="col-xl-10 col-lg-10 col-md-6 col-sm-6 well" style="border: black 1px solid; background-color: #C4F5FC;width: 80%">
 				<h4>Ingresar Resultados</h4>
 				<!--Contenido-->
 				 <ul class="collapsible" id="ul-area">
 				 	
 				 </ul>
+				 <button class="btn waves-effect waves-light" id="btn-guardar">Guardar </button>
+				 <button class="btn waves-effect waves-light" id="btn-actualizar" >Actualizar </button>
+				 
 								
 				<!--Fin Contenido-->
 
