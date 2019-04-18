@@ -2,7 +2,7 @@
 <html>
 <head>
 
-	<title>Laboratorio Clinico Emanual-Emisión de Resultados</title>
+	<title>Laboratorio Clinico Emanuel-Emisión de Resultados</title>
 	<meta charset="utf-8" />
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/carousel.js"></script>

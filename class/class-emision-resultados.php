@@ -56,9 +56,24 @@
 				" Id_empleado: " . $this->id_empleado . 
 				" Observaciones: " . $this->observaciones;
 		}
-		public static function Listar_examenes($conexion){
+		public static function listar_areas($conexion){
 			$sql = "SELECT ID_AREA, NOMBRE FROM TBL_AREA";
 			$row = $conexion->query($sql);
+			return $row;
+		}
+		public static function listar_caracteristicas($conexion,$id){
+			// $sql="SELECT ID_EXAMEN, ID_AREA, NOMBRE, PRECIO, DESCRIPCION, TIEMPO_ANALISIS
+			// FROM TBL_EXAMENES
+			// WHERE ID_AREA='$id'";
+			$sql="
+				  SELECT  C.CARACTERISTICA, C.VALOR_REF, C.UNIDADES_MEDIDA, C.ID_CARACTERISTICAS
+				  FROM TBL_AREA A
+				  INNER JOIN AREA_X_CARACTERISTICAS AC 
+                  ON (AC.ID_AREA=A.ID_AREA)
+				  INNER JOIN TBL_CARACTERISTICAS C 
+                  ON (AC.ID_CARACTERISTICAS=C.ID_CARACTERISTICAS)
+			      WHERE A.ID_AREA='$id'";
+			$row=$conexion->query($sql);
 			return $row;
 		}
 	}
