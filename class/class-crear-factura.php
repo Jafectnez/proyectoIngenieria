@@ -238,5 +238,6 @@
 			//echo "No hay promociones disponibles";
 			echo '<input type="input" name="totalPromocion" id="total-promocion" style="width: 80px;" value="'.$totalPromocion.'" checked>';
 		}
+		
 	}
 ?>

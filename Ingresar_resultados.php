@@ -35,9 +35,10 @@
 				<!-- Encabezado de los examenes -->
 				<div>
 		         <div class="input-field col s10">
-		          <input id="txt-nombre-cliente" type="text" class="validate search_query">
+		          <input id="txt-nombre-cliente" type="text" class="validate search">
 		          <label for="txt-nombre-cliente">Nombre Cliente</label>
 		         </div>
+		         <div id="display"></div>
 		         <div class="input-field col s2">
 		          <input id="txt-edad" type="text" class="validate">
 		          <label for="txt-edad">Edad</label>
@@ -64,10 +65,12 @@
 	</div>
 	<!--Fin Del Contenedor-->
 	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap3-typeahead.min.js"></script>
 	<script src="js/carousel.js"></script>
 	<script src="js/menu.js"></script>
 	<script src="js/materialize.min.js"></script>	
 	<script src="js/emision_resultado.js"></script>	
+
 
 </body>
 </html>
