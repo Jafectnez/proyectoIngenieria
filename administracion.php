@@ -347,15 +347,15 @@
 							</div>
 						</div>
 
-						<!--Seccion Promociones-->						
+						<!--Seccion Promociones-->
 						<div class="tab-pane fade" id="nav-adm-pro" role="tabpanel" aria-labelledby="nav-adm-pro-tab">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarPromo">
 								<span class="glyphicon glyphicon-plus"></span>Crear promocion
 							</button>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#">
+							<button id="prom_ac" type="button" class="btn btn-primary" data-toggle="modal" data-target="#">
 								<span class="glyphicon glyphicon-eye-open"></span>Promociones actuales
 							</button>							
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#">
+							<button id="prom_h" type="button" class="btn btn-primary" data-toggle="modal" data-target="#">
 								<span class="glyphicon glyphicon-time"></span>Historial
 							</button>						
 							<!--=====================================================================-->
@@ -371,18 +371,18 @@
 											<div class="form-group col-md-12"> 
 												<label for="descripcion">Tipo de examen:</label>	
 												<br>													
-												<select id="selectTipo"></select> 
+												<select id="selectTipo" class="col-md-12"></select>  
 											</div>
 											<div class="form-group col-md-12"> 
 												<label for="descripcion">Descripcion: <label style="color:red;">*</label></label>	
 												<br>													
-												<textarea id="descripcion" name="descripcion" cols="55" rows="3"></textarea>
+												<textarea id="descripcion" name="descripcion" class="col-md-12" cols="55" rows="3"></textarea>
 											</div>
 
 											<div class="form-group col-md-12">
 												<label for="restricciones">Restricciones:</label>
 												<br>													
-												<textarea id="restricciones" name="restricciones" cols="55" rows="3"></textarea>														
+												<textarea id="restricciones" name="restricciones" class="col-md-12" cols="55" rows="3"></textarea>														
 											</div>												
 
 											<div class="form-group col-12 col-sm-6 col-md-6">
@@ -408,6 +408,14 @@
 								</div>
 							</div>
 							<!--=====================================================================-->
+						</div>
+
+						<div id="prom_actuales"></div>
+						<div id="prom_historico">
+							<h1>Historico</h1>
+							<p>Buenas,
+estoy haciendo un select que se va rellenando con varios option dependiendo de lo que traiga de la base de datos.
+El problema que tengo es que si el option es muy largo, me sale cortado y no sale todo. Por ejemplo:.</p>
 						</div>
 
 					</div>

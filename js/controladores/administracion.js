@@ -64,6 +64,28 @@ $(document).ready(function() {
   ListExamenes();
  });
 
+ $("#prom_ac").click(function(argument){
+    var pa = 1;
+    document.getElementById('prom_historico').style.display = 'none';
+    document.getElementById('prom_actuales').style.display = 'block';
+    parametros = {
+      "ac": pa
+    }
+    $.ajax({
+      type:  'post',
+      url:   'class/promociones/promociones.php', 
+      data:  parametros, 
+      success:  function (response) {
+        $("#prom_actuales").html(response);
+      }
+    });
+ });
+
+ $("#prom_h").click(function(argument){
+    document.getElementById('prom_actuales').style.display = 'none';
+    document.getElementById('prom_historico').style.display = 'block';
+ });
+
 }); // fin document ready
 
 function ListExamenes() {

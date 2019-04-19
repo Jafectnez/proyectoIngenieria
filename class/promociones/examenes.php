@@ -5,7 +5,6 @@ $conexion = conectar();
 $sql = "SELECT * FROM `TBL_EXAMENES` order by NOMBRE"; 
 $result = mysqli_query($conexion, $sql);
 
-echo '<option value="0">Ninguno</option>';
 while( $row = mysqli_fetch_array($result))
 {
 	echo '<option value="'.$row['ID_EXAMEN'].'">'.$row['NOMBRE'].'</option>';
