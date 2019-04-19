@@ -97,22 +97,22 @@
 				" EstadoFactura: " . $this->estadoFactura;
 		}
 		public static function cargarFacturas($conexion){
-			$sql="SELECT f.ID_FACTURA,
-					   f.FECHA_EXAMEN, 
-					   c.NOMBRECLIENTE,
-					   e.NOMBRE,
-					   f.ESTADO_FACTURA,
-					   ep.NOMBREEMPLEADO,
-					   f.TOTAL
-				FROM TBL_FACTURA f
-				INNER JOIN EXAMENES_X_FACTURA ef 
-				ON ef.ID_FACTURA=f.ID_FACTURA
-				INNER JOIN TBL_EXAMENES e
-				ON e.ID_EXAMEN=ef.ID_EXAMEN
-				INNER JOIN VW_CLIENTE c
-				ON c.ID_CLIENTE=f.ID_FACTURA
-				INNER JOIN VW_EMPLEADO ep
-				ON ep.ID_EMPLEADO=f.ID_EMPLEADO";
+				$sql="SELECT f.ID_FACTURA,
+						   f.FECHA_EXAMEN, 
+						   c.NOMBRECLIENTE,
+						   e.NOMBRE,
+						   f.ESTADO_FACTURA,
+						   ep.NOMBREEMPLEADO,
+						   f.TOTAL
+					FROM TBL_FACTURA f
+					LEFT JOIN EXAMENES_X_FACTURA ef 
+					ON ef.ID_FACTURA=f.ID_FACTURA
+					LEFT JOIN TBL_EXAMENES e
+					ON e.ID_EXAMEN=ef.ID_EXAMEN
+					LEFT JOIN VW_CLIENTE c
+					ON c.ID_CLIENTE=f.ID_FACTURA
+					LEFT JOIN VW_EMPLEADO ep
+					ON ep.ID_EMPLEADO=f.ID_EMPLEADO";
 
 			$row=$conexion->ejecutarConsulta($sql);
 			while(($facturas=$conexion->obtenerFila($row))){

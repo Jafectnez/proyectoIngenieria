@@ -58,9 +58,13 @@
 		}
 		public static function verificarUsuario($conexion,$usuario,$password){
 			#consulta
-			$sql="SELECT  ID_USUARIO, ID_TIPO_USUARIO, USUARIO, 
-						  CONTRASEÑA
-				  FROM TBL_USUARIOS
+			$sql="SELECT  u.ID_USUARIO, u.ID_TIPO_USUARIO, u.USUARIO, 
+						  e.ID_EMPLEADO, CONCAT(p.NOMBRE,' ',p.APELLIDO) AS NOMBRE
+				  FROM TBL_USUARIOS u
+				  INNER JOIN TBL_EMPLEADO e
+				  ON u.ID_USUARIO=e.ID_USUARIO
+				  INNER JOIN TBL_PERSONAS p
+				  ON p.ID_PERSONA=e.ID_PERSONA
 				  WHERE USUARIO='$usuario' && CONTRASEÑA='$password'";
 			
 
@@ -75,7 +79,8 @@
 				$_SESSION['status']=true;
 				$_SESSION['id_usuario']=$fila['ID_USUARIO'];
 				$_SESSION['usuario']=$fila['USUARIO'];
-				$_SESSION['contrasenia']=$fila['CONTRASEÑA'];
+				$_SESSION['id_empleado']=$fila['ID_EMPLEADO'];
+				$_SESSION['nombre']=$fila['NOMBRE'];
 				$_SESSION['tipo_usuario']=$fila['ID_TIPO_USUARIO'];
 				$respuesta['tipo_usuario']=$fila['ID_TIPO_USUARIO'];
 				$respuesta['loggedin'] = 1;

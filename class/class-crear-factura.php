@@ -153,12 +153,20 @@
 
 		//Funcion que establecera los parametros de cada uno de los servicios
 		public static function seleccionarServicio($conexion,$idExamen,$codigoFactura){
+			$sql = 'select * from tbl_examenes_x_factura'.$codigoFactura.' ef 
+			where ef.id_examen = '.$idExamen.' and ef.id_factura = '.$codigoFactura;
+			$resultado = $conexion->ejecutarConsulta($sql);
+			if (!($servicio=$conexion->obtenerFila($resultado))) {
+				echo "Se debe hacer la insercion";
+				// Insertar los registros en la parte de la tabla
+				$sql1 = 'insert into tbl_examenes_x_factura'.$codigoFactura.' value ('.$idExamen.','.$codigoFactura.')';
+				$resultado1 = $conexion->ejecutarConsulta($sql1);
+				//echo $sql1;
+			}
 			
 
-			// Insertar los registros en la parte de la tabla
-			$sql1 = 'insert into tbl_examenes_x_factura'.$codigoFactura.' value ('.$idExamen.','.$codigoFactura.')';
-			$resultado1 = $conexion->ejecutarConsulta($sql1);
-			echo $sql1;
+
+			
 			
 		}
 		//---------------------------------------------------------------------------
@@ -238,6 +246,73 @@
 			//echo "No hay promociones disponibles";
 			echo '<input type="input" name="totalPromocion" id="total-promocion" style="width: 80px;" value="'.$totalPromocion.'" checked>';
 		}
-		
+
+		//-----------------------------------------------------------------------------
+
+		//Funcion para verificar si el cliente esta registrado en el sistema
+		public static function verificarUsuario($conexion,$nombreUsuario){
+			//Dividir el nombre obtenido en el campo para obtener el nombre y el apellido
+			$nombre = strtok($nombreUsuario, ' ');
+			$apellido = strtok(' ');
+			//echo $nombre;
+			//echo $apellido;
+
+			$sql = 'select p.id_persona idPersona from tbl_personas p 
+					inner join tbl_cliente c
+					on c.id_persona = p.id_persona
+					where (p.nombre = "'.$nombre.'" and p.apellido = "'.$apellido.'")';
+			//echo $sql;
+
+			$resultado = $conexion->ejecutarConsulta($sql);
+
+			if (($usuario=$conexion->obtenerFila($resultado))) {
+				//echo "Debe retornar el id de ese cliente";
+				echo '<input type="text" style="display:none" name="" id="txt-id-usuario" value="'.$usuario['idPersona'].'">';
+			}
+			else{
+				echo "Se debe registrar el cliente";
+
+			}
+
+		}
+
+		//------------------------------------------------------------------
+		public static function almacenarFactura($conexion,$idImpuesto,$idPersona,$idEmpleado,$idFormaPago,$rtn,$fechaExamen,$total,$estadoFactura){
+			session_start();
+			$sql1 = 'select c.id_cliente idCliente  from tbl_personas p
+					 inner join tbl_cliente c
+					 on c.id_persona = p.id_persona
+					 where p.id_persona = '.$idPersona;
+			$resultado1 = $conexion->ejecutarConsulta($sql1);
+			if (($factura=$conexion->obtenerFila($resultado1))) {
+				$sql = "INSERT INTO `db_emanuel`.`tbl_factura` ( `ID_IMPUESTO`, `ID_CLIENTE`, `ID_EMPLEADO`, `ID_FORMA_PAGO`, `RTN`, `FECHA_EXAMEN`, `TOTAL`, `ESTADO_FACTURA`) VALUES ('".$idImpuesto."', '".$factura['idCliente']."', '".$_SESSION['id_empleado']."', '".$idFormaPago."', '".$rtn."', '".$fechaExamen."', '".$total."', '".$estadoFactura."');";
+				$resultado = $conexion->ejecutarConsulta($sql);
+			}		
+
+		}
+
+		public static function guardarRegistrosFinales($conexion,$codigoFactura){
+				$sql = 'select ef.id_examen idExamen, ef.id_factura idFactura from tbl_examenes_x_factura'.$codigoFactura.' ef';
+				$resultado = $conexion->ejecutarConsulta($sql);
+				while (($registro=$conexion->obtenerFila($resultado))) {
+					$sql1 = 'insert into examenes_x_factura values('.$registro['idExamen'].','.$registro['idFactura'].')';
+					$resultado1 = $conexion->ejecutarConsulta($sql1);
+				}	
+				//Destruir la tabla temporal
+				$sql2 = 'drop table tbl_examenes_x_factura'.$codigoFactura;
+				$resultado = $conexion->ejecutarConsulta($sql2);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 ?>

@@ -1,3 +1,11 @@
+<?php
+include("class/class-conexion.php");
+ session_start();
+ if($_SESSION['status']==false) { // CUALQUIER USUARIO REGISTRADO PUEDE VER ESTA PAGINA
+      session_destroy();
+     header("Location: login.php");
+ }
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -63,7 +71,7 @@
 					<!--Fin De Barra De Menu -->
 
 					<!--Conteo actual de las facturas existentes-->
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-lg-3 col-md-3">
 							<p>
 								<span>
@@ -95,7 +103,33 @@
 								</span>
 							</p>
 						</div>
-					</div>
+					</div> -->
+					<table class="table">
+						<tr>
+							<td><span>
+									Facturas: <input type="number" name="" readonly="readonly" style="width: 150px">
+								</span>
+							</td>
+							<td>
+								<span>
+									Total: <input type="number" name="" readonly="readonly" style="width: 150px">
+								</span>
+							</td>
+							<td>
+								<span>
+									De: <input placeholder="03/09/2019" type="text" name=""  style="width: 150px">
+								</span>
+							</td>
+							<td>
+								<span>
+									Hasta: <input placeholder="03/09/2019" type="text" name="" style="width: 150px">
+								</span>
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+					</table>
 					<!--Fin del conteo-->
 				</div>
 				<!--Fin del formato-->
