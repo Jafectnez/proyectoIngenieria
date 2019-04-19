@@ -369,6 +369,11 @@
 										<div class="row modal-body">
 											<!-- Formulario -->
 											<div class="form-group col-md-12"> 
+												<label for="descripcion">Tipo de examen:</label>	
+												<br>													
+												<select id="selectTipo"></select> 
+											</div>
+											<div class="form-group col-md-12"> 
 												<label for="descripcion">Descripcion: <label style="color:red;">*</label></label>	
 												<br>													
 												<textarea id="descripcion" name="descripcion" cols="55" rows="3"></textarea>
@@ -392,6 +397,7 @@
 
 											<div class="form-group col-12 col-sm-12 centroMsj">
 												<p id="msj"></p>
+												<p id="msj2"></p>												
 											</div>												
 										</div>
 										<div class="modal-footer">
@@ -422,6 +428,8 @@
 
 	<script src="js/controladores/popUp.js"></script>
 	<script src="js/controladores/validaciones.js"></script>
+	<script src="js/controladores/admin-promos.js"></script>	
 	<script src="js/controladores/administracion.js"></script>
+
 
 </html>

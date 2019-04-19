@@ -31,7 +31,7 @@ $("#crearPromo").click(function(argument){
     if (hoy <= fecha1) {      
       if (fecha1 <= fecha2) {
         //============================================
-        
+        AddPromos();
         //============================================
       } else {
         $("#msj").html("La fecha final, no puede ser menor a la fecha de inicio");

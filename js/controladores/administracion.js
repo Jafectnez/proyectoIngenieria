@@ -60,8 +60,56 @@ $(document).ready(function() {
     ]
   });
 
+ $("#nav-adm-pro-tab").click(function(argument){
+  ListExamenes();
+ });
+
 }); // fin document ready
 
+function ListExamenes() {
+  $.ajax({
+    type:  'post',
+    url:   'class/promociones/examenes.php', 
+    data:  'parametros', 
+    success:  function (response) {
+      $("#selectTipo").html(response);
+    }
+  });
+}
+
+function AddPromos() {
+  var DescripcionPromo = $("#descripcion").val();
+  var RestriccionPromo = $("#restricciones").val();
+  var FIPromo = $("#fecha-inicio").val();
+  var FFPromo = $("#fecha-final").val();
+  var idExamen = document.getElementById('selectTipo'); // esta linea y la siguiente recogen la opcion seleccionada en examen(crear promocion)
+  var idExam = idExamen.options[idExamen.selectedIndex].value;
+  var parametrosPromo = {
+  "des": DescripcionPromo,
+  "res": RestriccionPromo,
+  "fi": FIPromo,
+  "ff": FFPromo,
+  "ie": idExam
+  };
+  $.ajax({
+    type: 'post',
+    url: 'class/promociones/Add-promo.php',
+    data: parametrosPromo,
+    success: function(response) {
+      if (response == 1) {
+        $("#msj2").html("Promoción agregada con exito");
+        window.setTimeout(function() { 
+          $("#msj2").html("");
+        }, 2500);
+      } else {
+        $("#msj").html("No se pudo agregar la nueva promoción, inténtelo nuevamente, si el fallo persiste póngase en contacto con el administrador del sistema.");
+        window.setTimeout(function() { 
+          $("#msj").html("");
+        }, 5000);
+      }
+    }
+  });
+} // funcion AddPromos
 
 function validarEmpleado(parametros) {
   var control = true
