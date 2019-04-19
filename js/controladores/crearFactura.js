@@ -189,20 +189,49 @@ function total(codigoFactura){
 }
 
 function registrarFactura(){
-	if( $('#chk-descuento').is(':checked')) {
-    	var total = $('#txt-total-neto').val();
+	var total = $('#txt-total-neto').val();
+    var totalNeto = parseInt(total);
+	//Comprabar si los productos tienen promociones y si las hay modificar el valor neto
+	//Comprobar si hay promociones activas
+	var promocion = $('#total-promocion').attr("value");
+	if (promocion != 0) {
+		//alert('Hay promociones');
+		$("#txt-total-neto").val(totalNeto-promocion);
+		var total = $('#txt-total-neto').val();
     	var totalNeto = parseInt(total);
-    	var descuento =totalNeto * 0.25;
-    	$('#txt-descuento').val(descuento);
-	}
-	$("input[type=checkbox]:checked").each(function(){
-        //cada elemento seleccionado
-        if ($(this).val() != 'on') {
-        	alert($(this).val());
-        }
+		if( $('#chk-descuento').is(':checked')) {
+    			var descuento =totalNeto * 0.25;
+    			$('#txt-descuento').val(descuento);
+    			var totalFactura = totalNeto - $('#txt-descuento').val();
+    			$('#txt-total').val(totalFactura);
+			}
+			else{
+				//alert('Hay promociones y no descuentos');
+				$('#txt-total').val(totalNeto);
 
-    });
-	alert(contador);
+			}
+	}
+	else{
+		if($('#chk-descuento').is(':checked')) {
+    		//alert('No hay promociones y si descuentos');
+    		var total = $('#txt-total-neto').val();
+    		var totalNeto = parseInt(total);
+    		var descuento =totalNeto * 0.25;
+    		$('#txt-descuento').val(descuento);
+    		var totalFactura = totalNeto - $('#txt-descuento').val();
+    		$('#txt-total').val(totalFactura);
+		}
+		else{
+			//alert('No hay promociones y no hay descuentos');
+			$('#txt-total').val(totalNeto);
+		}
+
+		
+	}
+
+
+
+	
 }
 
 
@@ -237,7 +266,7 @@ function obtenerPromociones(){
 		url:'ajax/acciones-crear-factura.php',
 		method:'POST',
 		data:{
-                'accion': 'obtener-promociones',
+                'accion' : 'obtener-promociones',
                 'fechaActual' : fechaActual,
                 'idFactura' : idFactura
      	},
@@ -251,9 +280,52 @@ function obtenerPromociones(){
 
 	});
 
-	var totalPromocion = $('#total-promocion').val();
-	//var totalPromocion=document.getElementById('#total-promocion').value;
-	console.log(totalPromocion);
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 function crearTabla(){

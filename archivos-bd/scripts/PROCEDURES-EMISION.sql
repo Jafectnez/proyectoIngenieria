@@ -4,7 +4,7 @@
       IN P_ID_EXAMEN INT,
       IN P_ID_CLIENTE INT,
       IN P_ID_EMPLEADO INT, 
-      IN P_OBSERVACION VARCHAR(200),
+      IN P_VALOR_RESULTADO VARCHAR(200),
       IN P_ID_CARACTERISTICA VARCHAR(200),
 
       
@@ -42,22 +42,22 @@
                                   ID_EXAMEN,
                                   ID_CLIENTE, 
                                   ID_EMPLEADO, 
-                                  FECHA_EMISION,
-                                  OBSERVACIONES)
+                                  FECHA_EMISION)
                           VALUES ( 
                                   P_ID_EXAMEN,
                                   P_ID_CLIENTE, 
                                   P_ID_EMPLEADO,
-                                  NOW(), 
-                                  P_OBSERVACION);
+                                  NOW());
      SELECT MAX(ID_RESULTADO) INTO id FROM TBL_RESULTADOS;
 
 
       INSERT INTO CARACTERISTICAS_X_RESULTADOS(
                                   ID_CARACTERISTICAS,
-                                  ID_RESULTADO )
+                                  ID_RESULTADO,
+                                  VALOR_RESULTADO )
                           VALUES(P_ID_CARACTERISTICA,
-                                id);
+                                id,
+                                P_VALOR_RESULTADO);
       COMMIT;
           
       SET mensaje='Inserción exitosa';

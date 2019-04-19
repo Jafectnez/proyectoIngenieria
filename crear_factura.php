@@ -103,8 +103,14 @@
 										<input type="number" name="" id="txt-total-neto" readonly="readonly" style="width: 130px;margin-left: 30px"><br>
 										Descuento:
 										<input type="number" name="" id="txt-descuento" readonly="readonly" style="width: 130px;margin-left: 25px">
-										Promociones:
-										<input type="number" name="" id="txt-promociones" readonly="readonly" style="width: 130px;margin-left: 15px">
+										<!--Promociones:
+										<input type="number" name="" id="txt-promociones" readonly="readonly" style="width: 130px;margin-left: 15px">-->
+										<hr>
+										<p style="margin-left: 70px">
+											Total:
+										<input type="number" name="" id="txt-total" readonly="readonly" style="width: 100px;margin-left: 15px">
+										</p>
+										
 
 
 									</h6>

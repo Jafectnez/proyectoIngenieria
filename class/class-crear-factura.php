@@ -224,17 +224,19 @@
 						 on p.id_promociones = pe.tbl_promociones_id_promociones
 						 where (e.id_examen = '.$examen['idExamen'].' and ("'.$fechaActual.'" between p.fecha_inicio and p.fecha_fin))';
 
+
 				$resultado1 = $conexion->ejecutarConsulta($sql1);
 				while(($promocion=$conexion->obtenerFila($resultado1))){
 						echo '<span>'.$promocion['nombre'].' ('.$promocion['precio'].' - '.$promocion['promocion'].'%)</span>';
 						echo "<br>";
-						$totalPromocion = $totalPromocion + $promocion['promocion'];
+						$monto = $promocion['precio'] * $promocion['promocion'];
+						$totalPromocion = $totalPromocion + $monto;
 				}
 			
 
 			}
 			//echo "No hay promociones disponibles";
-			echo '<input type="text" name="" id="total-promocion" style="width: 80px;" value="'.$totalPromocion.'">';
+			echo '<input type="input" name="totalPromocion" id="total-promocion" style="width: 80px;" value="'.$totalPromocion.'" checked>';
 		}
 	}
 ?>

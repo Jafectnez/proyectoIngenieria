@@ -92,8 +92,8 @@
 			 $registro=explode(',', $parametros);
 			 $tamanio=count($registro);
 			 for ($i=0; $i < $tamanio; $i++) { 
-			 	//Aqui se separan los 2 campos que se agragaran a las tablas siendo valor el campo en donde se obtiene el valor real
-			 	//De los resultados emitidos y el id el campo en donde se obtiene el id de la caracteristica a agregar
+			 	//Aqui se separan los 2 campos que se agregaran a las tablas siendo valor el campo en donde se obtiene el valor real
+			 	//De los resultados emitidos y el id de la caracteristica a agregar
 			 	list($valor,$id)=explode('#', $registro[$i]);
 			 	//Aqui dividimos el valor en el nombre de su caracteristica y su valor como tal
 			 	list($resultado,$valorresultado)=explode(':', $valor);
@@ -103,12 +103,12 @@
 			 	// echo " ";
 			 	// echo $idcaracteristica;
 			 	// echo " _______________________________________ ";
-			 	
-			 	//$row=$conexion->ejecutarConsulta($sql);
+			 	$sql="CALL SP_INSERTAR_RESULTADO(1,1,1,'$valorresultado','$idcaracteristica',@mensaje,@error);";
+			 	$row=$conexion->ejecutarConsulta($sql);
 			 	
 			 }
 			 
-			//return $registro;
+		return $registro;
 
 		}
 	}
