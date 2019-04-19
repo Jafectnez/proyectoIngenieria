@@ -7,6 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
 		<link rel="stylesheet" type="text/css" href="css/styleBarra.css">
+<!-- 		<link rel="stylesheet" type="text/css" href="css/materialize.min.css"> -->
 	</head>
 	<body>
 
@@ -21,7 +22,7 @@
 				<!--=============================================================================================-->
 				<!--Contenido De la factura-->
 
-				<div class="col-lg-9 col-md-9 col-sm-9 well" style="border: black 1px solid;background-image:url(img/catalogo.jpg); ">
+				<div class="col-lg-9 col-md-9 col-sm-9 `" style="border: black 1px solid;background-image:url(img/catalogo.jpg); ">
 
 					<div class="col-md-8 col-lg-8 col-sm-8 well" style="background-color: rgba(255,255,255,0.9) ;">
 						<!--Informacion de la factura-->
@@ -36,33 +37,25 @@
 						</div>
 						<div>
 							<h6>
-								<strong>Codigo factura:  </strong>
+								<strong>Codigo factura: </strong>
 								<input type="text" name="" id="txt-codigo-factura" readonly="readonly" style="width: 150px">
 							</h6>
 							<h6>
-								<strong>Cliente: </strong>
-								<input type="text" id="txt-nombre-cliente" name="" onKeyPress="return ValidateAlpha(event);">
+								<input class="form-control" placeholder="Nombre Cliente" type="text" id="txt-nombre-cliente" name="" onKeyPress="return ValidateAlpha(event);">
 							</h6>
 						</div>
 
-						<!--Div que detalla la informacionn de los servicios-->
-						<div>
 
-							
+						<!--Div que detalla la informacionn de los servicios-->
+						<!--Div que detalla la informacionn de los servicios-->
+						<div>							
 							<!--Categoria 1-->
-							<div class="row" id="tbl-servicios" style="font-size: 11px">
-								
-							</div>
+							<div class="row" id="tbl-servicios" style="font-size: 11px"></div>
 							
 
 						<!--Fin del listado de los servicios-->
 						</div>
-
-
-
-
-					<!--Descuentos-->
-					<div class="row">
+						<div >
 						<h6>
 							<strong>
 								<label class="checkbox-inline" style="margin-left: -5px;"><strong>Descuento tercera edad.</strong><input type="checkbox" id="chk-descuento"></label>
@@ -71,65 +64,97 @@
 						<hr>
 								
 					</div>
+						
+
+
+
+					<!--Descuentos-->
+
+					
 					<!--#######################################################################-->
 
 					<!--Promociones-->
-					<div class="row">
-						<div class="col-md-6 col-lg-6" id="div-promociones">
-							
-						</div>
-						<div class="col-md-6 col-lg-6">
-							<h6>
+
+					<div >
+							<div  id="div-promociones"></div>	
+							<div >
+							<!-- <h6>
 								<strong>Tipo de pago:</strong>
 							</h6>
 							<p style="font-size: 11px">
+								<label>
 								<input type="radio" name="formaPago" style="margin-left:-160px"><span style="margin-left: -150px">Efectivo</span>
-								<input type="radio" name="formaPago" style="margin-left: -160px"><span style="margin-left: -150px">Tarjeta</span>
-								<input type="radio" name="formaPago" style="margin-left: -160px"><span style="margin-left: -150px">
-							    Otros</span>
-							</p>
-						</div>
+								</label>
+								<label>
+								<input type="radio" name="formaPago" style="margin-left:-160px"><span style="margin-left: -150px">Tarjeta</span>
+								</label>
+								<label>
+								<input type="radio" name="formaPago" style="margin-left:-160px"><span style="margin-left: -150px">Otros</span>
+								</label>
+							</p> -->
+							<table class="table table-sm">
+								<tr>
+									<td colspan="3" ><label>Forma de pago</label></td>
+								</tr>
+								<tr>
+									<td><input type="radio" name="formaPago" style="margin-left:-160px"><span style="margin-left: -150px">Efectivo</span></td>
+									<td><input type="radio" name="formaPago" style="margin-left:-160px"><span style="margin-left: -150px">Tarjeta</span></td>
+							
+									<td><input type="radio" name="formaPago" style="margin-left:-160px"><span style="margin-left: -150px">Otros</span></td>
+								</tr>
+								
+							</table>
+						</div>				
 						
 					</div>
 
 
-							<!--Calculo del total de la factura-->
-							<div class="row">
-								<div class="col-md-4 col-lg-4">
-									
-								</div>
-								<div class="col-md-8 col-lg-8">
-									<h6>Total neto: 
-										<input type="number" name="" id="txt-total-neto" readonly="readonly" style="width: 130px;margin-left: 30px"><br>
-										Descuento:
-										<input type="number" name="" id="txt-descuento" readonly="readonly" style="width: 130px;margin-left: 25px">
-										<!--Promociones:
-										<input type="number" name="" id="txt-promociones" readonly="readonly" style="width: 130px;margin-left: 15px">-->
-										<hr>
-										<p style="margin-left: 70px">
-											Total:
-										<input type="number" name="" id="txt-total" readonly="readonly" style="width: 100px;margin-left: 15px">
-										</p>
-										
+					<!--Calculo del total de la factura-->	
+					<div>
+						<!-- <label>Total Neto:</label>
+						<input type="number" name="" id="txt-total-neto" readonly="readonly" style="width: 130px;margin-left: 30px"><br>
+						<label>Descuento:</label>
+						<input type="number" name="" id="txt-descuento" readonly="readonly" style="width: 130px;margin-left: 25px"><br>
+						<label> Promociones:</label>
+						<input type="number" name="" id="txt-promociones" readonly="readonly" style="width: 130px;margin-left: 15px"> -->
+						<!-- <hr> -->
+						<!-- <p style="margin-left: 50px">
+						<label>Total:</label>
+						<input type="number" name="" id="txt-total" readonly="readonly" style="width: 130px;margin-left: 15px">
+										</p> -->
+						<table class="table-hover ">
+							<tr>
+								<td><label>Total Neto:</label></td>
+								<td><input class="form-control" type="number" name="" id="txt-total-neto" readonly="readonly">
+								</td>
+							</tr>
+							<tr>
+								<td><label>Descuento:</label></td>
+								<td><input class="form-control" type="number" name="" id="txt-descuento" readonly="readonly"></td>
+							</tr>
+							<tr>
+								<td><label> Promociones:</label></td>
+								<td>
+									<input class="form-control" type="number" name="" id="txt-promociones" readonly="readonly">
+								</td>
+							</tr>
+							<tr>
+								<td><label>Total:</label></td>
+								<td>
+									<input class="form-control" type="number" name="" id="txt-total" readonly="readonly">
+								</td>
+							</tr>
+						</table>
 
-
-									</h6>
-									
-								</div>
-								
-							</div>							
-
-						
-
-						<div class="row">
-							<div class="col-lg-4 col-md-4 col-sm-4"></div>
-							<div class="col-lg-4 col-md-4 col-sm-4"></div>
-							<div class="col-lg-4 col-md-4 col-sm-4">
-								<button class="btn btn-primary btn-md" id="btn-registrar" onclick="registrarFactura();" style="content-aling: center;margin-left: -10px">
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<button class="btn btn-primary btn-md" id="btn-registrar" onclick="registrarFactura();" style="content-aling: center;margin-left: -10px">
 									<span><i class="glyphicon glyphicon-plus-sign"></i> Registrar factura</span>
 								</button>
-							</div>
-						</div>
+					</div>
+						
+
+					
 						<!--Fin del Div-->
 					</div>
 
