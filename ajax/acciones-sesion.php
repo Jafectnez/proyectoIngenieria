@@ -12,7 +12,7 @@
 	
 				//$password = hash('sha512',$password); 		
 				$respuesta = Usuario::verificarUsuario($conexion,$usuario,$password);
-				echo json_encode($respuesta);
+				echo $respuesta;
 				
 				break;
 			case 'cerrar-sesion':
