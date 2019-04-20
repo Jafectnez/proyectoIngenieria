@@ -400,29 +400,52 @@ function registrarFactura(){
 				    title: 'Registrar cliente',
 				    columnClass: 'col-md-12 col-lg-12',
 				    content: 
-				    '<form class="form-horizontal" role="form">'+
-  '<div class="form-group">'+
-    '<label for="txt-nombre" class="col-lg-2 col-md-2 control-label">Nombre</label>'+
-    '<div class="col-lg-9 col-md-9">'+
-      '<input type="text" class="form-control" id="txt-nombre" placeholder="Nombre">'+
-    '</div>'+
-  '</div>'+
-  '<div class="form-group">'+
-    '<label for="txt-apellido" class="col-lg-2 control-label">Apellido</label>'+
-    '<div class="col-lg-10">'+
-      '<input type="text" class="form-control" id="txt-apellido" placeholder="Apellido">'+
-    '</div>'+
-  '</div>'+
-  '<div class="form-group">'+
-  	'<label for="slc-genero" class="col-lg-2 control-label">Genero</label>'+
-  	'<div class="col-lg-10">'+
-      '<select class="form-control" id="slc-genero">'+
-      	'<option>Femenino</option>'+
-      	'<option>Masculino</option>'+
-      '</select>'+
-    '</div>'+
-  '</div>'+
-'</form>',
+				    				    	'<hr>'+
+				    	'<form class="form-horizontal" role="form">'+
+  						'<div class="form-group">'+
+  						  '<label for="txt-nombre" class="col-lg-1 col-md-1 control-label">Nombre</label>'+
+  						  '<div class="col-lg-4 col-md-4">'+
+  						    '<input type="text" class="form-control" id="txt-nombre" placeholder="Nombre">'+
+  						  '</div>'+
+  						  '<label for="txt-nombre" class="col-lg-2 col-md-2 control-label">Apellido</label>'+
+  						  '<div class="col-lg-4 col-md-4">'+
+  						    '<input type="text" class="form-control" id="txt-apellido" placeholder="Apellido">'+
+  						  '</div>'+
+  						'</div>'+
+
+  						'<div class="form-group">'+
+  							'<label for="slc-genero" class="col-lg-1 col-md-1 control-label">Genero</label>'+
+  							'<div class="col-lg-4 col-md-4">'+
+  						    '<select class="form-control" id="slc-genero" name="genero" style="margin-left:10px">'+
+  						    	'<option value="F">Femenino</option>'+
+  						    	'<option value="M">Masculino</option>'+
+  						    '</select>'+
+  						  '</div>'+
+  						  '<label for="txt-fecha" class="col-lg-2 col-md-2 control-label">Fecha Nacimiento:</label>'+
+  							'<div class="col-lg-4 col-md-4">'+
+  						    '<input type="date" class="form-control" id="txt-fecha">'+
+  						  '</div>'+
+  						'</div>'+
+
+						'<div class="form-group">'+
+						    '<label for="txt-telefono" class="col-lg-1 col-md-1 control-label">Telefono:</label>'+
+						    '<div class="col-lg-4 col-md-4">'+
+						      '<input type="text" class="form-control" id="txt-telefono" placeholder="Telefono">'+
+						    '</div>'+
+						    '<label for="txt-correo" class="col-lg-2 col-md-2 control-label">Email</label>'+
+						    '<div class="col-lg-4 col-md-4">'+
+						      '<input type="mail" class="form-control" id="txt-correo" placeholder="Email">'+
+						    '</div>'+
+						  '</div>'+
+
+  						'<div class="form-group">'+
+  						  '<label for="txt-direccion" class="col-lg-1 col-md-1 control-label">Direccion:</label>'+
+  						  '<div class="col-lg-10 col-md-10">'+
+  						    '<input type="text" class="form-control" id="txt-direccion" placeholder="Direccion">'+
+  						  '</div>'+
+						
+  						'</div>'+
+					'</form>',
     				buttons: {
     				    formSubmit: {
     				        text: 'Registrar',
