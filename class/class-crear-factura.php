@@ -226,7 +226,7 @@
 					where ef.id_factura = '.$idFactura;
 			$totalPromocion = 0;
 			$resultado = $conexion->ejecutarConsulta($sql);
-			// echo "<h6><strong> Promociones disponibles</strong></h6>";
+			echo "<h6><strong> Promociones disponibles</strong></h6>";
 			while(($examen=$conexion->obtenerFila($resultado))){
 				$sql1 = 'select e.nombre nombre,e.precio precio,p.promocion promocion, p.fecha_fin fechaFin, p.fecha_inicio fechaInicio from promociones_x_examenes pe 
 						 inner join tbl_examenes e 
@@ -238,24 +238,10 @@
 
 				$resultado1 = $conexion->ejecutarConsulta($sql1);
 				while(($promocion=$conexion->obtenerFila($resultado1))){
-						// echo '<span style="font-size:12px;">'.$promocion['nombre'].' ('.$promocion['precio'].' - '.$promocion['promocion'].'%)</span>';
-						// echo "<br>";
-						// $monto = $promocion['precio'] * $promocion['promocion'];
-						// $totalPromocion = $totalPromocion + $monto;
-					echo "<tr>";
-					echo 	"<td>";
-					echo   '<span style="font-size:12px;">'.$promocion['nombre'].'</span>';
-					echo 	"</td>";
-					echo 	"<td>";
-					echo 	'<span style="font-size:12px;">'.$promocion['precio'].'</span>';
-					echo 	"</td>";
-					echo 	"<td>";
-					echo 	'<span style="font-size:12px;">'.$promocion['promocion'].'</span>';
-					echo 	"</td>";
-					// echo    '<span style="font-size:12px;">'.$promocion['nombre'].' ('.$promocion['precio'].' - '.$promocion['promocion'].'%)</span>';
-
-					echo "</tr>";
-
+						echo '<span style="font-size:12px;">'.$promocion['nombre'].' ('.$promocion['precio'].' - '.$promocion['promocion'].'%)</span>';
+						echo "<br>";
+						$monto = $promocion['precio'] * $promocion['promocion'];
+						$totalPromocion = $totalPromocion + $monto;
 				}
 
 			
