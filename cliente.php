@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+
+<?php
+include("class/class-conexion.php");
+ session_start();
+ if($_SESSION['status']==false) { // CUALQUIER USUARIO REGISTRADO PUEDE VER ESTA PAGINA
+      session_destroy();
+     header("Location: login.php");
+ }
+?><!DOCTYPE html>
 <html>
   <head>
     <title>Laboratorio Clinico Emanuel - Clientes</title>
