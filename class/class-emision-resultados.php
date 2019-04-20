@@ -91,7 +91,6 @@
 			//Registro es cada registro que se agregara a la tabla
 			$sql="CALL SP_INSERTAR_RESULTADO(1,1,1,'NA',@mensaje,@error,@id);";
 			$row=$conexion->ejecutarConsulta($sql);
-
 			$respuesta=$conexion->obtenerFila($row);
 			$idinsertar=$respuesta['id'];
 
@@ -116,9 +115,9 @@
                                ID_CARACTERISTICAS,
                                ID_RESULTADO,
                                VALOR_RESULTADO )
-                               VALUES'.$valuecr;
+                          VALUES'.$valuecr;
                                echo $sql2;  
-            $row2=$conexion->query($sql2);
+            $row2=$conexion->ejecutarConsulta($sql2);
              
 		//return $registro;
 

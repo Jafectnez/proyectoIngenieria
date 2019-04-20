@@ -157,7 +157,7 @@
 			where ef.id_examen = '.$idExamen.' and ef.id_factura = '.$codigoFactura;
 			$resultado = $conexion->ejecutarConsulta($sql);
 			if (!($servicio=$conexion->obtenerFila($resultado))) {
-				echo "Se debe hacer la insercion";
+				//echo "Se debe hacer la insercion";
 				// Insertar los registros en la parte de la tabla
 				$sql1 = 'insert into tbl_examenes_x_factura'.$codigoFactura.' value ('.$idExamen.','.$codigoFactura.')';
 				$resultado1 = $conexion->ejecutarConsulta($sql1);
@@ -188,6 +188,7 @@
 				on e.id_examen = ef.id_examen';
 
 			$resultado = $conexion->ejecutarConsulta($sql);
+			echo '<div style="margin-left:15px">';
 			echo "<h6><strong>Servicios</strong></h6>";
 			echo '<table class="table table-striped " >';
 			while(($servicio=$conexion->obtenerFila($resultado))){
@@ -198,6 +199,7 @@
 				echo '</tr>';
 			}
 			echo '</table>';
+			echo "<div>";
 
 		}
 		//---------------------------------------------------------------------------
@@ -224,6 +226,7 @@
 					where ef.id_factura = '.$idFactura;
 			$totalPromocion = 0;
 			$resultado = $conexion->ejecutarConsulta($sql);
+			// echo "<h6><strong> Promociones disponibles</strong></h6>";
 			while(($examen=$conexion->obtenerFila($resultado))){
 				$sql1 = 'select e.nombre nombre,e.precio precio,p.promocion promocion, p.fecha_fin fechaFin, p.fecha_inicio fechaInicio from promociones_x_examenes pe 
 						 inner join tbl_examenes e 
@@ -235,16 +238,31 @@
 
 				$resultado1 = $conexion->ejecutarConsulta($sql1);
 				while(($promocion=$conexion->obtenerFila($resultado1))){
-						echo '<span>'.$promocion['nombre'].' ('.$promocion['precio'].' - '.$promocion['promocion'].'%)</span>';
-						echo "<br>";
-						$monto = $promocion['precio'] * $promocion['promocion'];
-						$totalPromocion = $totalPromocion + $monto;
+						// echo '<span style="font-size:12px;">'.$promocion['nombre'].' ('.$promocion['precio'].' - '.$promocion['promocion'].'%)</span>';
+						// echo "<br>";
+						// $monto = $promocion['precio'] * $promocion['promocion'];
+						// $totalPromocion = $totalPromocion + $monto;
+					echo "<tr>";
+					echo 	"<td>";
+					echo   '<span style="font-size:12px;">'.$promocion['nombre'].'</span>';
+					echo 	"</td>";
+					echo 	"<td>";
+					echo 	'<span style="font-size:12px;">'.$promocion['precio'].'</span>';
+					echo 	"</td>";
+					echo 	"<td>";
+					echo 	'<span style="font-size:12px;">'.$promocion['promocion'].'</span>';
+					echo 	"</td>";
+					// echo    '<span style="font-size:12px;">'.$promocion['nombre'].' ('.$promocion['precio'].' - '.$promocion['promocion'].'%)</span>';
+
+					echo "</tr>";
+
 				}
+
 			
 
 			}
 			//echo "No hay promociones disponibles";
-			echo '<input type="input" name="totalPromocion" id="total-promocion" style="width: 80px;" value="'.$totalPromocion.'" checked>';
+			echo '<input type="input" name="totalPromocion" id="total-promocion" style="width: 80px;display:none;" value="'.$totalPromocion.'" checked>';
 		}
 
 		//-----------------------------------------------------------------------------

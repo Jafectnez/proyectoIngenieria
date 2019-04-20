@@ -237,10 +237,7 @@ function registrarFactura(){
 				if(respuesta != 'Se debe registrar el cliente'){
 					$("#div-usuario").append(respuesta);
 					var idCliente = $("#txt-id-usuario").attr("value");
-					$("#txt-id-cliente").val(idCliente);
-					alert(idCliente);
-					
-					//alert('usuario registrado');
+					$("#txt-id-cliente").val(idCliente);					
 
 					//----------------------------------------------------------
 					//-----------------El usuario esta registrado---------------
@@ -321,10 +318,6 @@ function registrarFactura(){
 						});
 				}
 				else{
-					
-				
-
-
 					//Guardar los datos de la factura y destruir la tabla temporal
 					//Id de la factura -> Generado
 					//Id impuesto      -> 1
@@ -376,10 +369,26 @@ function registrarFactura(){
 					});
 
 					almacenarRegistrosFinales();
+					setTimeout(function() {
+					//alert('Registro almacenado con exito');
 
-}
+					//----------------------------------------------------------------------
+					$.confirm({
+					    title: 'Facturacion',
+					    content: 'Factura almacenada con éxito!',
+					    type: 'blue',
+					    typeAnimated: true,
+					    buttons: {
+					        ok: function () {
+					            location.reload();
+					        },
+					    }
+					});
+					//-----------------------------------------------------------------------------
+    				}, 200); 
+				}
 
-
+				
 				}
 				else{
 					//alert('Registrar cliente');
@@ -387,35 +396,125 @@ function registrarFactura(){
 					//-----------El usuario no esta registrado------------------
 					//----------------------------------------------------------
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				$.confirm({
 				    title: 'Registrar cliente',
-				    content: '' +
-				    '<form action="" class="formName">' +
-				    '<div class="form-group">' +
-				    '<label>Por favor introduzca la información solicitada</label>' +
-				    '<input type="text" placeholder="Nombre y Apellido" id="txt-nombre" onKeyPress="return ValidateAlpha(event);" class="name form-control" required />' +
-				    '<input type="text" placeholder="Télefono" id="txt-telefono" class="name form-control" required />' +
-				    '<input type="mail" placeholder="email"  id="txt-correo" class="name form-control" required />' +
-    				'<input type="date" id="txt-fecha" class="name form-control" required />' +
-    				'<input type="text" placeholder="Dirección" onKeyPress="return ValidateAlpha(event);" id="txt-direccion" class="name form-control" required />' +
-    				'</div>' +
-    				'</form>',
+				    columnClass: 'col-md-11 col-lg-11',
+				    type: 'blue',
+    				typeAnimated: true,
+				    content: 
+				    	'<hr>'+
+				    	'<form class="form-horizontal" role="form">'+
+  						'<div class="form-group">'+
+  						  '<label for="txt-nombre" class="col-lg-1 col-md-1 control-label">Nombre</label>'+
+  						  '<div class="col-lg-4 col-md-4">'+
+  						    '<input type="text" class="form-control" id="txt-nombre" placeholder="Nombre">'+
+  						  '</div>'+
+  						  '<label for="txt-nombre" class="col-lg-2 col-md-2 control-label">Apellido</label>'+
+  						  '<div class="col-lg-4 col-md-4">'+
+  						    '<input type="text" class="form-control" id="txt-apellido" placeholder="Apellido">'+
+  						  '</div>'+
+  						'</div>'+
+
+  						'<div class="form-group">'+
+  							'<label for="slc-genero" class="col-lg-1 col-md-1 control-label">Genero</label>'+
+  							'<div class="col-lg-4 col-md-4">'+
+  						    '<select class="form-control" id="slc-genero" name="genero" style="margin-left:10px">'+
+  						    	'<option value="F">Femenino</option>'+
+  						    	'<option value="M">Masculino</option>'+
+  						    '</select>'+
+  						  '</div>'+
+  						  '<label for="txt-fecha" class="col-lg-2 col-md-2 control-label">Fecha Nacimiento:</label>'+
+  							'<div class="col-lg-4 col-md-4">'+
+  						    '<input type="date" class="form-control" id="txt-fecha">'+
+  						  '</div>'+
+  						'</div>'+
+
+						'<div class="form-group">'+
+						    '<label for="txt-telefono" class="col-lg-1 col-md-1 control-label">Telefono:</label>'+
+						    '<div class="col-lg-4 col-md-4">'+
+						      '<input type="text" class="form-control" id="txt-telefono" placeholder="Telefono">'+
+						    '</div>'+
+						    '<label for="txt-correo" class="col-lg-2 col-md-2 control-label">Email</label>'+
+						    '<div class="col-lg-4 col-md-4">'+
+						      '<input type="mail" class="form-control" id="txt-correo" placeholder="Email">'+
+						    '</div>'+
+						  '</div>'+
+
+  						'<div class="form-group">'+
+  						  '<label for="txt-direccion" class="col-lg-1 col-md-1 control-label">Direccion:</label>'+
+  						  '<div class="col-lg-10 col-md-10">'+
+  						    '<input type="text" class="form-control" id="txt-direccion" placeholder="Direccion">'+
+  						  '</div>'+
+						
+  						'</div>'+
+					'</form>',
     				buttons: {
     				    formSubmit: {
     				        text: 'Registrar',
     				        btnClass: 'btn-blue',
     				        action: function () {
+
+    				        	$('select#genero').on('change',function(){
+    								var valor = $(this).val();
+    								alert('Este es el valor del select: '+valor);
+								});
+
     				            //var name = this.$content.find('.name').val();
+    				            var genero = $("#genero option:selected").text();
     				            var nombre = $("#txt-nombre").val();
+    				            var apellido = $("#txt-apellido").val();
     				            var telefono = $("#txt-telefono").val();
     				            var correo = $("#txt-correo").val();
     				            var fecha = $("#txt-fecha").val();
     				            var direccion = $("#txt-direccion").val();
+
+    				            alert(genero);
+    				            alert(nombre);
+    				            alert(apellido);
+    				            alert(telefono);
+    				            alert(correo);
+    				            alert(fecha);
+    				            alert(direccion);
+
 				
-                          		if(nombre != '' && telefono != '' && correo != '' && fecha != '' && direccion != ''){
+                          		if( genero != '' && nombre != '' && telefono != '' && correo != '' && fecha != '' && direccion != ''){
                 					var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
                 					if (regex.test($('#txt-correo').val().trim())) {
                 						$("#txt-usuario-nombre").val(nombre);
+                						$("#txt-usuario-apellido").val(apellido);
+                						$("#txt-usuario-genero").val(genero);
                 						$("#txt-usuario-telefono").val(telefono);
                 						$("#txt-usuario-correo").val(correo);
                 				    	$("#txt-usuario-fecha").val(fecha);
@@ -446,6 +545,29 @@ function registrarFactura(){
         	});
     	}
 	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				//Fin de la peticion que devuelve si el cliente esta registrado o  no
 				}},
 				error:function(error){
