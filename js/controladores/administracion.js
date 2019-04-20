@@ -33,6 +33,7 @@ $(document).ready(function() {
       }}
     ]
   });
+  setInterval(recargarSolicitudes, 59000);
   
   //Carga los empleados registrados 
   $("#table-empleados").DataTable({
@@ -59,6 +60,29 @@ $(document).ready(function() {
       }}
     ]
   });
+
+  //Carga los registros de la bitácora
+  $("#table-bitacora").DataTable({
+    pageLength: 10,
+    ordering: true,
+    paging: true,
+    responsive: true,
+    serverSide: true,
+    ajax: {
+      "url": "ajax/acciones-administracion.php",
+      "method": "POST",
+      "dataType": "json",
+      "data": {
+        "accion" : "leer-bitacora"
+      }
+    },
+    columns: [
+      {data: "FECHA", title: "Fecha de registro"},
+      {data: "DESCRIPCION", title: "Descripcion"},
+      {data: "USUARIO", title: "Usuario Responsable del Registro"}
+    ]
+  });
+  setInterval(recargarBitacora, 59000);
 
  $("#nav-adm-pro-tab").click(function(argument){
   ListExamenes();
@@ -87,6 +111,14 @@ $(document).ready(function() {
  });
 
 }); // fin document ready
+
+function recargarBitacora() {
+  $("#table-bitacora").DataTable().ajax.reload();
+}
+
+function recargarSolicitudes() {
+  $("#table-solicitudes").DataTable().ajax.reload();
+}
 
 function ListExamenes() {
   $.ajax({
