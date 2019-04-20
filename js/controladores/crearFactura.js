@@ -223,7 +223,6 @@ function registrarFactura(){
 	//---------------------------------------------------------------
 	//Se hace la peticion ajax para ver si el usuario esta registrado
 	//---------------------------------------------------------------
-	alert('Campo rellenado');
 	$.ajax({
 			async: true,
 			crossDomain:true,
@@ -301,6 +300,31 @@ function registrarFactura(){
 						}
 					}
 
+					//-----------------------------------------------------------
+					//-Validacion para asegurar que se hayan introducido examenes-
+					//-----------------------------------------------------------
+
+					var comprobarTotal = $('#txt-total').val();
+					if (comprobarTotal == '' || comprobarTotal == 0) {
+						$.confirm({
+    						title: 'Lo sentimos...',
+    						content: 'No han sido añadidos examenes a su factura',
+    						type: 'blue',
+    						typeAnimated: true,
+    						buttons: {
+        						tryAgain: {
+            					text: 'Volver',
+            					btnClass: 'btn-blue',
+            					action: function(){}
+        						}
+        					}
+						});
+				}
+				else{
+					
+				
+
+
 					//Guardar los datos de la factura y destruir la tabla temporal
 					//Id de la factura -> Generado
 					//Id impuesto      -> 1
@@ -313,7 +337,6 @@ function registrarFactura(){
 					//Estado factura   -> 1
 
 					var idCliente = $("#txt-id-cliente").val();
-					alert(idCliente);
 
 
 					Date.prototype.yyyymmdd = function() {
@@ -328,9 +351,6 @@ function registrarFactura(){
 					var fechaActual = date.yyyymmdd();
 
 					var total = $('#txt-total').val();
-
-
-
 					$.ajax({
 						async: true,
 						crossDomain:true,
@@ -356,6 +376,10 @@ function registrarFactura(){
 					});
 
 					almacenarRegistrosFinales();
+
+}
+
+
 				}
 				else{
 					//alert('Registrar cliente');
@@ -363,11 +387,65 @@ function registrarFactura(){
 					//-----------El usuario no esta registrado------------------
 					//----------------------------------------------------------
 
-
-
-					
-
-
+				$.confirm({
+				    title: 'Registrar cliente',
+				    content: '' +
+				    '<form action="" class="formName">' +
+				    '<div class="form-group">' +
+				    '<label>Por favor introduzca la información solicitada</label>' +
+				    '<input type="text" placeholder="Nombre y Apellido" id="txt-nombre" onKeyPress="return ValidateAlpha(event);" class="name form-control" required />' +
+				    '<input type="text" placeholder="Télefono" id="txt-telefono" class="name form-control" required />' +
+				    '<input type="mail" placeholder="email"  id="txt-correo" class="name form-control" required />' +
+    				'<input type="date" id="txt-fecha" class="name form-control" required />' +
+    				'<input type="text" placeholder="Dirección" onKeyPress="return ValidateAlpha(event);" id="txt-direccion" class="name form-control" required />' +
+    				'</div>' +
+    				'</form>',
+    				buttons: {
+    				    formSubmit: {
+    				        text: 'Registrar',
+    				        btnClass: 'btn-blue',
+    				        action: function () {
+    				            //var name = this.$content.find('.name').val();
+    				            var nombre = $("#txt-nombre").val();
+    				            var telefono = $("#txt-telefono").val();
+    				            var correo = $("#txt-correo").val();
+    				            var fecha = $("#txt-fecha").val();
+    				            var direccion = $("#txt-direccion").val();
+				
+                          		if(nombre != '' && telefono != '' && correo != '' && fecha != '' && direccion != ''){
+                					var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+                					if (regex.test($('#txt-correo').val().trim())) {
+                						$("#txt-usuario-nombre").val(nombre);
+                						$("#txt-usuario-telefono").val(telefono);
+                						$("#txt-usuario-correo").val(correo);
+                				    	$("#txt-usuario-fecha").val(fecha);
+                				    	$("#txt-usuario-direccion").val(direccion);
+                					}
+                				else{
+                					$.alert('Correo no válido');
+                    				return false;
+                				}
+                			}
+                			else{
+                				$.alert('Campos requeridos');
+                			    return false;
+                			}
+            			}
+        			},
+        			cancel: function () {
+            			//close
+        			},
+    			},
+    			onContentReady: function () {
+        		// bind to events
+        		var jc = this;
+        		this.$content.find('form').on('submit', function (e) {
+            	// if the user submits the form by pressing enter in the field.
+            	e.preventDefault();
+            	jc.$$formSubmit.trigger('click'); // reference the button and click it
+        	});
+    	}
+	});
 				//Fin de la peticion que devuelve si el cliente esta registrado o  no
 				}},
 				error:function(error){
@@ -380,7 +458,22 @@ function registrarFactura(){
 		//----------------------------------------------
 		//Alertar que el campo de cliente es obligatorio
 		//----------------------------------------------
-		alert('Rellenar campo');
+		
+		$.confirm({
+    		title: 'Campo obligatorio',
+    		content: 'Por favor introduzca el nombre del cliente',
+    		type: 'blue',
+    		typeAnimated: true,
+    		buttons: {
+        		tryAgain: {
+            	text: 'Volver',
+            	btnClass: 'btn-blue',
+            	action: function(){
+            }
+        }
+        
+    }
+});
 	}
 
 

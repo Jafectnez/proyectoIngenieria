@@ -91,6 +91,9 @@
 			//Registro es cada registro que se agregara a la tabla
 			 $registro=explode(',', $parametros);
 			 $tamanio=count($registro);
+			 
+			 $valuecr='';
+
 			 for ($i=0; $i < $tamanio; $i++) { 
 			 	//Aqui se separan los 2 campos que se agregaran a las tablas siendo valor el campo en donde se obtiene el valor real
 			 	//De los resultados emitidos y el id de la caracteristica a agregar
@@ -103,12 +106,32 @@
 			 	// echo " ";
 			 	// echo $idcaracteristica;
 			 	// echo " _______________________________________ ";
-			 	$sql="CALL SP_INSERTAR_RESULTADO(1,1,1,'$valorresultado','$idcaracteristica',@mensaje,@error);";
-			 	$row=$conexion->ejecutarConsulta($sql);
+                //Insertar en la tabla de resultados
+			 	$sql="CALL SP_INSERTAR_RESULTADO(1,1,1,'$valorresultado',@mensaje,@error);";
+			    $row=$conexion->ejecutarConsulta($sql);
+			 	
+                //Obtener el ultimo id de la tabla resultado
+                $sqlid='SELECT MAX(ID_RESULTADO) as idr FROM TBL_RESULTADOS;';
+                $id=$conexion->ejecutarConsulta($sqlid);
+                $idresultado=$conexion->obtenerFila($id);
+                //$idinsertar =$idresultado['idr'];
+                //$idinsertar=$idresultado['idr'];
+                //Valores del insert que se realizara en resultados x carateristicas
+			 //	$valuecr.='('.$idcaracteristica.','.$idinsertar.','.$valorresultado.'),';
+			 	// echo $valuecr;
 			 	
 			 }
-			 
-		return $registro;
+			 	// $valuecr = trim($valuecr,',');
+		   //      $sql2='INSERT INTO CARACTERISTICAS_X_RESULTADOS(
+     //                                ID_CARACTERISTICAS,
+     //                                ID_RESULTADO,
+     //                                VALOR_RESULTADO )
+     //                          VALUES'.$valuecr;
+     //                          echo $sql2;
+                 
+               // $row2=$conexion->ejecutarConsulta($sql2);
+             
+		//return $registro;
 
 		}
 	}

@@ -73,7 +73,6 @@ include("class/class-conexion.php");
 	</div>
 	<!--Fin Del Contenedor-->
 	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/bootstrap3-typeahead.min.js"></script>
 	<script src="js/carousel.js"></script>
 	<script src="js/menu.js"></script>
 	<script src="js/materialize.min.js"></script>	

@@ -278,14 +278,13 @@
 
 		//------------------------------------------------------------------
 		public static function almacenarFactura($conexion,$idImpuesto,$idPersona,$idEmpleado,$idFormaPago,$rtn,$fechaExamen,$total,$estadoFactura){
-			session_start();
 			$sql1 = 'select c.id_cliente idCliente  from tbl_personas p
 					 inner join tbl_cliente c
 					 on c.id_persona = p.id_persona
 					 where p.id_persona = '.$idPersona;
 			$resultado1 = $conexion->ejecutarConsulta($sql1);
 			if (($factura=$conexion->obtenerFila($resultado1))) {
-				$sql = "INSERT INTO `db_emanuel`.`tbl_factura` ( `ID_IMPUESTO`, `ID_CLIENTE`, `ID_EMPLEADO`, `ID_FORMA_PAGO`, `RTN`, `FECHA_EXAMEN`, `TOTAL`, `ESTADO_FACTURA`) VALUES ('".$idImpuesto."', '".$factura['idCliente']."', '".$_SESSION['id_empleado']."', '".$idFormaPago."', '".$rtn."', '".$fechaExamen."', '".$total."', '".$estadoFactura."');";
+				$sql = "INSERT INTO `db_emanuel`.`tbl_factura` ( `ID_IMPUESTO`, `ID_CLIENTE`, `ID_EMPLEADO`, `ID_FORMA_PAGO`, `RTN`, `FECHA_EXAMEN`, `TOTAL`, `ESTADO_FACTURA`) VALUES ('".$idImpuesto."', '".$factura['idCliente']."', '".$idEmpleado."', '".$idFormaPago."', '".$rtn."', '".$fechaExamen."', '".$total."', '".$estadoFactura."');";
 				$resultado = $conexion->ejecutarConsulta($sql);
 			}		
 

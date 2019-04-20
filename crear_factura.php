@@ -1,11 +1,3 @@
-<?php
-include("class/class-conexion.php");
- session_start();
- if($_SESSION['status']==false) { // CUALQUIER USUARIO REGISTRADO PUEDE VER ESTA PAGINA
-      session_destroy();
-     header("Location: login.php");
- }
-?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -15,6 +7,7 @@ include("class/class-conexion.php");
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
 		<link rel="stylesheet" type="text/css" href="css/styleBarra.css">
+		<link rel="stylesheet" href="css/jquery-confirm.min.css">
 		
 	</head>
 	<body>
@@ -150,7 +143,13 @@ include("class/class-conexion.php");
 							
 					</div>
 					<!--==============================================================================================-->
+					<input type="text" name="" id="txt-usuario-nombre" style="display: none;">
+					<input type="text" name="" id="txt-usuario-telefono" style="display: none;">
+					<input type="mail" name="" id="txt-usuario-correo" style="display: none;">
+					<input type="date" name="" id="txt-usuario-fecha" style="display: none;">
+					<input type="direccion" name="" id="txt-usuario-direccion" style="display: none;">
 				</div>	
+
 			</div>
 		</div>
 		<!--Fin Del Contenedor-->
@@ -161,6 +160,7 @@ include("class/class-conexion.php");
 	<script src="js/menu_desplegable.js"></script>
 	<script src="js/menu.js"></script>
 	<script src="js/controladores/crearFactura.js"></script>
+	<script src="js/jquery-confirm.min.js"></script>
 
 
 </html> 
