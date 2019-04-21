@@ -58,7 +58,7 @@ if ($p_disponibles) {
 echo '</tbody>
   </table>';
 } else {
-	echo "<p>Pura mierda</p>";
+	echo "<p>Pura mierda, Dentro de historico</p>";
 }
 ?> 
 

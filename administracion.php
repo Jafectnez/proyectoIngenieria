@@ -412,10 +412,24 @@
 
 						<div id="prom_actuales"></div>
 						<div id="prom_historico">
-							<h1>Historico</h1>
-							<p>Buenas,
-estoy haciendo un select que se va rellenando con varios option dependiendo de lo que traiga de la base de datos.
-El problema que tengo es que si el option es muy largo, me sale cortado y no sale todo. Por ejemplo:.</p>
+							<div class="barraH row">
+								<div class="form-group col-12 col-sm-4">
+									<label for="fecha-nacimiento-fAgregar">Nombre de examen </label>
+									<input type="text" id="fecha-nacimiento-fAgregar" name="fecha-nacimiento-fAgregar" class="form-control" placeholder="Tipo examen" style="padding-top:0" required>
+								</div>
+								<div class="form-group col-12 col-sm-4">
+									<label for="fecha-ingreso-fAgregar">Desde:</label>
+									<input type="date" id="fecha-ingreso-fAgregar" name="fecha-ingreso-fAgregar" class="form-control" placeholder="2019-03-31" style="padding-top:0" required>
+								</div>
+								<div class="form-group col-12 col-sm-4">
+									<label for="fecha-nacimiento-fAgregar">Hasta:</label>
+									<input type="date" id="fecha-nacimiento-fAgregar" name="fecha-nacimiento-fAgregar" class="form-control" placeholder="1999-12-31" style="padding-top:0" required>
+								</div>										
+							</div>
+							<div class="resultadosH">
+								<h1>Estos son los resultados</h1>
+							</div>
+									
 						</div>
 
 					</div>

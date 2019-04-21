@@ -82,8 +82,31 @@ $(document).ready(function() {
  });
 
  $("#prom_h").click(function(argument){
+    var pa = 2;
     document.getElementById('prom_actuales').style.display = 'none';
     document.getElementById('prom_historico').style.display = 'block';
+    parametros = {
+      "ac": pa
+    }
+    /*
+    $.ajax({
+      type:  'post',
+      url:   'class/promociones/promociones.php', 
+      data:  parametros, 
+      success:  function (response) {
+        $("#prom_historico").html(response);
+      }
+    });
+    */
+ });
+
+ $("#nav-adm-usr-tab").click(function(argument) {
+    document.getElementById('prom_actuales').style.display = 'none';
+    document.getElementById('prom_historico').style.display = 'none';
+ });
+ $("#nav-adm-soli-tab").click(function(argument) {
+    document.getElementById('prom_actuales').style.display = 'none';
+    document.getElementById('prom_historico').style.display = 'none';
  });
 
 }); // fin document ready
