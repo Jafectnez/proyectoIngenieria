@@ -13,13 +13,13 @@ INSERT INTO `TBL_GENERO` (`GENERO`)
   VALUES ('INDETERMINADO');
 
 INSERT INTO `TBL_PERSONAS` (`ID_GENERO`, `NOMBRE`, `APELLIDO`, `EDAD`, `TELEFONO`, `EMAIL`, `FECHA_NAC`, `DIRECCION`, `IDENTIDAD`) 
-  VALUES (1, 'Allan', 'Martinez', 21, '9900-0000', 'allan.martinez@unah.hn', '2019-03-28', 'Tegucigalpa, Honduras', '0801201900001');
+  VALUES (1, 'Allan', 'Martinez', 21, '9900-0001', 'allan.martinez@unah.hn', '2000-03-28', 'Tegucigalpa, Honduras', '0801201900001');
 
 INSERT INTO `TBL_PERSONAS` (`ID_GENERO`, `NOMBRE`, `APELLIDO`, `EDAD`, `TELEFONO`, `EMAIL`, `FECHA_NAC`, `DIRECCION`, `IDENTIDAD`) 
-  VALUES (2, 'Evelin', 'Izaguirre', 21, '9900-0000', 'evelin.izaguirre@unah.hn', '2019-03-28', 'Tegucigalpa, Honduras', '0801201900001');
+  VALUES (2, 'Evelin', 'Izaguirre', 21, '9900-0002', 'evelin.izaguirre@unah.hn', '2000-03-28', 'Tegucigalpa, Honduras', '0801201900002');
 
 INSERT INTO `TBL_PERSONAS` (`ID_GENERO`, `NOMBRE`, `APELLIDO`, `EDAD`, `TELEFONO`, `EMAIL`, `FECHA_NAC`, `DIRECCION`, `IDENTIDAD`) 
-  VALUES (2, 'Lizzul', 'Giron', 21, '9900-0000', 'lizzul.giron@unah.hn', '2019-03-28', 'Tegucigalpa, Honduras', '0801201900001');
+  VALUES (2, 'Lizzul', 'Giron', 21, '9900-0003', 'lizzul.giron@unah.hn', '2000-03-28', 'Tegucigalpa, Honduras', '0801201900003');
 
 INSERT INTO `TBL_TIPO_USUARIO` (`TIPO_USUARIO`) 
   VALUES ('Administrador');
