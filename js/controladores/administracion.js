@@ -134,6 +134,30 @@ $(document).ready(function() {
     document.getElementById('prom_historico').style.display = 'none';
  });
 
+  $('#buscarH').each(function() { //este hara que el txtbox de buscar siempre este vacio
+      $(this).val('');
+  });
+
+  $("#buscarH").on('keyup', function() {
+      var find = $("#buscarH").val();
+      parametros = {
+        "fi": find,
+        "ac": 2 // le envia solo el nombre a la busqueda a la base de datos
+      }
+      $.ajax({
+          type: 'post',
+          url:   'class/promociones/promociones.php',           
+          data: parametros,
+          success: function(response) {
+              $(".resultadosH").html(response);
+          }
+      });
+  }); //fin #buscarH
+
+  $("#btn_buscarh").click(function(argument){
+    alert("llenar todos los campos");
+  });
+
 }); // fin document ready
 
 function recargarBitacora() {
