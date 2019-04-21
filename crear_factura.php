@@ -199,6 +199,7 @@
 					<input type="mail" name="" id="txt-usuario-correo" style="display:none;">
 					<input type="date" name="" id="txt-usuario-fecha" style="display:none;">
 					<input type="direccion" name="" id="txt-usuario-direccion" style="display:none;">
+					
 				</div>	
 
 			</div>
