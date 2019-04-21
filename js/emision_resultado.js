@@ -97,19 +97,29 @@ function ObtenerInputs(){
 		data:{"accion":"obtener-inputs"},
 		method:"post",
 		success:function(respuesta){
-			var type = JSON.parse(respuesta);	
+			var type = JSON.parse(respuesta);
+			var caracteristicas= new Array();	
 			for (var i = 0; i < type.length; i++) {
 			
-					var valor=document.getElementById('txt-'+type[i].ID_AREA+type[i].CARACTERISTICA).value;
+					// var valor=document.getElementById('txt-'+type[i].ID_AREA+type[i].CARACTERISTICA).value;
+					// var idcaracteristica=document.getElementById('txt-caracteristica-'+type[i].ID_CARACTERISTICAS+type[i].CARACTERISTICA).value;
+					// if (valor!='') {
+					// 	//valor='NA';
+					// 	parametro+="txt-"+type[i].ID_AREA+type[i].CARACTERISTICA+':'+valor+'#'+'txt-caracteristica-'+type[i].ID_CARACTERISTICAS+type[i].CARACTERISTICA+':'+idcaracteristica+',';
+					// }
+					//Este es el valor ingresado en el input
+
+				    var valor=document.getElementById('txt-'+type[i].ID_AREA+type[i].CARACTERISTICA).value;
 					var idcaracteristica=document.getElementById('txt-caracteristica-'+type[i].ID_CARACTERISTICAS+type[i].CARACTERISTICA).value;
-					if (valor!='') {
-						//valor='NA';
-						parametro+="txt-"+type[i].ID_AREA+type[i].CARACTERISTICA+':'+valor+'#'+'txt-caracteristica-'+type[i].ID_CARACTERISTICAS+type[i].CARACTERISTICA+':'+idcaracteristica+',';
-					}
-					
-				
+					 if (valor!='') {
+					 	parametro=valor+':'+idcaracteristica;
+					 	//valor='NA';
+					// 	parametro+="txt-"+type[i].ID_AREA+type[i].CARACTERISTICA+':'+valor+'#'+'txt-caracteristica-'+type[i].ID_CARACTERISTICAS+type[i].CARACTERISTICA+':'+idcaracteristica+',';
+						caracteristicas.push(parametro);
+					 }
 			}
-			parametros(parametro);
+					// console.log(caracteristicas);
+			parametros(caracteristicas);
 		},
 		error:function(e){
 		alert(e);
@@ -119,13 +129,14 @@ function ObtenerInputs(){
 }
 //Funcion en donde se obtiene la data con el formato correcto para hacer la peticion ajax 
 function parametros(data){
-	var cadena=data;
-	var cadena2=cadena.slice(0,-1);
+	//var cadena=data;
+	//var cadena2=cadena.slice(0,-1);
 	 //console.log(cadena2);
 	//En este punto es en donde se guardara la data en la base de datos
+	//console.log(data);
 	$.ajax({
 		url:"ajax/gestionar-resultados.php",
-		data:{"accion":"guardar-resultado",cadena2},
+		data:{"accion":"guardar-resultado","arreglo":JSON.stringify(data)},
 		method:"post",
 		success:function(respuesta){
 			console.log(respuesta);

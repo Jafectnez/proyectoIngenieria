@@ -88,6 +88,8 @@
 			return $row;
 		}
 		public static function guardar_resultado($conexion,$parametros){
+			session_start();
+			$fecha=date("y").'-'.date("m").'-'.date("d");
 			//Registro es cada registro que se agregara a la tabla
 			$sql = 'INSERT INTO TBL_RESULTADOS (
                                   ID_EXAMEN,
@@ -98,8 +100,8 @@
                           VALUES ( 
                                   1,
                                   1, 
-                                  1,
-                                  "2019-04-20",
+                                  '.$_SESSION['id_empleado'].',
+                                  "'.$fecha.'",
                                   "N/A")';
             echo $sql;
             $resultado = $conexion->ejecutarConsulta($sql);
@@ -108,8 +110,19 @@
 
             $resultado1 = $conexion->ejecutarConsulta($sql1);
 
-            while(($id=$conexion->obtenerFila($resultado1))){
-				echo "Id del resultado: "+$id['id'];
+   //          while(($id=$conexion->obtenerFila($resultado1))){
+			// 	echo "Id del resultado: "+$id['id'];
+			// }
+			$id=$conexion->obtenerFila($resultado1);
+			$tamanio=count($parametros);
+			for ($i=0; $i < $tamanio ; $i++) { 
+				list($valor,$idcaracteristica)=explode(':', $parametros[$i]) ;
+				$sql2='INSERT INTO caracteristicas_x_resultados(
+								   ID_CARACTERISTICAS,
+								   ID_RESULTADO,
+								   VALOR_RESULTADO)
+				 			VALUES ('.$idcaracteristica.','.$id['id'].','.$valor.')';
+				$resultado2=$conexion->ejecutarConsulta($sql2);
 			}
 
 		}

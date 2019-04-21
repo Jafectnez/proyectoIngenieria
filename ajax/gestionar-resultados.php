@@ -19,10 +19,12 @@
 				echo json_encode($res);
 				break;
 			case 'guardar-resultado':
-		//	var_dump($_POST['cadena2']);
-				 $res=emision_resultado::guardar_resultado($conexion,$_POST['cadena2']);
-				 echo json_encode($res);
-				// echo $res;
+			    $data = json_decode($_POST['arreglo']);
+				//	var_dump($data);
+				//	var_dump($_POST['arreglo']);
+				$res=emision_resultado::guardar_resultado($conexion,$data);
+				//echo json_encode($res);
+				 echo $res;
 				# code...
 				break;
 			
