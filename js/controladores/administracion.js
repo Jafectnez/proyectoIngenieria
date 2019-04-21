@@ -19,9 +19,9 @@ $(document).ready(function() {
       }
     },
     columns: [
-      {data: "NOMBRE", title: "Nombre"},
+      {data: "ID_SOLICITUD", title: "Código de Solicitud"},
       {data: "DESCRIPCION", title: "Descripcion"},
-      {data: "USUARIO", title: "Usuario"},
+      {data: "USUARIO", title: "Usuario Solicitante"},
       {data: "ESTADO_SOLICITUD", title: "Estado Solicitud", 
       render: function ( data, type, row, meta ) {
         return `<b>${data}</b>`;
@@ -33,6 +33,7 @@ $(document).ready(function() {
       }}
     ]
   });
+  setInterval(recargarSolicitudes, 59000);
   
   //Carga los empleados registrados 
   $("#table-empleados").DataTable({
@@ -50,6 +51,7 @@ $(document).ready(function() {
       }
     },
     columns: [
+      {data: "ID_EMPLEADO", title: "Código de Empleado"},
       {data: "NOMBRE", title: "Nombre"},
       {data: "TELEFONO", title: "Teléfono"},
       {data: "FECHA_INGRESO", title: "Fecha de Ingreso"},
@@ -59,6 +61,29 @@ $(document).ready(function() {
       }}
     ]
   });
+
+  //Carga los registros de la bitácora
+  $("#table-bitacora").DataTable({
+    pageLength: 10,
+    ordering: true,
+    paging: true,
+    responsive: true,
+    serverSide: true,
+    ajax: {
+      "url": "ajax/acciones-administracion.php",
+      "method": "POST",
+      "dataType": "json",
+      "data": {
+        "accion" : "leer-bitacora"
+      }
+    },
+    columns: [
+      {data: "FECHA", title: "Fecha del registro"},
+      {data: "DESCRIPCION", title: "Descripcion"},
+      {data: "USUARIO", title: "Usuario Responsable del Registro"}
+    ]
+  });
+  setInterval(recargarBitacora, 59000);
 
  $("#nav-adm-pro-tab").click(function(argument){
   ListExamenes();
@@ -110,6 +135,14 @@ $(document).ready(function() {
  });
 
 }); // fin document ready
+
+function recargarBitacora() {
+  $("#table-bitacora").DataTable().ajax.reload();
+}
+
+function recargarSolicitudes() {
+  $("#table-solicitudes").DataTable().ajax.reload();
+}
 
 function ListExamenes() {
   $.ajax({
@@ -323,6 +356,7 @@ $('#guardar-empleado').click(function(){
         popUp.correcto();
         popUp.mostrarAlerta();
         $('#table-empleados').DataTable().ajax.reload();
+        $('#table-bitacora').DataTable().ajax.reload();
       }
     });
   }else{
@@ -412,6 +446,7 @@ $("#actualizar-empleado").click(function(){
         $("#eliminar-empleado").removeClass("hide");
         $("#editar-empleado").removeClass("hide");
         $('#table-empleados').DataTable().ajax.reload();
+        $('#table-bitacora').DataTable().ajax.reload();
 
         verEmpleado(idEmpleadoVisible);
       }
@@ -460,6 +495,7 @@ $("#eliminar-empleado").click(function(){
         popUp.correcto();
         popUp.mostrarAlerta();
         $('#table-empleados').DataTable().ajax.reload();
+        $('#table-bitacora').DataTable().ajax.reload();
 
         setTimeout(function(){
           $("#modalVerEmpleado").modal('hide');
@@ -501,6 +537,7 @@ $("#aceptar-solicitud").click(function(){
       popUp.mostrarAlerta();
       $("#denegar-solicitud").addClass("hide");
       $('#table-solicitudes').DataTable().ajax.reload();
+      $('#table-bitacora').DataTable().ajax.reload();
 
       verSolicitud(idSolicitudVisible);
     }
@@ -538,6 +575,7 @@ $("#denegar-solicitud").click(function(){
       popUp.mostrarAlerta();
       $("#aceptar-solicitud").addClass("hide");
       $('#table-solicitudes').DataTable().ajax.reload();
+      $('#table-bitacora').DataTable().ajax.reload();
 
       verSolicitud(idSolicitudVisible);
     }

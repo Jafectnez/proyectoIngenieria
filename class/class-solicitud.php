@@ -72,7 +72,6 @@
     public static function leer($conexion){
       $sql = 
       ' SELECT A.ID_SOLICITUD,
-               C.NOMBRE,
                A.DESCRIPCION,
                D.USUARIO,
                E.ESTADO_SOLICITUD,

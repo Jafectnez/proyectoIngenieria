@@ -52,7 +52,7 @@
         </a>
       </li>
       <li id="li-emision">
-        <a href="EmisionResultados.php">
+        <a href="Ingresar_resultados.php">
           <i class="glyphicon glyphicon-list-alt"></i>
           <span>Emisión de Resultados</span>
         </a>

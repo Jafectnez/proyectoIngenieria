@@ -89,26 +89,28 @@
 		}
 		public static function guardar_resultado($conexion,$parametros){
 			//Registro es cada registro que se agregara a la tabla
-			 $registro=explode(',', $parametros);
-			 $tamanio=count($registro);
-			 for ($i=0; $i < $tamanio; $i++) { 
-			 	//Aqui se separan los 2 campos que se agragaran a las tablas siendo valor el campo en donde se obtiene el valor real
-			 	//De los resultados emitidos y el id el campo en donde se obtiene el id de la caracteristica a agregar
-			 	list($valor,$id)=explode('#', $registro[$i]);
-			 	//Aqui dividimos el valor en el nombre de su caracteristica y su valor como tal
-			 	list($resultado,$valorresultado)=explode(':', $valor);
-			 	//Se divide el id en su valor como tal y el nombre del input que lo contiene 
-			 	list($caracteristica,$idcaracteristica)=explode(':', $id);
-			 	// echo $valorresultado;
-			 	// echo " ";
-			 	// echo $idcaracteristica;
-			 	// echo " _______________________________________ ";
-			 	
-			 	//$row=$conexion->ejecutarConsulta($sql);
-			 	
-			 }
-			 
-			//return $registro;
+			$sql = 'INSERT INTO TBL_RESULTADOS (
+                                  ID_EXAMEN,
+                                  ID_CLIENTE, 
+                                  ID_EMPLEADO, 
+                                  FECHA_EMISION,
+                                  OBSERVACIONES)
+                          VALUES ( 
+                                  1,
+                                  1, 
+                                  1,
+                                  "2019-04-20",
+                                  "N/A")';
+            echo $sql;
+            $resultado = $conexion->ejecutarConsulta($sql);
+
+            $sql1 = 'SELECT MAX(ID_RESULTADO) id FROM TBL_RESULTADOS';
+
+            $resultado1 = $conexion->ejecutarConsulta($sql1);
+
+            while(($id=$conexion->obtenerFila($resultado1))){
+				echo "Id del resultado: "+$id['id'];
+			}
 
 		}
 	}

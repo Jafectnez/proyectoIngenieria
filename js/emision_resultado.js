@@ -102,10 +102,11 @@ function ObtenerInputs(){
 			
 					var valor=document.getElementById('txt-'+type[i].ID_AREA+type[i].CARACTERISTICA).value;
 					var idcaracteristica=document.getElementById('txt-caracteristica-'+type[i].ID_CARACTERISTICAS+type[i].CARACTERISTICA).value;
-					if (valor==='') {
-						valor='NA';
+					if (valor!='') {
+						//valor='NA';
+						parametro+="txt-"+type[i].ID_AREA+type[i].CARACTERISTICA+':'+valor+'#'+'txt-caracteristica-'+type[i].ID_CARACTERISTICAS+type[i].CARACTERISTICA+':'+idcaracteristica+',';
 					}
-					parametro+="txt-"+type[i].ID_AREA+type[i].CARACTERISTICA+':'+valor+'#'+'txt-caracteristica-'+type[i].ID_CARACTERISTICAS+type[i].CARACTERISTICA+':'+idcaracteristica+',';
+					
 				
 			}
 			parametros(parametro);

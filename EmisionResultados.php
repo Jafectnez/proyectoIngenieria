@@ -1,3 +1,11 @@
+<?php
+//include("class/class-conexion.php");
+ //session_start();
+ //if($_SESSION['status']==false) { // CUALQUIER USUARIO REGISTRADO PUEDE VER ESTA PAGINA
+ //     session_destroy();
+  //   header("Location: login.php");
+ //}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,9 +14,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/barra-menu.css">
-		<link rel="stylesheet" type="text/css" href="css/carousel.css">
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
 		<link rel="stylesheet" type="text/css" href="css/styleBarra.css">
+		<link rel="stylesheet" type="text/css" href="css/materialize.min.css">
 	</head>
 	<body>
 
@@ -22,33 +30,15 @@
 				<!--Contenido Del Catalogo-->
 
 				<div class="col-lg-10 col-sm-10 well" style="border: black 1px solid;width: 80%">
-					<!--Barra De Menu-->
-					<ul class="menu">
-						<li style="padding-right: 170px"><input type="text" placeholder="Perfil"></li>
-						<li><span class="glyphicon glyphicon-plus-sign" style="font-size: 40px"></span> </li>
-						<li><a href="Ingresar_resultados.php">Añadir Resultado</a></li>
-					</ul>
-					<!--Fin De Barra De Menu-->
+					<!--Barra De busqueda-->
+
+						<input type="text" placeholder="Perfil">
+						
+					<!--Fin De Barra De busqueda-->
 
 					<!--Contenido-->
-					<label><span class="glyphicon glyphicon-plus-sign" style="font-size: 20px"></span>Filtro/Tag</label>
-					<a href="">Tipo Cliente x: Regular x, Nuevo x, Perdido x, Aprox:"2 Meses"x</a>
-					<br><br>
-					<label>Acciones: </label>
-					<span class="glyphicon glyphicon-trash forte"></span>
-					<span class="glyphicon glyphicon-print forte"></span>
-					<span class="glyphicon glyphicon-file forte"></span>
-					<span class="glyphicon glyphicon-envelope forte"></span>
-					<span class="glyphicon glyphicon-floppy-disk forte"></span>
-					<select class="form.control">
-						<option>Mover a:</option>
-						<option>Mover a 1:</option>
-						<option>Mover a 2:</option>
-						<option>Mover a 3:</option>
-						<option>Mover a 4:</option>
-					</select>
 
-					<div class="lista" style="padding-bottom: 0px">
+					<!-- <div class="lista" style="padding-bottom: 0px">
 						<label>Todos</label>				
 					</div>
 
@@ -146,7 +136,21 @@
 
 							</tr>
 						</table>
-					</div>
+					</div> -->
+					  <ul class="collapsible">
+					    <li>
+					      <div class="collapsible-header">Todos</div>
+					      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+					    </li>
+					    <li>
+					      <div class="collapsible-header">Second</div>
+					      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+					    </li>
+					    <li>
+					      <div class="collapsible-header">Third</div>
+					      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+					    </li>
+					  </ul>
 					<!--Fin Contenido-->
 						
 				</div>
@@ -156,6 +160,7 @@
 
 	</body>
 	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/carousel.js"></script>
+	<script src="js/materialize.min.js"></script>	
+	<script src="js/emision_resultado.js"></script>	
 	<script src="js/menu.js"></script>
 </html>

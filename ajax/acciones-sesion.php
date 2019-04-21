@@ -2,10 +2,9 @@
 
 	include ("../class/class-conexion.php");
 	include ("../class/class-usuario.php");	
-	
-			
-		$conexion=new Conexion();
+		
 	if (isset($_POST['accion'])) {
+		$conexion=new Conexion();
 		switch ($_POST["accion"]) {
 			case 'iniciar-sesion':
 				$usuario=$_POST["txt-Usuario"];
@@ -27,8 +26,14 @@
 				# code...
 				break;
 		}
-		# code...
-	}
-	$conexion->cerrar();
+    $conexion->cerrar();
+    $conexion = null;
+  } else {
+    $res['data']['mensaje']='Accion no especificada';
+    $res['data']['resultado']=false;
+    $res['data']['accion']=$_POST;
+    echo json_encode($res);
+  }
+  
 
 ?>

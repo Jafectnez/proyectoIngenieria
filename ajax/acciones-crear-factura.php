@@ -33,6 +33,22 @@
 				$respuesta = crearFactura::obtenerPromociones($conexion,$_POST['fechaActual'],$_POST['idFactura']);
 				echo $respuesta;
 				break;
+			case 'verificar-usuario':
+				$respuesta = crearFactura::verificarUsuario($conexion,$_POST['nombreCliente']);
+				echo $respuesta;
+				break;
+			case 'almacenar-factura':
+				$respuesta = crearFactura::almacenarFactura($conexion,$_POST['idImpuesto'],$_POST['idCliente'],$_POST['idEmpleado'],$_POST['idFormaPago'],$_POST['rtn'],$_POST['fechaExamen'],$_POST['total'],$_POST['estadoFactura']);
+				echo $respuesta;
+				break;
+			case 'guardar-registros-finales':
+				$respuesta = crearFactura::guardarRegistrosFinales($conexion,$_POST['codigoFactura']);
+				echo $respuesta;
+				break;
+			case 'crear-usuario':
+				$respuesta = crearFactura::crearUsuario($conexion,$_POST['genero'],$_POST['nombre'],$_POST['apellido'],$_POST['telefono'],$_POST['correo'],$_POST['fecha'],$_POST['direccion'],$_POST['identidad']);
+				echo json_encode($respuesta);
+				break;
 			
 			default:
 				# code...

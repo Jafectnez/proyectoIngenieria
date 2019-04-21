@@ -21,8 +21,8 @@
 			case 'guardar-resultado':
 		//	var_dump($_POST['cadena2']);
 				 $res=emision_resultado::guardar_resultado($conexion,$_POST['cadena2']);
-				// echo json_encode($res);
-				 echo $res;
+				 echo json_encode($res);
+				// echo $res;
 				# code...
 				break;
 			

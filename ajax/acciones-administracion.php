@@ -4,6 +4,7 @@
   include_once("../class/class-persona.php");
   include_once("../class/class-empleado.php");
   include_once("../class/class-solicitud.php");
+  include_once("../class/class-bitacora.php");
   
   if(isset($_POST['accion'])){
     $conexion = new Conexion();
@@ -110,6 +111,12 @@
         $solicitud->setIdSolicitud($idSolicitud);
         $solicitud->setIdEstadoSolicitud(2);
         $res['data'] = $solicitud->actualizar($conexion);
+        echo json_encode($res);
+      break;
+
+      //Acciones con la bitacora
+      case 'leer-bitacora':
+        $res['data'] = Bitacora::leer($conexion);
         echo json_encode($res);
       break;
 

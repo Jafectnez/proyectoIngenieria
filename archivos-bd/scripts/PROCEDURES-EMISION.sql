@@ -4,12 +4,11 @@
       IN P_ID_EXAMEN INT,
       IN P_ID_CLIENTE INT,
       IN P_ID_EMPLEADO INT, 
-      IN P_OBSERVACION VARCHAR(200),
-      IN P_ID_CARACTERISTICA VARCHAR(200),
-
+      IN P_OBSERVACIONES VARCHAR(200),
       
       OUT pO_mensaje VARCHAR(1000),
-      OUT pO_error BOOLEAN
+      OUT pO_error BOOLEAN,
+      OUT pO_id INT
     )
       BEGIN
 
@@ -32,9 +31,6 @@
       END IF; 
       IF P_ID_EMPLEADO='' OR P_ID_EMPLEADO IS NULL THEN 
         SET mensaje=CONCAT(mensaje, 'Id empleado vacio, ');
-      END IF; 
-      IF P_ID_EXAMEN='' OR P_ID_CARACTERISTICA IS NULL THEN 
-        SET mensaje=CONCAT(mensaje, 'Id caracteristica vacio, ');
       END IF;     
        # Insert y Commit
 
@@ -48,23 +44,18 @@
                                   P_ID_EXAMEN,
                                   P_ID_CLIENTE, 
                                   P_ID_EMPLEADO,
-                                  NOW(), 
-                                  P_OBSERVACION);
-     SELECT MAX(ID_RESULTADO) INTO id FROM TBL_RESULTADOS;
+                                  NOW(),
+                                  P_OBSERVACIONES);
 
-
-      INSERT INTO CARACTERISTICAS_X_RESULTADOS(
-                                  ID_CARACTERISTICAS,
-                                  ID_RESULTADO )
-                          VALUES(P_ID_CARACTERISTICA,
-                                id);
       COMMIT;
+      SELECT MAX(ID_RESULTADO) as idr  INTO id FROM TBL_RESULTADOS;
           
       SET mensaje='Inserción exitosa';
       SET error=FALSE;
       SET pO_mensaje=mensaje;
       SET pO_error=error;
-      SELECT mensaje, error;
+      SET pO_id=id;
+      SELECT mensaje, error,id;
 
     END//
 

@@ -79,7 +79,6 @@ input{
 .lista{
     padding-top: 10px;
     border: black 1px solid;
-    padding-bottom: 700px;
 }
 
 #menu1 * { list-style:none;}

@@ -153,12 +153,20 @@
 
 		//Funcion que establecera los parametros de cada uno de los servicios
 		public static function seleccionarServicio($conexion,$idExamen,$codigoFactura){
+			$sql = 'select * from tbl_examenes_x_factura'.$codigoFactura.' ef 
+			where ef.id_examen = '.$idExamen.' and ef.id_factura = '.$codigoFactura;
+			$resultado = $conexion->ejecutarConsulta($sql);
+			if (!($servicio=$conexion->obtenerFila($resultado))) {
+				//echo "Se debe hacer la insercion";
+				// Insertar los registros en la parte de la tabla
+				$sql1 = 'insert into tbl_examenes_x_factura'.$codigoFactura.' value ('.$idExamen.','.$codigoFactura.')';
+				$resultado1 = $conexion->ejecutarConsulta($sql1);
+				//echo $sql1;
+			}
 			
 
-			// Insertar los registros en la parte de la tabla
-			$sql1 = 'insert into tbl_examenes_x_factura'.$codigoFactura.' value ('.$idExamen.','.$codigoFactura.')';
-			$resultado1 = $conexion->ejecutarConsulta($sql1);
-			echo $sql1;
+
+			
 			
 		}
 		//---------------------------------------------------------------------------
@@ -180,6 +188,7 @@
 				on e.id_examen = ef.id_examen';
 
 			$resultado = $conexion->ejecutarConsulta($sql);
+			echo '<div style="margin-left:15px">';
 			echo "<h6><strong>Servicios</strong></h6>";
 			echo '<table class="table table-striped " >';
 			while(($servicio=$conexion->obtenerFila($resultado))){
@@ -190,6 +199,7 @@
 				echo '</tr>';
 			}
 			echo '</table>';
+			echo "<div>";
 
 		}
 		//---------------------------------------------------------------------------
@@ -216,6 +226,7 @@
 					where ef.id_factura = '.$idFactura;
 			$totalPromocion = 0;
 			$resultado = $conexion->ejecutarConsulta($sql);
+			echo "<h6><strong> Promociones disponibles</strong></h6>";
 			while(($examen=$conexion->obtenerFila($resultado))){
 				$sql1 = 'select e.nombre nombre,e.precio precio,p.promocion promocion, p.fecha_fin fechaFin, p.fecha_inicio fechaInicio from promociones_x_examenes pe 
 						 inner join tbl_examenes e 
@@ -224,17 +235,142 @@
 						 on p.id_promociones = pe.tbl_promociones_id_promociones
 						 where (e.id_examen = '.$examen['idExamen'].' and ("'.$fechaActual.'" between p.fecha_inicio and p.fecha_fin))';
 
+
 				$resultado1 = $conexion->ejecutarConsulta($sql1);
 				while(($promocion=$conexion->obtenerFila($resultado1))){
-						echo '<span>'.$promocion['nombre'].' ('.$promocion['precio'].' - '.$promocion['promocion'].'%)</span>';
+						echo '<span style="font-size:12px;">'.$promocion['nombre'].' ('.$promocion['precio'].' - '.$promocion['promocion'].'%)</span>';
 						echo "<br>";
-						$totalPromocion = $totalPromocion + $promocion['promocion'];
+						$monto = $promocion['precio'] * $promocion['promocion'];
+						$totalPromocion = $totalPromocion + $monto;
 				}
+
 			
 
 			}
 			//echo "No hay promociones disponibles";
-			echo '<input type="text" name="" id="total-promocion" style="width: 80px;" value="'.$totalPromocion.'">';
+			echo '<input type="input" name="totalPromocion" id="total-promocion" style="width: 80px;display:none;" value="'.$totalPromocion.'" checked>';
 		}
+
+		//-----------------------------------------------------------------------------
+
+		//Funcion para verificar si el cliente esta registrado en el sistema
+		public static function verificarUsuario($conexion,$nombreUsuario){
+			//Dividir el nombre obtenido en el campo para obtener el nombre y el apellido
+			$nombre = strtok($nombreUsuario, ' ');
+			$apellido = strtok(' ');
+			//echo $nombre;
+			//echo $apellido;
+
+			$sql = 'select p.id_persona idPersona from tbl_personas p 
+					inner join tbl_cliente c
+					on c.id_persona = p.id_persona
+					where (p.nombre = "'.$nombre.'" and p.apellido = "'.$apellido.'")';
+			//echo $sql;
+
+			$resultado = $conexion->ejecutarConsulta($sql);
+
+			if (($usuario=$conexion->obtenerFila($resultado))) {
+				//echo "Debe retornar el id de ese cliente";
+				echo '<input type="text" style="display:none" name="" id="txt-id-usuario" value="'.$usuario['idPersona'].'">';
+			}
+			else{
+				echo "Se debe registrar el cliente";
+
+			}
+
+		}
+
+		//------------------------------------------------------------------
+		public static function almacenarFactura($conexion,$idImpuesto,$idPersona,$idEmpleado,$idFormaPago,$rtn,$fechaExamen,$total,$estadoFactura){
+			$sql1 = 'select c.id_cliente idCliente  from tbl_personas p
+					 inner join tbl_cliente c
+					 on c.id_persona = p.id_persona
+					 where p.id_persona = '.$idPersona;
+			$resultado1 = $conexion->ejecutarConsulta($sql1);
+			if (($factura=$conexion->obtenerFila($resultado1))) {
+				$sql = "INSERT INTO `db_emanuel`.`tbl_factura` ( `ID_IMPUESTO`, `ID_CLIENTE`, `ID_EMPLEADO`, `ID_FORMA_PAGO`, `RTN`, `FECHA_EXAMEN`, `TOTAL`, `ESTADO_FACTURA`) VALUES ('".$idImpuesto."', '".$factura['idCliente']."', '".$idEmpleado."', '".$idFormaPago."', '".$rtn."', '".$fechaExamen."', '".$total."', '".$estadoFactura."');";
+				$resultado = $conexion->ejecutarConsulta($sql);
+			}		
+
+		}
+
+		public static function guardarRegistrosFinales($conexion,$codigoFactura){
+				$sql = 'select ef.id_examen idExamen, ef.id_factura idFactura from tbl_examenes_x_factura'.$codigoFactura.' ef';
+				$resultado = $conexion->ejecutarConsulta($sql);
+				while (($registro=$conexion->obtenerFila($resultado))) {
+					$sql1 = 'insert into examenes_x_factura values('.$registro['idExamen'].','.$registro['idFactura'].')';
+					$resultado1 = $conexion->ejecutarConsulta($sql1);
+				}	
+				//Destruir la tabla temporal
+				$sql2 = 'drop table tbl_examenes_x_factura'.$codigoFactura;
+				$resultado = $conexion->ejecutarConsulta($sql2);
+		}
+
+		public static function crearUsuario($conexion,$genero,$nombre,$apellido,$telefono,$correo,$fecha,$direccion,$identidad){
+
+			$añoNacimiento = strtok($fecha, '-');
+			$añoActual = date("Y");
+			$edad = $añoActual - $añoNacimiento;
+			//echo $edad;
+
+
+			$sql = 'INSERT INTO `db_emanuel`.`tbl_personas` ( ID_GENERO, NOMBRE, APELLIDO, EDAD, TELEFONO, EMAIL, FECHA_NAC, DIRECCION, IDENTIDAD) VALUES ("'.$genero.'","'.$nombre.'","'.$apellido.'",'.$edad.',"'.$telefono.'","'.$correo.'","'.$fecha.'","'.$direccion.'","'.$identidad.'")';
+			$resultado = $conexion->ejecutarConsulta($sql);
+
+			$nombreUsuario = $nombre.$apellido;
+			//echo $nombreUsuario;
+
+
+			$fecha = time();
+			$fechaActual = date("Y-m-d",$fecha);
+			//echo $fechaActual;
+
+			$sql2 = 'insert into tbl_usuarios (id_tipo_usuario,usuario,contraseña,fecha_registro) values (3,"'.$nombreUsuario.'","asd.456",'.$fechaActual.')';
+			//echo $sql2;
+			$resultado2 = $conexion->ejecutarConsulta($sql2);
+
+			//Obtener el id de la persona que acaba de ser registrada
+			$sql1 = 'SELECT MAX(ID_PERSONA) id FROM TBL_PERSONAS';
+			$resultado1 = $conexion->ejecutarConsulta($sql1);
+			while(($persona=$conexion->obtenerFila($resultado1))){
+				   $idPersona = $persona['id'];
+				   //echo "Id de la persona: ".$idPersona;
+			}
+
+			$sql2 = 'SELECT MAX(ID_USUARIO) id FROM TBL_USUARIOS';
+			$resultado2 = $conexion->ejecutarConsulta($sql2);
+			while(($usuario=$conexion->obtenerFila($resultado2))){
+				   $idUsuario = $usuario['id'];
+				   
+			}
+			//echo "Id del usuario: ".$idUsuario;
+
+			$sql3 = 'insert into tbl_cliente (id_persona,id_usuario) values ('.$idPersona.','.$idUsuario.')';
+			//echo $sql3;
+			$resultado3 = $conexion->ejecutarConsulta($sql3);
+
+			$sql4 = 'SELECT MAX(ID_CLIENTE) id FROM TBL_CLIENTE';
+			$row = $conexion->query($sql4);
+			return $row;
+			//$resultado4 = $conexion->ejecutarConsulta($sql4);
+			//while(($cliente=$conexion->obtenerFila($resultado4))){
+			//	   $idCliente = $cliente['id'];
+			//	   echo $idCliente;
+			//}
+			//echo "El id del cliente es: "+$idCliente;
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 ?>

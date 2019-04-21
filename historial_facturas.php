@@ -1,3 +1,11 @@
+<?php
+include("class/class-conexion.php");
+ session_start();
+ if($_SESSION['status']==false) { // CUALQUIER USUARIO REGISTRADO PUEDE VER ESTA PAGINA
+      session_destroy();
+     header("Location: login.php");
+ }
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -25,20 +33,7 @@
 					<br>
 					<!--Encabezado con opciones de las facturas-->
 
-					<!--Barra De Menu-->
-					<div  class="row" style="margin-left: 20px">
-						<ul class="menu">
-							<li ><span>Mover a:</span>
-								<select>
-									<option>Opcion 1</option>
-									<option>Opcion 2</option>
-									<option>Opcion 3</option>
-									<option>Opcion 4</option>
-								</select>
-							<li style="margin-left: 150px"><input type="text" placeholder="Buscar" style="width: 200px"></li>
-						</ul>
-					</div>
-					<!--Fin De Barra De Menu-->
+					<h1 style="text-align: center;" >Historial de facturas</h1>
 					<!--Fin del encabezado-->
 
 					<!--Tabla que contiene el historial de las pruebas-->
@@ -54,49 +49,14 @@
 								<th scope="col">Costo</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<th>2</th>
-								<th>10/12/2018</th>
-								<th>Manolo Urbina</th>
-								<th>Multiple</th>
-								<th>Emitido</th>
-								<th>Leví Canales</th>
-								<th>140 Lps.</th>
-							</tr>
-							<tr>
-								<th>9</th>
-								<th>12/12/2018</th>
-								<th>Lizzul Giron</th>
-								<th>Emoglobina</th>
-								<th>Emitido</th>
-								<th>Leví Canales</th>
-								<th>70 Lps.</th>
-							</tr>
-							<tr>
-								<th>17</th>
-								<th>23/01/2019</th>
-								<th>Evelin Izaguirre</th>
-								<th>Tarjeta de salud</th>
-								<th>Realizado</th>
-								<th>Rosa Cuello</th>
-								<th>60 Lps.</th>
-							</tr>
-							<tr>
-								<th>23</th>
-								<th>15/02/2019</th>
-								<th>Bessy Velasquez</th>
-								<th>Hemograma</th>
-								<th>Emitido</th>
-								<th>Lili Giron</th>
-								<th>675 Lps.</th>
-							</tr>
+						<tbody id="tbl-cuerpo-historial">
+							
 						</tbody>
 					</table>
 					<!-- Fin de la tabla-->
 
 					<!--Barra De Menu para los tipos de examenes-->
-					<div  class="row" style="margin-left: 20px">
+ 				<!-- 	<div  class="row" style="margin-left: 20px">
 						<ul class="menu">
 							<li ><span>Examén:</span>
 								<select>
@@ -107,11 +67,11 @@
 								</select>
 							<li style="margin-left: 150px"><input type="text" placeholder="Examen disponible" style="width: 200px"></li>
 						</ul>
-					</div>
-					<!--Fin De Barra De Menu-->
+					</div> -->
+					<!--Fin De Barra De Menu -->
 
 					<!--Conteo actual de las facturas existentes-->
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-lg-3 col-md-3">
 							<p>
 								<span>
@@ -143,7 +103,33 @@
 								</span>
 							</p>
 						</div>
-					</div>
+					</div> -->
+					<table class="table">
+						<tr>
+							<td><span>
+									Facturas: <input type="number" name="" readonly="readonly" style="width: 150px">
+								</span>
+							</td>
+							<td>
+								<span>
+									Total: <input type="number" name="" readonly="readonly" style="width: 150px">
+								</span>
+							</td>
+							<td>
+								<span>
+									De: <input placeholder="03/09/2019" type="text" name=""  style="width: 150px">
+								</span>
+							</td>
+							<td>
+								<span>
+									Hasta: <input placeholder="03/09/2019" type="text" name="" style="width: 150px">
+								</span>
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+					</table>
 					<!--Fin del conteo-->
 				</div>
 				<!--Fin del formato-->
@@ -155,4 +141,5 @@
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/carousel.js"></script>
 	<script src="js/menu.js"></script>
+	<script src="js/controladores/historialFactura.js"></script>
 </html>

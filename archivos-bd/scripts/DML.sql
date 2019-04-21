@@ -13,13 +13,13 @@ INSERT INTO `TBL_GENERO` (`GENERO`)
   VALUES ('INDETERMINADO');
 
 INSERT INTO `TBL_PERSONAS` (`ID_GENERO`, `NOMBRE`, `APELLIDO`, `EDAD`, `TELEFONO`, `EMAIL`, `FECHA_NAC`, `DIRECCION`, `IDENTIDAD`) 
-  VALUES (1, 'Allan', 'Martinez', 21, '9900-0000', 'allan.martinez@unah.hn', '2019-03-28', 'Tegucigalpa, Honduras', '0801201900001');
+  VALUES (1, 'Allan', 'Martinez', 21, '9900-0001', 'allan.martinez@unah.hn', '2000-03-28', 'Tegucigalpa, Honduras', '0801201900001');
 
 INSERT INTO `TBL_PERSONAS` (`ID_GENERO`, `NOMBRE`, `APELLIDO`, `EDAD`, `TELEFONO`, `EMAIL`, `FECHA_NAC`, `DIRECCION`, `IDENTIDAD`) 
-  VALUES (2, 'Evelin', 'Izaguirre', 21, '9900-0000', 'evelin.izaguirre@unah.hn', '2019-03-28', 'Tegucigalpa, Honduras', '0801201900001');
+  VALUES (2, 'Evelin', 'Izaguirre', 21, '9900-0002', 'evelin.izaguirre@unah.hn', '2000-03-28', 'Tegucigalpa, Honduras', '0801201900002');
 
 INSERT INTO `TBL_PERSONAS` (`ID_GENERO`, `NOMBRE`, `APELLIDO`, `EDAD`, `TELEFONO`, `EMAIL`, `FECHA_NAC`, `DIRECCION`, `IDENTIDAD`) 
-  VALUES (2, 'Lizzul', 'Giron', 21, '9900-0000', 'lizzul.giron@unah.hn', '2019-03-28', 'Tegucigalpa, Honduras', '0801201900001');
+  VALUES (2, 'Lizzul', 'Giron', 21, '9900-0003', 'lizzul.giron@unah.hn', '2000-03-28', 'Tegucigalpa, Honduras', '0801201900003');
 
 INSERT INTO `TBL_TIPO_USUARIO` (`TIPO_USUARIO`) 
   VALUES ('Administrador');
@@ -63,9 +63,6 @@ INSERT INTO `TBL_DESCUENTOS` (`DESCRIPCION`, `PORCENTAJE`)
 INSERT INTO `DESCUENTOS_X_FACTURA` (`ID_DESCUENTOS`, `ID_FACTURA`) 
   VALUES (1, 1);
 
-INSERT INTO `TBL_AREA` (`NOMBRE`) 
-  VALUES ('Hematologia');
-
 INSERT INTO `TBL_EXAMENES` (`ID_AREA`, `NOMBRE`, `PRECIO`, `DESCRIPCION`, `TIEMPO_ANALISIS`) 
   VALUES (1, 'Hemograma', 400.0, 'Examen de Sangre', '1 dia');
 
@@ -93,8 +90,8 @@ INSERT INTO `INSUMOS_X_EXAMENES` (`ID_INSUMO`, `ID_EXAMEN`)
 INSERT INTO `TBL_CARACTERISTICAS` (`CARACTERISTICA`, `VALOR_REF`) 
   VALUES ('Eritrocitos', '200-250');
 
-INSERT INTO `TBL_PROMOCIONES` (`DESCRIPCION`, `FECHA_INICIO`, `FECHA_FIN`) 
-  VALUES ('Descuento por Aniversario', '2019-03-28', '2019-03-28');
+INSERT INTO `TBL_PROMOCIONES` (`PROMOCION`, `DESCRIPCION`, `FECHA_INICIO`, `FECHA_FIN`) 
+  VALUES (0.10, 'Descuento por Aniversario', '2019-03-28', '2019-08-28');
 
 INSERT INTO `PROMOCIONES_X_EXAMENES` (`TBL_PROMOCIONES_ID_PROMOCIONES`, `TBL_EXAMENES_ID_EXAMEN`) 
   VALUES (1, 1);

@@ -1,3 +1,11 @@
+<?php
+//include("class/class-conexion.php");
+ //session_start();
+ //if($_SESSION['status']==false) { // CUALQUIER USUARIO REGISTRADO PUEDE VER ESTA PAGINA
+   //   session_destroy();
+     //header("Location: login.php");
+ //}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -41,6 +49,10 @@
 								<!--Pestaña Promociones-->
 								<li class="nav-item pestaña" id="nav-adm-pro-li">
 									<a class="nav-item nav-link" id="nav-adm-pro-tab" data-toggle="tab" href="#nav-adm-pro" role="tab" aria-controls="nav-adm-pro" aria-selected="false">Promociones</a>
+								</li>
+								<!--Pestaña Bitacora-->
+								<li class="nav-item pestaña" id="nav-adm-bita-li">
+									<a class="nav-item nav-link" id="nav-adm-bita-tab" data-toggle="tab" href="#nav-adm-bita" role="tab" aria-controls="nav-adm-bita" aria-selected="false">Bitácora</a>
 								</li>
 
 							</ul>
@@ -430,6 +442,16 @@
 								<h1>Estos son los resultados</h1>
 							</div>
 									
+						</div>
+
+						<!--Seccion Bitacora-->
+						<div class="tab-pane fade" id="nav-adm-bita" role="tabpanel" aria-labelledby="nav-adm-bita-tab">
+							<div class="row">
+								<div class="col-lg-12 col-sm-12">
+									<table class="table table-striped table-bordered" id="table-bitacora" style="width: 100%">
+									</table>
+								</div>
+							</div>
 						</div>
 
 					</div>
