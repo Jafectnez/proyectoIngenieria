@@ -96,6 +96,13 @@ SP:BEGIN
             P_CANTIDAD,
             P_FECHA_INGRESO,
             P_FECHA_VENC);
+
+  INSERT INTO TBL_BITACORA(ID_USUARIO,
+                           DESCRIPCION,
+                           FECHA)
+    VALUES (1,
+            CONCAT('Se creó un nuevo insumo: ', P_INSUMO),
+            SYSDATE());
   COMMIT;
       
   SET mensaje='Creación exitosa';
@@ -160,7 +167,7 @@ SP:BEGIN
     LEAVE SP;
   END IF;
 
-  IF total = 0 | total <= 5 THEN
+  IF total <= 5 THEN
     SET mensaje = CONCAT(mensaje,'El insumo tiene pocas cantidades ');
   END IF;
 
@@ -168,6 +175,13 @@ SP:BEGIN
   SET 
     TBL_INSUMOS.CANTIDAD = total
   WHERE TBL_INSUMOS.ID_INSUMO = P_ID_INSUMO;
+
+  INSERT INTO TBL_BITACORA(ID_USUARIO,
+                           DESCRIPCION,
+                           FECHA)
+    VALUES (1,
+            CONCAT('Se disminuyó el insumo ', P_INSUMO,' en', P_CANTIDAD),
+            SYSDATE());
   COMMIT;
       
   SET mensaje= CONCAT(mensaje,'Disminución exitosa');
@@ -284,6 +298,14 @@ SP:BEGIN
     TBL_INSUMOS.FECHA_INGRESO = P_FECHA_INGRESO,
     TBL_INSUMOS.FECHA_VENC = P_FECHA_VENC
   WHERE TBL_INSUMOS.ID_INSUMO= P_ID_INSUMO;
+
+  INSERT INTO TBL_BITACORA(ID_USUARIO,
+                           DESCRIPCION,
+                           FECHA)
+    VALUES (1,
+            CONCAT('Se actulizó el insumo ', P_INSUMO),
+            SYSDATE());
+  COMMIT;
   COMMIT;
     
   SET mensaje='Actualización exitosa';

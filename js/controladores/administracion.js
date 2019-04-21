@@ -333,6 +333,7 @@ $('#guardar-empleado').click(function(){
         popUp.correcto();
         popUp.mostrarAlerta();
         $('#table-empleados').DataTable().ajax.reload();
+        $('#table-bitacora').DataTable().ajax.reload();
       }
     });
   }else{
@@ -422,6 +423,7 @@ $("#actualizar-empleado").click(function(){
         $("#eliminar-empleado").removeClass("hide");
         $("#editar-empleado").removeClass("hide");
         $('#table-empleados').DataTable().ajax.reload();
+        $('#table-bitacora').DataTable().ajax.reload();
 
         verEmpleado(idEmpleadoVisible);
       }
@@ -470,6 +472,7 @@ $("#eliminar-empleado").click(function(){
         popUp.correcto();
         popUp.mostrarAlerta();
         $('#table-empleados').DataTable().ajax.reload();
+        $('#table-bitacora').DataTable().ajax.reload();
 
         setTimeout(function(){
           $("#modalVerEmpleado").modal('hide');
@@ -511,6 +514,7 @@ $("#aceptar-solicitud").click(function(){
       popUp.mostrarAlerta();
       $("#denegar-solicitud").addClass("hide");
       $('#table-solicitudes').DataTable().ajax.reload();
+      $('#table-bitacora').DataTable().ajax.reload();
 
       verSolicitud(idSolicitudVisible);
     }
@@ -548,6 +552,7 @@ $("#denegar-solicitud").click(function(){
       popUp.mostrarAlerta();
       $("#aceptar-solicitud").addClass("hide");
       $('#table-solicitudes').DataTable().ajax.reload();
+      $('#table-bitacora').DataTable().ajax.reload();
 
       verSolicitud(idSolicitudVisible);
     }
