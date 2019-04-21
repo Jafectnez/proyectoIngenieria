@@ -45,6 +45,10 @@
 				$respuesta = crearFactura::guardarRegistrosFinales($conexion,$_POST['codigoFactura']);
 				echo $respuesta;
 				break;
+			case 'crear-usuario':
+				$respuesta = crearFactura::crearUsuario($conexion,$_POST['genero'],$_POST['nombre'],$_POST['apellido'],$_POST['telefono'],$_POST['correo'],$_POST['fecha'],$_POST['direccion'],$_POST['identidad']);
+				echo json_encode($respuesta);
+				break;
 			
 			default:
 				# code...

@@ -306,6 +306,61 @@
 				$resultado = $conexion->ejecutarConsulta($sql2);
 		}
 
+		public static function crearUsuario($conexion,$genero,$nombre,$apellido,$telefono,$correo,$fecha,$direccion,$identidad){
+
+			$añoNacimiento = strtok($fecha, '-');
+			$añoActual = date("Y");
+			$edad = $añoActual - $añoNacimiento;
+			//echo $edad;
+
+
+			$sql = 'INSERT INTO `db_emanuel`.`tbl_personas` ( ID_GENERO, NOMBRE, APELLIDO, EDAD, TELEFONO, EMAIL, FECHA_NAC, DIRECCION, IDENTIDAD) VALUES ("'.$genero.'","'.$nombre.'","'.$apellido.'",'.$edad.',"'.$telefono.'","'.$correo.'","'.$fecha.'","'.$direccion.'","'.$identidad.'")';
+			$resultado = $conexion->ejecutarConsulta($sql);
+
+			$nombreUsuario = $nombre.$apellido;
+			//echo $nombreUsuario;
+
+
+			$fecha = time();
+			$fechaActual = date("Y-m-d",$fecha);
+			//echo $fechaActual;
+
+			$sql2 = 'insert into tbl_usuarios (id_tipo_usuario,usuario,contraseña,fecha_registro) values (3,"'.$nombreUsuario.'","asd.456",'.$fechaActual.')';
+			//echo $sql2;
+			$resultado2 = $conexion->ejecutarConsulta($sql2);
+
+			//Obtener el id de la persona que acaba de ser registrada
+			$sql1 = 'SELECT MAX(ID_PERSONA) id FROM TBL_PERSONAS';
+			$resultado1 = $conexion->ejecutarConsulta($sql1);
+			while(($persona=$conexion->obtenerFila($resultado1))){
+				   $idPersona = $persona['id'];
+				   //echo "Id de la persona: ".$idPersona;
+			}
+
+			$sql2 = 'SELECT MAX(ID_USUARIO) id FROM TBL_USUARIOS';
+			$resultado2 = $conexion->ejecutarConsulta($sql2);
+			while(($usuario=$conexion->obtenerFila($resultado2))){
+				   $idUsuario = $usuario['id'];
+				   
+			}
+			//echo "Id del usuario: ".$idUsuario;
+
+			$sql3 = 'insert into tbl_cliente (id_persona,id_usuario) values ('.$idPersona.','.$idUsuario.')';
+			//echo $sql3;
+			$resultado3 = $conexion->ejecutarConsulta($sql3);
+
+			$sql4 = 'SELECT MAX(ID_CLIENTE) id FROM TBL_CLIENTE';
+			$row = $conexion->query($sql4);
+			return $row;
+			//$resultado4 = $conexion->ejecutarConsulta($sql4);
+			//while(($cliente=$conexion->obtenerFila($resultado4))){
+			//	   $idCliente = $cliente['id'];
+			//	   echo $idCliente;
+			//}
+			//echo "El id del cliente es: "+$idCliente;
+
+		}
+
 
 
 

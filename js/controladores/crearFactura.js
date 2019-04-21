@@ -400,7 +400,7 @@ function registrarFactura(){
 				    title: 'Registrar cliente',
 				    columnClass: 'col-md-12 col-lg-12',
 				    content: 
-				    				    	'<hr>'+
+				    	'<hr>'+
 				    	'<form class="form-horizontal" role="form">'+
   						'<div class="form-group">'+
   						  '<label for="txt-nombre" class="col-lg-1 col-md-1 control-label">Nombre</label>'+
@@ -416,7 +416,7 @@ function registrarFactura(){
   						'<div class="form-group">'+
   							'<label for="slc-genero" class="col-lg-1 col-md-1 control-label">Genero</label>'+
   							'<div class="col-lg-4 col-md-4">'+
-  						    '<select class="form-control" id="slc-genero" name="genero" style="margin-left:10px">'+
+  						    '<select class="form-control" id="genero" name="genero" style="margin-left:10px">'+
   						    	'<option value="F">Femenino</option>'+
   						    	'<option value="M">Masculino</option>'+
   						    '</select>'+
@@ -440,11 +440,17 @@ function registrarFactura(){
 
   						'<div class="form-group">'+
   						  '<label for="txt-direccion" class="col-lg-1 col-md-1 control-label">Direccion:</label>'+
-  						  '<div class="col-lg-10 col-md-10">'+
+  						  	'<div class="col-lg-4 col-md-4">'+
   						    '<input type="text" class="form-control" id="txt-direccion" placeholder="Direccion">'+
+  						  	'</div>'+
+  						  	'<label for="txt-identidad" class="col-lg-2 col-md-2 control-label">Identidad:</label>'+
+  						  	'<div class="col-lg-4 col-md-4">'+
+  						    	'<input type="text" class="form-control" id="txt-identidad" placeholder="Identidad">'+
+  						  	'</div>'+
   						  '</div>'+
 						
-  						'</div>'+
+  						
+  						
 					'</form>',
     				buttons: {
     				    formSubmit: {
@@ -452,29 +458,74 @@ function registrarFactura(){
     				        btnClass: 'btn-blue',
     				        action: function () {
     				            //var name = this.$content.find('.name').val();
-    				            var genero = $("#genero option:selected").text();
     				            var nombre = $("#txt-nombre").val();
     				            var apellido = $("#txt-apellido").val();
     				            var telefono = $("#txt-telefono").val();
     				            var correo = $("#txt-correo").val();
     				            var fecha = $("#txt-fecha").val();
     				            var direccion = $("#txt-direccion").val();
+    				            var identidad = $("#txt-identidad").val();
 
-    				            $("select[name=genero]").change(function(){
-            						alert($('select[name=color1]').val());
-            						$('input[name=valor1]').val($(this).val());
-        							});
-
+    				            if ($("#genero option[value=F]").attr("selected",true)) {
+    				            	var genero = '1';
+    				            }
+    				            else{
+    				            	if ($("#genero option[value=M]").attr("selected",true)) {
+    				            		var genero = '2';
+    				            	}
+    				            }
     				            
 				
-                          		if(nombre != '' && telefono != '' && correo != '' && fecha != '' && direccion != ''){
+                          		if(genero != '' && nombre != '' && telefono != '' && correo != '' && fecha != '' && direccion != ''){
                 					var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
                 					if (regex.test($('#txt-correo').val().trim())) {
+                						$("#txt-usuario-genero").val(genero);
                 						$("#txt-usuario-nombre").val(nombre);
+                						$("#txt-usuario-apellido").val(apellido);
                 						$("#txt-usuario-telefono").val(telefono);
                 						$("#txt-usuario-correo").val(correo);
                 				    	$("#txt-usuario-fecha").val(fecha);
                 				    	$("#txt-usuario-direccion").val(direccion);
+                				    	$("#txt-usuario-identidad").val(identidad);
+
+                				    	//---------------------------------------------------------
+                				    	//---------Peticion ajax para crear el nuevo usuario-------
+                				    	//---------------------------------------------------------
+                				    	$.ajax({
+											async: true,
+											crossDomain:true,
+											url:'ajax/acciones-crear-factura.php',
+											method:'POST',
+											data:{
+        									        'accion': 'crear-usuario',
+        									        'genero' : genero,
+        									        'nombre' : nombre,
+        									        'apellido' : apellido,
+        									        'telefono' : telefono,
+        									        'correo': correo,
+        									        'fecha' : fecha,
+        									        'direccion' : direccion,
+        									        'identidad' : identidad
+     										},
+											success:function(respuesta){
+												//-----------------------------------------------------------
+												//Cuando retorna los parametros se debe confirmar el registro
+												//-----------------------------------------------------------
+											},
+											error:function(error){
+												console.log(error);
+											}
+										});
+
+
+
+
+
+
+
+
+
+
                 					}
                 				else{
                 					$.alert('Correo no válido');
