@@ -19,7 +19,7 @@ jQuery(document).ready(function() {
 			var codigoFactura = parseInt(codigo);
     		var factura = codigoFactura + 1;
     		var registro = factura.toString();
-    		$('#txt-codigo-factura').val(registro)
+    		$('#txt-codigo-factura').val(registro);
 
 			//$("#txt-codigo-factura").val(codigo);
 		},
@@ -511,22 +511,191 @@ function registrarFactura(){
 												//-----------------------------------------------------------
 												//Cuando retorna los parametros se debe confirmar el registro
 												//-----------------------------------------------------------
+												arreglotokens=[];
+												separador=":";
+												arreglo=respuesta.split(separador);
+												caracteres = arreglo[1].length;
+												codigo = arreglo[1].slice(1,(caracteres -3 ));
+												var idCliente = parseInt(codigo);
+												$("#txt-id-cliente").val(idCliente);
+
+												
+												var nombreCliente = $("#txt-nombre-cliente").val();
+												
+												$.ajax({
+													async: true,
+													crossDomain:true,
+													url:'ajax/acciones-crear-factura.php',
+													method:'POST',
+													data:{
+        											        'accion': 'verificar-usuario',
+        											        'nombreCliente' : nombreCliente
+     												},
+													success:function(respuesta){
+														console.log(respuesta);
+														if (respuesta != 'Se debe registrar el cliente') {
+															//----------------------------------------------------------
+															//-----------------El usuario esta registrado---------------
+					
+															//-----------Calculo de los precios-------------------------
+															//----------------------------------------------------------
+															var total = $('#txt-total-neto').val();
+    														var totalNeto = parseInt(total);
+															//Comprabar si los productos tienen promociones y si las hay modificar el valor neto
+															//Comprobar si hay promociones activas
+															var promocion = $('#total-promocion').attr("value");
+
+															if (promocion != 0) {
+																//----------------------------------------------------------
+																//------------------Hay promociones-------------------------
+																//----------------------------------------------------------
+																$("#txt-total-neto").val(totalNeto-promocion);
+																var total = $('#txt-total-neto').val();
+    															var totalNeto = parseInt(total);
+    															if ($('#chk-descuento').is(':checked')) {
+    																//----------------------------------------------------------
+																	//------------------Hay descuento---------------------------
+																	//----------------------------------------------------------
+																	var descuento =totalNeto * 0.25;
+    																$('#txt-descuento').val(descuento);
+    																var totalFactura = totalNeto - $('#txt-descuento').val();
+    																$('#txt-total').val(totalFactura);
+    															}else{
+    																	//----------------------------------------------------------
+																		//------------------No hay descuento------------------------
+																		//----------------------------------------------------------
+																		$('#txt-total').val(totalNeto);
+
+    																}
+
+																}else{
+																	//----------------------------------------------------------
+																	//------------------No hay promociones-----------------------
+																	//----------------------------------------------------------
+																	if ($('#chk-descuento').is(':checked')) {
+																		//----------------------------------------------------------
+																		//------------------Hay descuento---------------------------
+																		//----------------------------------------------------------
+																		var total = $('#txt-total-neto').val();
+    																	var totalNeto = parseInt(total);
+    																	var descuento =totalNeto * 0.25;
+    																	$('#txt-descuento').val(descuento);
+    																	var totalFactura = totalNeto - $('#txt-descuento').val();
+    																	$('#txt-total').val(totalFactura);
+
+
+																	}else{
+																		//----------------------------------------------------------
+																		//------------------No hay descuento------------------------
+																		//----------------------------------------------------------
+																		$('#txt-total').val(totalNeto);
+																	}
+																}
+
+																	//-----------------------------------------------------------
+																	//-Validacion para asegurar que se hayan introducido examenes-
+																	//-----------------------------------------------------------
+
+																	var comprobarTotal = $('#txt-total').val();
+																	if (comprobarTotal == '' || comprobarTotal == 0) {
+																		$.confirm({
+    																		title: 'Lo sentimos...',
+    																		content: 'No han sido añadidos examenes a su factura',
+    																		type: 'blue',
+    																		typeAnimated: true,
+    																		buttons: {
+        																		tryAgain: {
+            																	text: 'Volver',
+            																	btnClass: 'btn-blue',
+            																	action: function(){}
+        																		}
+        																	}
+																		});
+																}
+																else{
+																	//Guardar los datos de la factura y destruir la tabla temporal
+																	//Id de la factura -> Generado
+																	//Id impuesto      -> 1
+																	//Id cliente	   -> Obtener del input id="txt-id-usuario"
+																	//Id Empleado	   -> 1
+																	//Id forma pago	   -> Efectivo 1
+																	//RTN			   -> 03131965001420
+																	//Fecha idExamen   -> Fecha Actual
+																	//Total            -> Obtener de $('#txt-total').val();
+																	//Estado factura   -> 1
+
+																	var idCliente = $("#txt-id-cliente").val();
+
+
+																	Date.prototype.yyyymmdd = function() {
+  																		var yyyy = this.getFullYear().toString();
+  																		var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+  																		var dd  = this.getDate().toString();
+  																		return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]); // padding
+																	};
+
+																	var date = new Date();
+																	console.log( date.yyyymmdd()); 
+																	var fechaActual = date.yyyymmdd();
+
+																	var total = $('#txt-total').val();
+																	$.ajax({
+																		async: true,
+																		crossDomain:true,
+																		url:'ajax/acciones-crear-factura.php',
+																		method:'POST',
+																		data:{
+        																        'accion': 'almacenar-factura',
+        																        'idImpuesto' : '1',
+        																        'idCliente' : idCliente,
+        																        'idEmpleado' : '1',
+        																        'idFormaPago' : '1',
+        																        'rtn': '03131965001420',
+        																        'fechaExamen' : fechaActual,
+        																        'total' : total,
+        																        'estadoFactura': '1'
+     																	},
+																		success:function(respuesta){
+																			console.log(respuesta);
+																		},
+																		error:function(error){
+																			console.log(error);
+																		}
+																	});
+
+																	almacenarRegistrosFinales();
+																	setTimeout(function() {
+																	//alert('Registro almacenado con exito');
+
+																	//----------------------------------------------------------------------
+																	$.confirm({
+																	    title: 'Facturacion',
+																	    content: 'Factura almacenada con éxito!',
+																	    type: 'blue',
+																	    typeAnimated: true,
+																	    buttons: {
+																	        ok: function () {
+																	            location.reload();
+																	        },
+																	    }
+																	});
+																	//-----------------------------------------------------------------------------
+    																}, 200); 
+																}
+														}
+													},
+													error:function(error){
+														console.log(error);
+													}
+												});
+									//alert(idCliente);
 											},
 											error:function(error){
 												console.log(error);
 											}
 										});
 
-
-
-
-
-
-
-
-
-
-                					}
+            					}
                 				else{
                 					$.alert('Correo no válido');
                     				return false;
