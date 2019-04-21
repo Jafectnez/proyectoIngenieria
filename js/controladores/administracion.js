@@ -19,9 +19,9 @@ $(document).ready(function() {
       }
     },
     columns: [
-      {data: "NOMBRE", title: "Nombre"},
+      {data: "ID_SOLICITUD", title: "Código de Solicitud"},
       {data: "DESCRIPCION", title: "Descripcion"},
-      {data: "USUARIO", title: "Usuario"},
+      {data: "USUARIO", title: "Usuario Solicitante"},
       {data: "ESTADO_SOLICITUD", title: "Estado Solicitud", 
       render: function ( data, type, row, meta ) {
         return `<b>${data}</b>`;
@@ -51,6 +51,7 @@ $(document).ready(function() {
       }
     },
     columns: [
+      {data: "ID_EMPLEADO", title: "Código de Empleado"},
       {data: "NOMBRE", title: "Nombre"},
       {data: "TELEFONO", title: "Teléfono"},
       {data: "FECHA_INGRESO", title: "Fecha de Ingreso"},
@@ -77,7 +78,7 @@ $(document).ready(function() {
       }
     },
     columns: [
-      {data: "FECHA", title: "Fecha de registro"},
+      {data: "FECHA", title: "Fecha del registro"},
       {data: "DESCRIPCION", title: "Descripcion"},
       {data: "USUARIO", title: "Usuario Responsable del Registro"}
     ]
