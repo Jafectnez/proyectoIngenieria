@@ -452,12 +452,20 @@ function registrarFactura(){
     				        btnClass: 'btn-blue',
     				        action: function () {
     				            //var name = this.$content.find('.name').val();
+    				            var genero = $("#genero option:selected").text();
     				            var nombre = $("#txt-nombre").val();
     				            var apellido = $("#txt-apellido").val();
     				            var telefono = $("#txt-telefono").val();
     				            var correo = $("#txt-correo").val();
     				            var fecha = $("#txt-fecha").val();
     				            var direccion = $("#txt-direccion").val();
+
+    				            $("select[name=genero]").change(function(){
+            						alert($('select[name=color1]').val());
+            						$('input[name=valor1]').val($(this).val());
+        							});
+
+    				            
 				
                           		if(nombre != '' && telefono != '' && correo != '' && fecha != '' && direccion != ''){
                 					var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;

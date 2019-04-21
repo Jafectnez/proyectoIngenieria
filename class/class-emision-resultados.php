@@ -89,37 +89,28 @@
 		}
 		public static function guardar_resultado($conexion,$parametros){
 			//Registro es cada registro que se agregara a la tabla
-			$sql="CALL SP_INSERTAR_RESULTADO(1,1,1,'NA',@mensaje,@error,@id);";
-			$row=$conexion->ejecutarConsulta($sql);
-			$respuesta=$conexion->obtenerFila($row);
-			$idinsertar=$respuesta['id'];
+			$sql = 'INSERT INTO TBL_RESULTADOS (
+                                  ID_EXAMEN,
+                                  ID_CLIENTE, 
+                                  ID_EMPLEADO, 
+                                  FECHA_EMISION,
+                                  OBSERVACIONES)
+                          VALUES ( 
+                                  1,
+                                  1, 
+                                  1,
+                                  "2019-04-20",
+                                  "N/A")';
+            echo $sql;
+            $resultado = $conexion->ejecutarConsulta($sql);
 
-			$registro=explode(',', $parametros);
-			$tamanio=count($registro);			 
-			$valuecr='';
+            $sql1 = 'SELECT MAX(ID_RESULTADO) id FROM TBL_RESULTADOS';
 
-			for ($i=0; $i < $tamanio; $i++) { 
-			//Aqui se separan los 2 campos que se agregaran a las tablas siendo valor el campo en donde se obtiene el valor real
-			//De los resultados emitidos y el id de la caracteristica a agregar
-			  	list($valor,$id)=explode('#', $registro[$i]);
-			 // 	//Aqui dividimos el valor en el nombre de su caracteristica y su valor como tal
-			  	list($resultado,$valorresultado)=explode(':', $valor);
-			 // 	//Se divide el id en su valor como tal y el nombre del input que lo contiene 
-			  	list($caracteristica,$idcaracteristica)=explode(':', $id);              
-             //Valores del insert que se realizara en resultados x carateristicas
-			 	$valuecr.='('.$idcaracteristica.','.$idinsertar.','.$valorresultado.'),';
-			 	
+            $resultado1 = $conexion->ejecutarConsulta($sql1);
+
+            while(($id=$conexion->obtenerFila($resultado1))){
+				echo "Id del resultado: "+$id['id'];
 			}
-			$valuecr = trim($valuecr,',');
-		    $sql2='INSERT INTO CARACTERISTICAS_X_RESULTADOS(
-                               ID_CARACTERISTICAS,
-                               ID_RESULTADO,
-                               VALOR_RESULTADO )
-                          VALUES'.$valuecr;
-                               echo $sql2;  
-            $row2=$conexion->ejecutarConsulta($sql2);
-             
-		//return $registro;
 
 		}
 	}

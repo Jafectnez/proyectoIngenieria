@@ -192,11 +192,12 @@
 							
 					</div>
 					<!--==============================================================================================-->
-					<input type="text" name="" id="txt-usuario-nombre" style="display: none;">
-					<input type="text" name="" id="txt-usuario-telefono" style="display: none;">
-					<input type="mail" name="" id="txt-usuario-correo" style="display: none;">
-					<input type="date" name="" id="txt-usuario-fecha" style="display: none;">
-					<input type="direccion" name="" id="txt-usuario-direccion" style="display: none;">
+					<input type="text" name="" id="txt-usuario-genero" placeholder="Genero" >
+					<input type="text" name="" id="txt-usuario-nombre" >
+					<input type="text" name="" id="txt-usuario-telefono">
+					<input type="mail" name="" id="txt-usuario-correo">
+					<input type="date" name="" id="txt-usuario-fecha">
+					<input type="direccion" name="" id="txt-usuario-direccion">
 				</div>	
 
 			</div>
