@@ -256,22 +256,22 @@
 		//Funcion para verificar si el cliente esta registrado en el sistema
 		public static function verificarUsuario($conexion,$nombreUsuario){
 			//Dividir el nombre obtenido en el campo para obtener el nombre y el apellido
-			//$nombre = strtok($nombreUsuario, ' ');
-			//$apellido = strtok(' ');
+			$nombre = strtok($nombreUsuario, ' ');
+			$apellido = strtok(' ');
 			//echo $nombre;
 			//echo $apellido;
 
-			$sql = 'select c.id_cliente idCliente from tbl_personas p 
+			$sql = 'select p.id_persona idPersona from tbl_personas p 
 					inner join tbl_cliente c
 					on c.id_persona = p.id_persona
-					where (p.identidad ='.$nombreUsuario.')';
+					where (p.nombre = "'.$nombre.'" and p.apellido = "'.$apellido.'")';
 			//echo $sql;
 
 			$resultado = $conexion->ejecutarConsulta($sql);
 
 			if (($usuario=$conexion->obtenerFila($resultado))) {
 				//echo "Debe retornar el id de ese cliente";
-				echo '<input type="text" style="display:none" name="" id="txt-id-usuario" value="'.$usuario['idCliente'].'">';
+				echo '<input type="text" style="display:none" name="" id="txt-id-usuario" value="'.$usuario['idPersona'].'">';
 			}
 			else{
 				echo "Se debe registrar el cliente";
@@ -282,16 +282,15 @@
 
 		//------------------------------------------------------------------
 		public static function almacenarFactura($conexion,$idImpuesto,$idPersona,$idEmpleado,$idFormaPago,$rtn,$fechaExamen,$total,$estadoFactura){
-			//$sql1 = 'select c.id_cliente idCliente  from tbl_personas p
-			//		 inner join tbl_cliente c
-			//		 on c.id_persona = p.id_persona
-			//		 where p.id_persona = '.$idPersona;
-			//$resultado1 = $conexion->ejecutarConsulta($sql1);
-			//if (($factura=$conexion->obtenerFila($resultado1))) {
-				$sql = "INSERT INTO `db_emanuel`.`tbl_factura` ( `ID_IMPUESTO`, `ID_CLIENTE`, `ID_EMPLEADO`, `ID_FORMA_PAGO`, `RTN`, `FECHA_EXAMEN`, `TOTAL`, `ESTADO_FACTURA`) VALUES ('".$idImpuesto."', '".$idPersona."', '".$idEmpleado."', '".$idFormaPago."', '".$rtn."', '".$fechaExamen."', '".$total."', '".$estadoFactura."');";
+			$sql1 = 'select c.id_cliente idCliente  from tbl_personas p
+					 inner join tbl_cliente c
+					 on c.id_persona = p.id_persona
+					 where p.id_persona = '.$idPersona;
+			$resultado1 = $conexion->ejecutarConsulta($sql1);
+			if (($factura=$conexion->obtenerFila($resultado1))) {
+				$sql = "INSERT INTO `db_emanuel`.`tbl_factura` ( `ID_IMPUESTO`, `ID_CLIENTE`, `ID_EMPLEADO`, `ID_FORMA_PAGO`, `RTN`, `FECHA_EXAMEN`, `TOTAL`, `ESTADO_FACTURA`) VALUES ('".$idImpuesto."', '".$factura['idCliente']."', '".$idEmpleado."', '".$idFormaPago."', '".$rtn."', '".$fechaExamen."', '".$total."', '".$estadoFactura."');";
 				$resultado = $conexion->ejecutarConsulta($sql);
-				echo $sql;
-			//}		
+			}		
 
 		}
 
@@ -359,50 +358,6 @@
 			//	   echo $idCliente;
 			//}
 			//echo "El id del cliente es: "+$idCliente;
-
-		}
-
-		public static function verificarPersona($conexion,$identidadCliente){
-			$sql = 'select p.nombre nombrePersona,p.apellido apellidoPersona, p.id_persona idPersona from tbl_personas p where p.identidad = '.$identidadCliente;
-			$resultado = $conexion->ejecutarConsulta($sql);
-			if(($persona=$conexion->obtenerFila($resultado))){
-				   echo '<input type="text" id="input-usuario" style="display:none" value="'.$persona['nombrePersona'].$persona['apellidoPersona'].'">';
-				   echo '<input type="text" id="input-id-persona" style="display:none" value="'.$persona['idPersona'].'">';
-			}
-			else{
-				echo "Se debe registrar desde 0";
-			}
-		}
-
-		public static function crearUsuarioCliente($conexion,$usuarioPersona,$idPersona){
-			$nombre = strtok($usuarioPersona,' ');
-			$apellido = strtok(' ');
-
-			$fecha = time();
-			$fechaActual = date("Y-m-d",$fecha);
-			//echo $fechaActual;
-
-			$sql2 = 'insert into tbl_usuarios (id_tipo_usuario,usuario,contraseña,fecha_registro) values (3,"'.$nombre.$apellido.'","asd.456",'.$fechaActual.')';
-			//echo $sql2;
-			$resultado2 = $conexion->ejecutarConsulta($sql2);
-
-			$sql2 = 'SELECT MAX(ID_USUARIO) id FROM TBL_USUARIOS';
-			$resultado2 = $conexion->ejecutarConsulta($sql2);
-			while(($usuario=$conexion->obtenerFila($resultado2))){
-				   $idUsuario = $usuario['id'];
-				   
-			}
-
-			$sql3 = 'insert into tbl_cliente (id_persona,id_usuario) values ('.$idPersona.','.$idUsuario.')';
-			//echo $sql3;
-			$resultado3 = $conexion->ejecutarConsulta($sql3);
-
-			$sql4 = 'SELECT MAX(ID_CLIENTE) id FROM TBL_CLIENTE';
-			$row = $conexion->ejecutarConsulta($sql4);
-			while(($cliente=$conexion->obtenerFila($row))){
-				   echo '<input type="text" style="" name="" id="txt-id-usuario" value="'.$cliente['id'].'">';
-				   
-			}
 
 		}
 

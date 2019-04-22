@@ -218,244 +218,8 @@ function almacenarRegistrosFinales(){
 }
 
 function registrarFactura(){
-	//Comprobar que la identidad sea introducida
-	//------------------------------------------
 	var nombreCliente = $("#txt-nombre-cliente").val();
 	if (nombreCliente != '') {
-		//El campo nombreCliente esta lleno
-		//---------------------------------
-		if(nombreCliente.length > 13){
-			//Alertar que el formato de la identidad no es valido
-			//---------------------------------------------------
-			$.confirm({
-    			title: 'Lo sentimos...',
-    			content: 'El numero de identidad no es correcto',
-    			type: 'blue',
-    			typeAnimated: true,
-    			buttons: {
-        			tryAgain: {
-            		text: 'Volver',
-            		btnClass: 'btn-blue',
-            		action: function(){}
-        			}
-        		}
-			});
-		}else{
-			//Hacer la peticion ajax para ver si el usuario esta registrado
-			//-------------------------------------------------------------
-			$.ajax({
-				async: true,
-				crossDomain:true,
-				url:'ajax/acciones-crear-factura.php',
-				method:'POST',
-				data:{
-        	        'accion': 'verificar-usuario',
-        	        'nombreCliente' : nombreCliente
-     			},
-				success:function(respuesta){
-					console.log(respuesta);
-//-----------------------------------------------------------------------------------------
-//-------------Usuario registrado..........................................................
-					if(respuesta != 'Se debe registrar el cliente'){
-						$("#div-usuario").append(respuesta);
-						var idCliente = $("#txt-id-usuario").attr("value");
-						$("#txt-id-cliente").val(idCliente);
-						alert(idCliente);
-					
-		//-----------Calculo de los precios-------------------------
-		//----------------------------------------------------------
-					var total = $('#txt-total-neto').val();
-    				var totalNeto = parseInt(total);
-					//Comprabar si los productos tienen promociones y si las hay modificar el valor neto
-					//Comprobar si hay promociones activas
-					var promocion = $('#total-promocion').attr("value");
-
-					if (promocion != 0) {
-						//----------------------------------------------------------
-						//------------------Hay promociones-------------------------
-						//----------------------------------------------------------
-						$("#txt-total-neto").val(totalNeto-promocion);
-						var total = $('#txt-total-neto').val();
-    					var totalNeto = parseInt(total);
-    					if ($('#chk-descuento').is(':checked')) {
-    						//----------------------------------------------------------
-							//------------------Hay descuento---------------------------
-							//----------------------------------------------------------
-							var descuento =totalNeto * 0.25;
-    						$('#txt-descuento').val(descuento);
-    						var totalFactura = totalNeto - $('#txt-descuento').val();
-    						$('#txt-total').val(totalFactura);
-    					}else{
-    						//----------------------------------------------------------
-							//------------------No hay descuento------------------------
-							//----------------------------------------------------------
-							$('#txt-total').val(totalNeto);
-
-    					}
-
-					}else{
-						//----------------------------------------------------------
-						//------------------No hay promociones-----------------------
-						//----------------------------------------------------------
-						if ($('#chk-descuento').is(':checked')) {
-							//----------------------------------------------------------
-							//------------------Hay descuento---------------------------
-							//----------------------------------------------------------
-							var total = $('#txt-total-neto').val();
-    						var totalNeto = parseInt(total);
-    						var descuento =totalNeto * 0.25;
-    						$('#txt-descuento').val(descuento);
-    						var totalFactura = totalNeto - $('#txt-descuento').val();
-    						$('#txt-total').val(totalFactura);
-
-
-						}else{
-							//----------------------------------------------------------
-							//------------------No hay descuento------------------------
-							//----------------------------------------------------------
-							$('#txt-total').val(totalNeto);
-						}
-					}
-		//------------------------------------------------------
-		//-------------Fin de calculos de precio---------------
-				var comprobarTotal = $('#txt-total').val();
-				alert(comprobarTotal);
-		//-----------------------------------------------------
-		//--------No hay examenes añadidos a la factura-------------
-
-
-				if (comprobarTotal == '' || comprobarTotal == 0) {
-					$.confirm({
-    						title: 'Lo sentimos...',
-    						content: 'No han sido añadidos examenes a su factura',
-    						type: 'blue',
-    						typeAnimated: true,
-    						buttons: {
-        						tryAgain: {
-            					text: 'Volver',
-            					btnClass: 'btn-blue',
-            					action: function(){}
-        						}
-        					}
-						});
-				}
-		//------------------------------------------------------------
-		//----------hay examenes añadidos a la factura---------------
-		//----------Registro de la factura----------------------------
-				else{
-					//Guardar los datos de la factura y destruir la tabla temporal
-					//Id de la factura -> Generado
-					//Id impuesto      -> 1
-					//Id cliente	   -> Obtener del input id="txt-id-usuario"
-					//Id Empleado	   -> 1
-					//Id forma pago	   -> Efectivo 1
-					//RTN			   -> 03131965001420
-					//Fecha idExamen   -> Fecha Actual
-					//Total            -> Obtener de $('#txt-total').val();
-					//Estado factura   -> 1
-
-					var idCliente = $("#txt-id-cliente").val();
-
-
-					Date.prototype.yyyymmdd = function() {
-  						var yyyy = this.getFullYear().toString();
-  						var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-  						var dd  = this.getDate().toString();
-  						return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]); // padding
-					};
-
-					var date = new Date();
-					console.log( date.yyyymmdd()); 
-					var fechaActual = date.yyyymmdd();
-
-					var total = $('#txt-total').val();
-					$.ajax({
-						async: true,
-						crossDomain:true,
-						url:'ajax/acciones-crear-factura.php',
-						method:'POST',
-						data:{
-        				        'accion': 'almacenar-factura',
-        				        'idImpuesto' : '1',
-        				        'idCliente' : idCliente,
-        				        'idEmpleado' : '1',
-        				        'idFormaPago' : '1',
-        				        'rtn': '03131965001420',
-        				        'fechaExamen' : fechaActual,
-        				        'total' : total,
-        				        'estadoFactura': '1'
-     					},
-						success:function(respuesta){
-							console.log(respuesta);
-						},
-						error:function(error){
-							console.log(error);
-						}
-					});
-
-					almacenarRegistrosFinales();
-					setTimeout(function() {
-					//alert('Registro almacenado con exito');
-
-					//----------------------------------------------------------------------
-					$.confirm({
-					    title: 'Facturacion',
-					    content: 'Factura almacenada con éxito!',
-					    type: 'blue',
-					    typeAnimated: true,
-					    buttons: {
-					        ok: function () {
-					            location.reload();
-					        },
-					    }
-					});
-					//-----------------------------------------------------------------------------
-    				}, 200); 
-				
-
-				}
-
-					}
-//------------------------------------------------------------------------------------------
-//--------------------------Usuario no registrado------------------------------------------
-					else{
-					var identidadCliente = "'"+$("#txt-nombre-cliente").val()+"'";
-					alert(identidadCliente);
-					$.ajax({
-						async: true,
-						crossDomain:true,
-						url:'ajax/acciones-crear-factura.php',
-						method:'POST',
-						data:{
-        				        'accion' : 'verificar-persona',
-        				        'identidadCliente' : identidadCliente
-     					},
-						success:function(respuesta){
-							console.log(respuesta);
-							$("#div-usuario").append(respuesta);
-							if (respuesta != ' ') {
-	//---------------------------------------------------------------------------------------
-	//---------------------Registrar unicamente el usuario y el cliente-----------------------
-							//alert('Solo se debe registrar el usuario y el cliente');
-							var usuarioPersona = $("#input-usuario").attr("value");
-							alert(usuarioPersona);
-							var idPersona = $("#input-id-persona").attr("value");
-							alert(idPersona);
-							$.ajax({
-								async: true,
-								crossDomain:true,
-								url:'ajax/acciones-crear-factura.php',
-								method:'POST',
-								data:{
-        						        'accion': 'crear-usuario-cliente',
-        						        'usuarioPersona' : usuarioPersona,
-        						        'idPersona' : idPersona
-     							},
-								success:function(respuesta){
-									$("#div-usuario").append(respuesta);
-									var idCliente = $("#txt-id-usuario").attr("value");
-									$("#txt-id-cliente").val(idCliente);
-
 	//---------------------------------------------------------------
 	//Se hace la peticion ajax para ver si el usuario esta registrado
 	//---------------------------------------------------------------
@@ -470,7 +234,7 @@ function registrarFactura(){
      		},
 			success:function(respuesta){
 				console.log(respuesta);
-				if (respuesta != 'Se debe registrar el cliente') {
+				if(respuesta != 'Se debe registrar el cliente'){
 					$("#div-usuario").append(respuesta);
 					var idCliente = $("#txt-id-usuario").attr("value");
 					$("#txt-id-cliente").val(idCliente);					
@@ -537,7 +301,7 @@ function registrarFactura(){
 					//-Validacion para asegurar que se hayan introducido examenes-
 					//-----------------------------------------------------------
 
-					
+					var comprobarTotal = $('#txt-total').val();
 					if (comprobarTotal == '' || comprobarTotal == 0) {
 						$.confirm({
     						title: 'Lo sentimos...',
@@ -623,123 +387,372 @@ function registrarFactura(){
 					//-----------------------------------------------------------------------------
     				}, 200); 
 				}
+
+				
 				}
-			},
-			error:function(error){
+				else{
+					//alert('Registrar cliente');
+					//----------------------------------------------------------
+					//-----------El usuario no esta registrado------------------
+					//----------------------------------------------------------
+
+				$.confirm({
+				    title: 'Registrar cliente',
+				    columnClass: 'col-md-12 col-lg-12',
+				    content: 
+				    	'<hr>'+
+				    	'<form class="form-horizontal" role="form">'+
+  						'<div class="form-group">'+
+  						  '<label for="txt-nombre" class="col-lg-1 col-md-1 control-label">Nombre</label>'+
+  						  '<div class="col-lg-4 col-md-4">'+
+  						    '<input type="text" class="form-control" id="txt-nombre" placeholder="Nombre">'+
+  						  '</div>'+
+  						  '<label for="txt-nombre" class="col-lg-2 col-md-2 control-label">Apellido</label>'+
+  						  '<div class="col-lg-4 col-md-4">'+
+  						    '<input type="text" class="form-control" id="txt-apellido" placeholder="Apellido">'+
+  						  '</div>'+
+  						'</div>'+
+
+  						'<div class="form-group">'+
+  							'<label for="slc-genero" class="col-lg-1 col-md-1 control-label">Genero</label>'+
+  							'<div class="col-lg-4 col-md-4">'+
+  						    '<select class="form-control" id="genero" name="genero" style="margin-left:10px">'+
+  						    	'<option value="F">Femenino</option>'+
+  						    	'<option value="M">Masculino</option>'+
+  						    '</select>'+
+  						  '</div>'+
+  						  '<label for="txt-fecha" class="col-lg-2 col-md-2 control-label">Fecha Nacimiento:</label>'+
+  							'<div class="col-lg-4 col-md-4">'+
+  						    '<input type="date" class="form-control" id="txt-fecha">'+
+  						  '</div>'+
+  						'</div>'+
+
+						'<div class="form-group">'+
+						    '<label for="txt-telefono" class="col-lg-1 col-md-1 control-label">Telefono:</label>'+
+						    '<div class="col-lg-4 col-md-4">'+
+						      '<input type="text" class="form-control" id="txt-telefono" placeholder="Telefono">'+
+						    '</div>'+
+						    '<label for="txt-correo" class="col-lg-2 col-md-2 control-label">Email</label>'+
+						    '<div class="col-lg-4 col-md-4">'+
+						      '<input type="mail" class="form-control" id="txt-correo" placeholder="Email">'+
+						    '</div>'+
+						  '</div>'+
+
+  						'<div class="form-group">'+
+  						  '<label for="txt-direccion" class="col-lg-1 col-md-1 control-label">Direccion:</label>'+
+  						  	'<div class="col-lg-4 col-md-4">'+
+  						    '<input type="text" class="form-control" id="txt-direccion" placeholder="Direccion">'+
+  						  	'</div>'+
+  						  	'<label for="txt-identidad" class="col-lg-2 col-md-2 control-label">Identidad:</label>'+
+  						  	'<div class="col-lg-4 col-md-4">'+
+  						    	'<input type="text" class="form-control" id="txt-identidad" placeholder="Identidad">'+
+  						  	'</div>'+
+  						  '</div>'+
+						
+  						
+  						
+					'</form>',
+    				buttons: {
+    				    formSubmit: {
+    				        text: 'Registrar',
+    				        btnClass: 'btn-blue',
+    				        action: function () {
+    				            //var name = this.$content.find('.name').val();
+    				            var nombre = $("#txt-nombre").val();
+    				            var apellido = $("#txt-apellido").val();
+    				            var telefono = $("#txt-telefono").val();
+    				            var correo = $("#txt-correo").val();
+    				            var fecha = $("#txt-fecha").val();
+    				            var direccion = $("#txt-direccion").val();
+    				            var identidad = $("#txt-identidad").val();
+
+    				            if ($("#genero option[value=F]").attr("selected",true)) {
+    				            	var genero = '1';
+    				            }
+    				            else{
+    				            	if ($("#genero option[value=M]").attr("selected",true)) {
+    				            		var genero = '2';
+    				            	}
+    				            }
+    				            
+				
+                          		if(genero != '' && nombre != '' && telefono != '' && correo != '' && fecha != '' && direccion != ''){
+                					var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+                					if (regex.test($('#txt-correo').val().trim())) {
+                						$("#txt-usuario-genero").val(genero);
+                						$("#txt-usuario-nombre").val(nombre);
+                						$("#txt-usuario-apellido").val(apellido);
+                						$("#txt-usuario-telefono").val(telefono);
+                						$("#txt-usuario-correo").val(correo);
+                				    	$("#txt-usuario-fecha").val(fecha);
+                				    	$("#txt-usuario-direccion").val(direccion);
+                				    	$("#txt-usuario-identidad").val(identidad);
+
+                				    	//---------------------------------------------------------
+                				    	//---------Peticion ajax para crear el nuevo usuario-------
+                				    	//---------------------------------------------------------
+                				    	$.ajax({
+											async: true,
+											crossDomain:true,
+											url:'ajax/acciones-crear-factura.php',
+											method:'POST',
+											data:{
+        									        'accion': 'crear-usuario',
+        									        'genero' : genero,
+        									        'nombre' : nombre,
+        									        'apellido' : apellido,
+        									        'telefono' : telefono,
+        									        'correo': correo,
+        									        'fecha' : fecha,
+        									        'direccion' : direccion,
+        									        'identidad' : identidad
+     										},
+											success:function(respuesta){
+												//-----------------------------------------------------------
+												//Cuando retorna los parametros se debe confirmar el registro
+												//-----------------------------------------------------------
+												arreglotokens=[];
+												separador=":";
+												arreglo=respuesta.split(separador);
+												caracteres = arreglo[1].length;
+												codigo = arreglo[1].slice(1,(caracteres -3 ));
+												var idCliente = parseInt(codigo);
+												$("#txt-id-cliente").val(idCliente);
+
+												
+												var nombreCliente = $("#txt-nombre-cliente").val();
+												
+												$.ajax({
+													async: true,
+													crossDomain:true,
+													url:'ajax/acciones-crear-factura.php',
+													method:'POST',
+													data:{
+        											        'accion': 'verificar-usuario',
+        											        'nombreCliente' : nombreCliente
+     												},
+													success:function(respuesta){
+														console.log(respuesta);
+														if (respuesta != 'Se debe registrar el cliente') {
+															//----------------------------------------------------------
+															//-----------------El usuario esta registrado---------------
+					
+															//-----------Calculo de los precios-------------------------
+															//----------------------------------------------------------
+															var total = $('#txt-total-neto').val();
+    														var totalNeto = parseInt(total);
+															//Comprabar si los productos tienen promociones y si las hay modificar el valor neto
+															//Comprobar si hay promociones activas
+															var promocion = $('#total-promocion').attr("value");
+
+															if (promocion != 0) {
+																//----------------------------------------------------------
+																//------------------Hay promociones-------------------------
+																//----------------------------------------------------------
+																$("#txt-total-neto").val(totalNeto-promocion);
+																var total = $('#txt-total-neto').val();
+    															var totalNeto = parseInt(total);
+    															if ($('#chk-descuento').is(':checked')) {
+    																//----------------------------------------------------------
+																	//------------------Hay descuento---------------------------
+																	//----------------------------------------------------------
+																	var descuento =totalNeto * 0.25;
+    																$('#txt-descuento').val(descuento);
+    																var totalFactura = totalNeto - $('#txt-descuento').val();
+    																$('#txt-total').val(totalFactura);
+    															}else{
+    																	//----------------------------------------------------------
+																		//------------------No hay descuento------------------------
+																		//----------------------------------------------------------
+																		$('#txt-total').val(totalNeto);
+
+    																}
+
+																}else{
+																	//----------------------------------------------------------
+																	//------------------No hay promociones-----------------------
+																	//----------------------------------------------------------
+																	if ($('#chk-descuento').is(':checked')) {
+																		//----------------------------------------------------------
+																		//------------------Hay descuento---------------------------
+																		//----------------------------------------------------------
+																		var total = $('#txt-total-neto').val();
+    																	var totalNeto = parseInt(total);
+    																	var descuento =totalNeto * 0.25;
+    																	$('#txt-descuento').val(descuento);
+    																	var totalFactura = totalNeto - $('#txt-descuento').val();
+    																	$('#txt-total').val(totalFactura);
+
+
+																	}else{
+																		//----------------------------------------------------------
+																		//------------------No hay descuento------------------------
+																		//----------------------------------------------------------
+																		$('#txt-total').val(totalNeto);
+																	}
+																}
+
+																	//-----------------------------------------------------------
+																	//-Validacion para asegurar que se hayan introducido examenes-
+																	//-----------------------------------------------------------
+
+																	var comprobarTotal = $('#txt-total').val();
+																	if (comprobarTotal == '' || comprobarTotal == 0) {
+																		$.confirm({
+    																		title: 'Lo sentimos...',
+    																		content: 'No han sido añadidos examenes a su factura',
+    																		type: 'blue',
+    																		typeAnimated: true,
+    																		buttons: {
+        																		tryAgain: {
+            																	text: 'Volver',
+            																	btnClass: 'btn-blue',
+            																	action: function(){}
+        																		}
+        																	}
+																		});
+																}
+																else{
+																	//Guardar los datos de la factura y destruir la tabla temporal
+																	//Id de la factura -> Generado
+																	//Id impuesto      -> 1
+																	//Id cliente	   -> Obtener del input id="txt-id-usuario"
+																	//Id Empleado	   -> 1
+																	//Id forma pago	   -> Efectivo 1
+																	//RTN			   -> 03131965001420
+																	//Fecha idExamen   -> Fecha Actual
+																	//Total            -> Obtener de $('#txt-total').val();
+																	//Estado factura   -> 1
+
+																	var idCliente = $("#txt-id-cliente").val();
+
+
+																	Date.prototype.yyyymmdd = function() {
+  																		var yyyy = this.getFullYear().toString();
+  																		var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+  																		var dd  = this.getDate().toString();
+  																		return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]); // padding
+																	};
+
+																	var date = new Date();
+																	console.log( date.yyyymmdd()); 
+																	var fechaActual = date.yyyymmdd();
+
+																	var total = $('#txt-total').val();
+																	$.ajax({
+																		async: true,
+																		crossDomain:true,
+																		url:'ajax/acciones-crear-factura.php',
+																		method:'POST',
+																		data:{
+        																        'accion': 'almacenar-factura',
+        																        'idImpuesto' : '1',
+        																        'idCliente' : idCliente,
+        																        'idEmpleado' : '1',
+        																        'idFormaPago' : '1',
+        																        'rtn': '03131965001420',
+        																        'fechaExamen' : fechaActual,
+        																        'total' : total,
+        																        'estadoFactura': '1'
+     																	},
+																		success:function(respuesta){
+																			console.log(respuesta);
+																		},
+																		error:function(error){
+																			console.log(error);
+																		}
+																	});
+
+																	almacenarRegistrosFinales();
+																	setTimeout(function() {
+																	//alert('Registro almacenado con exito');
+
+																	//----------------------------------------------------------------------
+																	$.confirm({
+																	    title: 'Facturacion',
+																	    content: 'Factura almacenada con éxito!',
+																	    type: 'blue',
+																	    typeAnimated: true,
+																	    buttons: {
+																	        ok: function () {
+																	            location.reload();
+																	        },
+																	    }
+																	});
+																	//-----------------------------------------------------------------------------
+    																}, 200); 
+																}
+														}
+													},
+													error:function(error){
+														console.log(error);
+													}
+												});
+									//alert(idCliente);
+											},
+											error:function(error){
+												console.log(error);
+											}
+										});
+
+            					}
+                				else{
+                					$.alert('Correo no válido');
+                    				return false;
+                				}
+                			}
+                			else{
+                				$.alert('Campos requeridos');
+                			    return false;
+                			}
+            			}
+        			},
+        			cancel: function () {
+            			//close
+        			},
+    			},
+    			onContentReady: function () {
+        		// bind to events
+        		var jc = this;
+        		this.$content.find('form').on('submit', function (e) {
+            	// if the user submits the form by pressing enter in the field.
+            	e.preventDefault();
+            	jc.$$formSubmit.trigger('click'); // reference the button and click it
+        	});
+    	}
+	});
+				//Fin de la peticion que devuelve si el cliente esta registrado o  no
+				}},
+				error:function(error){
 				console.log(error);
 			}
-	});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-								},
-								error:function(error){
-									console.log(error);
-								}
-							});
-									
-							}
-							else{
-	//------------------------------------------------------------------------------------------
-	//-------------------Registrar persona, usuario y cliente------------------------------------
-								alert('Registrar persona usuario y cliente');
-							}
-						},
-						error:function(error){
-							console.log(error);
-						}
-
-					});
-					}
-//------------------------------------------------------------------------------------------
-//----------------------Fin del usuario no registrado---------------------------------------
-				},
-				error:function(error){
-					console.log(respuesta);
-				}
-			});
-		}
-	}else{
+		});
+
+	}
+	else{
+		//----------------------------------------------
+		//Alertar que el campo de cliente es obligatorio
+		//----------------------------------------------
+		
 		$.confirm({
-    			title: 'Lo sentimos...',
-    			content: 'Por favor introduzca el numero de identidad',
-    			type: 'blue',
-    			typeAnimated: true,
-    			buttons: {
-        			tryAgain: {
-            		text: 'Volver',
-            		btnClass: 'btn-blue',
-            		action: function(){}
-        			}
-        		}
-			});
+    		title: 'Campo obligatorio',
+    		content: 'Por favor introduzca el nombre del cliente',
+    		type: 'blue',
+    		typeAnimated: true,
+    		buttons: {
+        		tryAgain: {
+            	text: 'Volver',
+            	btnClass: 'btn-blue',
+            	action: function(){
+            }
+        }
+        
+    }
+});
 	}
 
+
+	
 }
 
 
@@ -815,7 +828,3 @@ function crearTabla(){
 		}
 	});
 }
-
-$('.input-number').on('input', function () { 
-    this.value = this.value.replace(/[^0-9]/g,'');
-});

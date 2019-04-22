@@ -50,9 +50,8 @@
 								<input type="text" name="" id="txt-codigo-factura" readonly="readonly" style="width: 150px">
 							</h6>
 							<h6>
-								<strong>Identidad: </strong>
-								<!--onKeyPress="return ValidateAlpha(event);"-->
-								<input type="text" id="txt-nombre-cliente" name="" class="input-number">
+								<strong>Cliente: </strong>
+								<input type="text" id="txt-nombre-cliente" name="" onKeyPress="return ValidateAlpha(event);">
 
 								<input type="text" name="" id="txt-id-cliente" style="display:none">
 
@@ -199,7 +198,6 @@
 					<input type="mail" name="" id="txt-usuario-correo" style="display:none;">
 					<input type="date" name="" id="txt-usuario-fecha" style="display:none;">
 					<input type="direccion" name="" id="txt-usuario-direccion" style="display:none;">
-					
 				</div>	
 
 			</div>
