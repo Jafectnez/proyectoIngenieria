@@ -133,16 +133,41 @@ $(document).ready(function() {
     document.getElementById('prom_actuales').style.display = 'none';
     document.getElementById('prom_historico').style.display = 'none';
  });
-
+ $("#nav-adm-bita-tab").click(function(argument) {
+    document.getElementById('prom_actuales').style.display = 'none';
+    document.getElementById('prom_historico').style.display = 'none';
+ });
   $('#buscarH').each(function() { //este hara que el txtbox de buscar siempre este vacio
       $(this).val('');
   });
 
   $("#buscarH").on('keyup', function() {
-      var find = $("#buscarH").val();
-      parametros = {
+    buscarExamen();
+  }); //fin #buscarH
+
+  $("#btn_buscarh").click(function(argument){
+    reporte();    
+  });
+
+}); // fin document ready
+
+function reporte(){
+  var find = $("#buscarH").val();
+  var desde = $("#desdeH").val();
+  var hasta = $("#hastaH").val();
+  if (hasta == "" && desde != "") {
+    if (find != "") {} else {}    
+  }
+  if (hasta != "" && desde == "") {
+    if (find != "") {} else {}
+  }
+  if (hasta != "" && desde != "") {
+    if (find != "") {
+       parametros = {
         "fi": find,
-        "ac": 2 // le envia solo el nombre a la busqueda a la base de datos
+        "de": desde,
+        "ha": hasta,
+        "ac": 3 // le envia  todos los parametros de busqueda
       }
       $.ajax({
           type: 'post',
@@ -152,13 +177,53 @@ $(document).ready(function() {
               $(".resultadosH").html(response);
           }
       });
-  }); //fin #buscarH
+    } else {}
+  }
 
-  $("#btn_buscarh").click(function(argument){
-    alert("llenar todos los campos");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  if (hasta == "" && desde == "") {
+    if (find != "") {
+      buscarExamen();
+    } else {
+      $(".resultadosH").html("<p>Favor agregar un parametro de busqueda.</p>");
+    }
+  }
+}
+
+function buscarExamen() {
+  var find = $("#buscarH").val();
+  parametros = {
+    "fi": find,
+    "ac": 2 // le envia solo el nombre a la busqueda a la base de datos
+  }
+  $.ajax({
+      type: 'post',
+      url:   'class/promociones/promociones.php',           
+      data: parametros,
+      success: function(response) {
+          $(".resultadosH").html(response);
+      }
   });
-
-}); // fin document ready
+}
 
 function recargarBitacora() {
   $("#table-bitacora").DataTable().ajax.reload();

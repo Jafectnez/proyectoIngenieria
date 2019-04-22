@@ -426,24 +426,24 @@
 						<div id="prom_historico">
 							<div class="barraH row">
 								<div class="form-group col-12 col-sm-3">
-									<label for="fecha-nacimiento-fAgregar">Nombre de examen </label>
-									<input type="text" id="buscarH" name="fecha-nacimiento-fAgregar" class="form-control" placeholder="Tipo examen" style="padding-top:0" required>
+									<label for="buscarH">Nombre de examen </label>
+									<input type="text" id="buscarH" name="buscarH" class="form-control" placeholder="Tipo examen" style="padding-top:0" required>
 								</div>
 								<div class="form-group col-12 col-sm-3">
-									<label for="fecha-ingreso-fAgregar">Desde:</label>
-									<input type="date" id="desdeH" name="fecha-ingreso-fAgregar" class="form-control" placeholder="2019-03-31" style="padding-top:0" required>
+									<label for="desdeH">Desde:</label>
+									<input type="date" id="desdeH" name="desdeH" class="form-control" placeholder="2019-03-31" style="padding-top:0" required>
 								</div>
 								<div class="form-group col-12 col-sm-3">
-									<label for="fecha-nacimiento-fAgregar">Hasta:</label>
-									<input type="date" id="hastaH" name="fecha-nacimiento-fAgregar" class="form-control" placeholder="1999-12-31" style="padding-top:0" required>
+									<label for="hastaH">Hasta:</label>
+									<input type="date" id="hastaH" name="hastaH" class="form-control" placeholder="1999-12-31" style="padding-top:0" required>
 								</div>		
 								<div class="form-group col-12 col-sm-1">
-									<label for="fecha-nacimiento-fAgregar">Exportar:</label>
+									<label for="exportarH">Exportar:</label>
 									<br>
 									<img id="exportarH" width="50px" height="50px" src="img/microsoft-excel.svg" alt="Exportar historial en una hoja Excel">
 								</div>
 								<div class="form-group col-12 col-sm-2">
-									<label for="fecha-nacimiento-fAgregar">Buscar:</label>
+									<label for="btn_buscarh">Buscar:</label>
 									<br>
 									<a id="btn_buscarh" href="#" class="btn btn-primary btn-primary"><span class="glyphicon glyphicon-search"></span> Buscar</a>
 								</div>																		
