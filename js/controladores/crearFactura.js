@@ -488,6 +488,9 @@ function registrarFactura(){
                 				    	$("#txt-usuario-direccion").val(direccion);
                 				    	$("#txt-usuario-identidad").val(identidad);
 
+                				    	var cliente = nombre +''+ apellido;
+                				    	$("#txt-nombre-cliente").val(cliente);
+
                 				    	//---------------------------------------------------------
                 				    	//---------Peticion ajax para crear el nuevo usuario-------
                 				    	//---------------------------------------------------------
