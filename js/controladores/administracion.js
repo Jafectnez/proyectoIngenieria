@@ -108,19 +108,6 @@ $(document).ready(function() {
  $("#prom_h").click(function(argument){
     document.getElementById('prom_actuales').style.display = 'none';
     document.getElementById('prom_historico').style.display = 'block';
-    parametros = {
-      "ac": 2
-    }
-    /*
-    $.ajax({
-      type:  'post',
-      url:   'class/promociones/promociones.php', 
-      data:  parametros, 
-      success:  function (response) {
-        $("#prom_historico").html(response);
-      }
-    });
-    */
  });
 
  $("#nav-adm-usr-tab").click(function(argument) {
@@ -147,7 +134,46 @@ $(document).ready(function() {
     reporte();    
   });
 
+  $("#exportarH").click(function(argument){
+    exportar();
+  });
+
 }); // fin document ready
+
+function exportar(){
+  var find = $("#buscarH").val();
+  var desde = $("#desdeH").val();
+  var hasta = $("#hastaH").val();
+
+  if (hasta != "" && desde != "") {
+  let fecha1 = new Date(desde);
+  fecha1.setDate(fecha1.getDate()+1); // le sumo un dia, dado que la captura de la fecha la realizaba con un dia de retraso
+  let fecha2 = new Date(hasta);    
+  fecha2.setDate(fecha2.getDate()+1);
+  if(fecha1 <= fecha2){
+    if (find != "") {
+      window.open('class/promociones/excel.php?fi='+find+'&de='+desde+'&ha='+hasta+'&ac=3');
+    } else // este else, se usa en caso que se envien unicamente fechas como parametro de busqueda
+    {
+      if(fecha1 <= fecha2){
+        window.open('class/promociones/excel.php?de='+desde+'&ha='+hasta+'&ac=4');       
+      }else{
+        $(".resultadosH").html("<h2>La fecha Desde no debe ser mayor a la fecha Hasta.</h2>");
+      }
+    }
+  }else{
+    $(".resultadosH").html("<h2>La fecha Desde no debe ser mayor a la fecha Hasta.</h2>");
+  }
+  }
+
+  if (hasta == "" && desde == "") {
+    if (find != "") {
+      window.open('class/promociones/excel.php?fi='+find+'&ac=2');
+    } else {
+      $(".resultadosH").html("<p>Favor agregar un parametro de busqueda.</p>");
+    }
+  }
+}// fin de la funcion exportar
 
 function reporte(){
   var find = $("#buscarH").val();
@@ -199,26 +225,6 @@ function reporte(){
   }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   if (hasta == "" && desde == "") {
     if (find != "") {
       buscarExamen();
@@ -226,7 +232,7 @@ function reporte(){
       $(".resultadosH").html("<p>Favor agregar un parametro de busqueda.</p>");
     }
   }
-}
+}// fin de la funcion reporte
 
 function buscarExamen() {
   var find = $("#buscarH").val();
