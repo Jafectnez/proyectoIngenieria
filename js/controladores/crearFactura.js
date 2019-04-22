@@ -405,11 +405,11 @@ function registrarFactura(){
   						'<div class="form-group">'+
   						  '<label for="txt-nombre" class="col-lg-1 col-md-1 control-label">Nombre</label>'+
   						  '<div class="col-lg-4 col-md-4">'+
-  						    '<input type="text" class="form-control" id="txt-nombre" placeholder="Nombre">'+
+  						    '<input type="text" class="form-control" id="txt-nombre" placeholder="Nombre" onKeyPress="return ValidateAlpha(event);">'+
   						  '</div>'+
   						  '<label for="txt-nombre" class="col-lg-2 col-md-2 control-label">Apellido</label>'+
   						  '<div class="col-lg-4 col-md-4">'+
-  						    '<input type="text" class="form-control" id="txt-apellido" placeholder="Apellido">'+
+  						    '<input type="text" class="form-control" id="txt-apellido" placeholder="Apellido" onKeyPress="return ValidateAlpha(event);">'+
   						  '</div>'+
   						'</div>'+
 
@@ -430,7 +430,7 @@ function registrarFactura(){
 						'<div class="form-group">'+
 						    '<label for="txt-telefono" class="col-lg-1 col-md-1 control-label">Telefono:</label>'+
 						    '<div class="col-lg-4 col-md-4">'+
-						      '<input type="text" class="form-control" id="txt-telefono" placeholder="Telefono">'+
+						      '<input type="text" class="form-control" onkeypress="return validaNumericos(event)" id="txt-telefono" placeholder="Telefono">'+
 						    '</div>'+
 						    '<label for="txt-correo" class="col-lg-2 col-md-2 control-label">Email</label>'+
 						    '<div class="col-lg-4 col-md-4">'+
@@ -441,11 +441,11 @@ function registrarFactura(){
   						'<div class="form-group">'+
   						  '<label for="txt-direccion" class="col-lg-1 col-md-1 control-label">Direccion:</label>'+
   						  	'<div class="col-lg-4 col-md-4">'+
-  						    '<input type="text" class="form-control" id="txt-direccion" placeholder="Direccion">'+
+  						    '<input type="text" class="form-control" id="txt-direccion" placeholder="Direccion" onKeyPress="return ValidateAlpha(event);">'+
   						  	'</div>'+
   						  	'<label for="txt-identidad" class="col-lg-2 col-md-2 control-label">Identidad:</label>'+
   						  	'<div class="col-lg-4 col-md-4">'+
-  						    	'<input type="text" class="form-control" id="txt-identidad" placeholder="Identidad">'+
+  						    	'<input type="text" class="form-control" id="txt-identidad" onkeypress="return validaNumericos(event)" placeholder="Identidad">'+
   						  	'</div>'+
   						  '</div>'+
 						
@@ -476,7 +476,7 @@ function registrarFactura(){
     				            }
     				            
 				
-                          		if(genero != '' && nombre != '' && telefono != '' && correo != '' && fecha != '' && direccion != ''){
+                          		if(genero != '' && nombre != '' && (telefono != '' && (telefono.length < 9)) && correo != '' && fecha != '' && direccion != '' && (identidad !='' && (identidad.length < 14))){
                 					var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
                 					if (regex.test($('#txt-correo').val().trim())) {
                 						$("#txt-usuario-genero").val(genero);
@@ -702,7 +702,7 @@ function registrarFactura(){
                 				}
                 			}
                 			else{
-                				$.alert('Campos requeridos');
+                				$.alert('Campos requeridos o formato incorrecto');
                 			    return false;
                 			}
             			}
@@ -827,4 +827,11 @@ function crearTabla(){
 			console.log(error);
 		}
 	});
+}
+
+function validaNumericos(event) {
+    if(event.charCode >= 48 && event.charCode <= 57){
+      return true;
+     }
+     return false;        
 }
