@@ -90,11 +90,10 @@ $(document).ready(function() {
  });
 
  $("#prom_ac").click(function(argument){
-    var pa = 1;
     document.getElementById('prom_historico').style.display = 'none';
     document.getElementById('prom_actuales').style.display = 'block';
     parametros = {
-      "ac": pa
+      "ac": 1
     }
     $.ajax({
       type:  'post',
@@ -107,11 +106,10 @@ $(document).ready(function() {
  });
 
  $("#prom_h").click(function(argument){
-    var pa = 2;
     document.getElementById('prom_actuales').style.display = 'none';
     document.getElementById('prom_historico').style.display = 'block';
     parametros = {
-      "ac": pa
+      "ac": 2
     }
     /*
     $.ajax({
@@ -155,13 +153,12 @@ function reporte(){
   var find = $("#buscarH").val();
   var desde = $("#desdeH").val();
   var hasta = $("#hastaH").val();
-  if (hasta == "" && desde != "") {
-    if (find != "") {} else {}    
-  }
-  if (hasta != "" && desde == "") {
-    if (find != "") {} else {}
-  }
   if (hasta != "" && desde != "") {
+  let fecha1 = new Date(desde);
+  fecha1.setDate(fecha1.getDate()+1); // le sumo un dia, dado que la captura de la fecha la realizaba con un dia de retraso
+  let fecha2 = new Date(hasta);    
+  fecha2.setDate(fecha2.getDate()+1);
+  if(fecha1 <= fecha2){
     if (find != "") {
        parametros = {
         "fi": find,
@@ -177,7 +174,29 @@ function reporte(){
               $(".resultadosH").html(response);
           }
       });
-    } else {}
+    } else // este else, se usa en caso que se envien unicamente fechas como parametro de busqueda
+    {
+      if(fecha1 <= fecha2){
+       parametros = {
+       "de": desde,
+       "ha": hasta,
+       "ac": 4 // le envia  todos solo fechas
+      }
+      $.ajax({
+          type: 'post',
+          url:   'class/promociones/promociones.php',           
+          data: parametros,
+          success: function(response) {
+              $(".resultadosH").html(response);
+          }
+      });
+      }else{
+        $(".resultadosH").html("<h2>La fecha Desde no debe ser mayor a la fecha Hasta.</h2>");
+      }
+    }
+  }else{
+    $(".resultadosH").html("<h2>La fecha Desde no debe ser mayor a la fecha Hasta.</h2>");
+  }
   }
 
 

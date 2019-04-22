@@ -20,7 +20,6 @@ function validarCampoVacio(campo, regex = /.+/){
 
 //=====================Promociones============================
 $("#crearPromo").click(function(argument){
-  console.log("HJGKJHG");
   if ($("#descripcion").val() != "") {
     let hoy = new Date();
     let fecha1 = new Date($("#fecha-inicio").val());
@@ -56,3 +55,4 @@ $("#crearPromo").click(function(argument){
 });
  
 //=====================Fin promociones========================
+
