@@ -20,6 +20,7 @@ include("class/class-conexion.php");
 	<link rel="stylesheet" type="text/css" href="css/carousel.css">
 	<link rel="stylesheet" type="text/css" href="css/styleBarra.css">
 	<link rel="stylesheet" type="text/css" href="css/materialize.min.css">
+	<link rel="stylesheet" href="css/jquery-confirm.min.css">
 	
 </head>
 <body>
@@ -61,9 +62,8 @@ include("class/class-conexion.php");
 				 <ul class="collapsible" id="ul-area">
 				 	
 				 </ul>
-				 <button class="btn waves-effect waves-light" id="btn-guardar">Guardar </button>
-				 <button class="btn waves-effect waves-light" id="btn-actualizar" >Actualizar </button>
-				 
+				 <button class="btn waves-effect waves-light" id="btn-guardar">Guardar </button>		
+
 								
 				<!--Fin Contenido-->
 
@@ -77,7 +77,7 @@ include("class/class-conexion.php");
 	<script src="js/menu.js"></script>
 	<script src="js/materialize.min.js"></script>	
 	<script src="js/emision_resultado.js"></script>	
-
+	<script src="js/jquery-confirm.min.js"></script>
 
 </body>
 </html>

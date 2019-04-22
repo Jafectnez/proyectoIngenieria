@@ -22,9 +22,9 @@
 			    $data = json_decode($_POST['arreglo']);
 				//	var_dump($data);
 				//	var_dump($_POST['arreglo']);
-				$res=emision_resultado::guardar_resultado($conexion,$data);
-				//echo json_encode($res);
-				 echo $res;
+				$res=emision_resultado::guardar_resultado($conexion,$data,$_POST['cliente']);
+				echo $res;
+				// echo $res;
 				# code...
 				break;
 			

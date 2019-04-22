@@ -56,6 +56,9 @@
 				" Id_empleado: " . $this->id_empleado . 
 				" Observaciones: " . $this->observaciones;
 		}
+		//-----------------------------------------------------------------------------------------
+		//			Funcion cuyo objetivo es listar las areas del laboratorio
+		//-----------------------------------------------------------------------------------------
 		public static function listar_areas($conexion){
 			$sql = "SELECT ID_AREA, NOMBRE FROM TBL_AREA";
 			$row = $conexion->query($sql);
@@ -76,6 +79,12 @@
 			$row=$conexion->query($sql);
 			return $row;
 		}
+		//-----------------------------------------------------------------------------------------
+
+
+		//----------------------------------------------------------------------------------------------------
+		// Esta funcion es para poder obtener el valor de las caracteristica ingresadas por los laboratoristas
+		//-----------------------------------------------------------------------------------------------------
 		public static function obtener_inputs($conexion){
 			$sql="
 				  SELECT  C.CARACTERISTICA, A.ID_AREA, c.ID_CARACTERISTICAS
@@ -87,42 +96,83 @@
 			$row=$conexion->query($sql);
 			return $row;
 		}
-		public static function guardar_resultado($conexion,$parametros){
-			session_start();
-			$fecha=date("y").'-'.date("m").'-'.date("d");
-			//Registro es cada registro que se agregara a la tabla
-			$sql = 'INSERT INTO TBL_RESULTADOS (
-                                  ID_EXAMEN,
-                                  ID_CLIENTE, 
-                                  ID_EMPLEADO, 
-                                  FECHA_EMISION,
-                                  OBSERVACIONES)
-                          VALUES ( 
-                                  1,
-                                  1, 
-                                  '.$_SESSION['id_empleado'].',
-                                  "'.$fecha.'",
-                                  "N/A")';
-            echo $sql;
-            $resultado = $conexion->ejecutarConsulta($sql);
+		//-----------------------------------------------------------------------------------------
 
-            $sql1 = 'SELECT MAX(ID_RESULTADO) id FROM TBL_RESULTADOS';
 
-            $resultado1 = $conexion->ejecutarConsulta($sql1);
+		//-----------------------------------------------------------------------------------------
+		//Aqui Es donde se realiza el proceso de guardrn los resultados del paciente
+		//-----------------------------------------------------------------------------------------
+		public static function guardar_resultado($conexion,$parametros,$cliente){
+			//Llamado a una funcion para validar nombre
+			$usuario=emision_resultado::verificarUsuario($conexion,$cliente);
+			if ($usuario!=0) {
+				session_start();
+				$fecha=date("y").'-'.date("m").'-'.date("d");
+				//Registro es cada registro que se agregara a la tabla
+				$sql = 'INSERT INTO TBL_RESULTADOS (
+	                                  ID_EXAMEN,
+	                                  ID_CLIENTE, 
+	                                  ID_EMPLEADO, 
+	                                  FECHA_EMISION,
+	                                  OBSERVACIONES)
+	                          VALUES ( 
+	                                  1,
+	                                  '.$usuario.', 
+	                                  '.$_SESSION['id_empleado'].',
+	                                  "'.$fecha.'",
+	                                  "N/A")';
+	            $resultado = $conexion->ejecutarConsulta($sql);
+	            //Consulta que btiene el id del resltado que se acaba de guardar
+	            $sql1 = 'SELECT MAX(ID_RESULTADO) id FROM TBL_RESULTADOS';
+	            $resultado1 = $conexion->ejecutarConsulta($sql1);
+				$id=$conexion->obtenerFila($resultado1);
+				//Se obtiene el tamanio del arreglo que es equivalente al numero de caracteristicas a insertar
+				$tamanio=count($parametros);
+				//Se hace un for para ir insertando las caracteristicas en la base de datos
+				for ($i=0; $i < $tamanio ; $i++) { 
+					list($valor,$idcaracteristica)=explode(':', $parametros[$i]) ;
+					$sql2='INSERT INTO caracteristicas_x_resultados(
+									   ID_CARACTERISTICAS,
+									   ID_RESULTADO,
+									   VALOR_RESULTADO)
+					 			VALUES ('.$idcaracteristica.','.$id['id'].','.$valor.')';
+					$resultado2=$conexion->ejecutarConsulta($sql2);
+				}
+				echo "Resultado guardado con exito";
+			}
+			else{
+				echo "Ingrese un cliente válido";
+			}
 
-   //          while(($id=$conexion->obtenerFila($resultado1))){
-			// 	echo "Id del resultado: "+$id['id'];
-			// }
-			$id=$conexion->obtenerFila($resultado1);
-			$tamanio=count($parametros);
-			for ($i=0; $i < $tamanio ; $i++) { 
-				list($valor,$idcaracteristica)=explode(':', $parametros[$i]) ;
-				$sql2='INSERT INTO caracteristicas_x_resultados(
-								   ID_CARACTERISTICAS,
-								   ID_RESULTADO,
-								   VALOR_RESULTADO)
-				 			VALUES ('.$idcaracteristica.','.$id['id'].','.$valor.')';
-				$resultado2=$conexion->ejecutarConsulta($sql2);
+			
+
+		}
+	//-----------------------------------------------------------------------------------------
+	//Funcion para validar que el nombre del cliente esta almacenado en la base de datos para poder emitir los resultados
+	//-----------------------------------------------------------------------------------------
+
+	public static function verificarUsuario($conexion,$nombreUsuario){
+			//Dividir el nombre obtenido en el campo para obtener el nombre y el apellido
+			$nombre = strtok($nombreUsuario, ' ');
+			$apellido = strtok(' ');
+
+			$sql = 'select c.id_cliente idPersona from tbl_personas p 
+					inner join tbl_cliente c
+					on c.id_persona = p.id_persona
+					where (p.nombre = "'.$nombre.'" and p.apellido = "'.$apellido.'")';
+			//echo $sql;
+
+			$resultado = $conexion->ejecutarConsulta($sql);
+
+			if (($usuario=$conexion->obtenerFila($resultado))) {
+				//echo "Debe retornar el id de ese cliente";
+				/*echo '<input type="text" style="display:none" name="" id="txt-id-usuario" value="'.$usuario['idPersona'].'">';*/
+				return $usuario['idPersona'];
+			}
+			else{
+				// echo "Se debe registrar el cliente";
+				return 0;
+
 			}
 
 		}

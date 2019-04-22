@@ -127,20 +127,53 @@ function ObtenerInputs(){
 
 	});
 }
+//-----------------------------------------------------------------------------------------------------------------
 //Funcion en donde se obtiene la data con el formato correcto para hacer la peticion ajax 
+//-----------------------------------------------------------------------------------------------------------------
 function parametros(data){
-	//var cadena=data;
-	//var cadena2=cadena.slice(0,-1);
-	 //console.log(cadena2);
 	//En este punto es en donde se guardara la data en la base de datos
 	//console.log(data);
+	var cliente=$('#txt-nombre-cliente').val();
 	$.ajax({
 		url:"ajax/gestionar-resultados.php",
-		data:{"accion":"guardar-resultado","arreglo":JSON.stringify(data)},
+		data:{"accion":"guardar-resultado","cliente":cliente,"arreglo":JSON.stringify(data)},
 		method:"post",
 		success:function(respuesta){
-			console.log(respuesta);
-			//var type = JSON.parse(respuesta);	
+			var cliente="";
+			cliente=respuesta;
+
+					if (cliente == 'Ingrese un cliente válido' ) {
+						$.confirm({
+    						title: 'Lo sentimos...',
+    						content: 'Este cliente no esta registrado',
+    						type: 'blue',
+    						typeAnimated: true,
+    						buttons: {
+        						tryAgain: {
+            					text: 'Volver',
+            					btnClass: 'btn-blue',
+            					action: function(){}
+        						}
+        					}
+						});
+				}
+					if (cliente=='Resultado guardado con exito') {
+						$.confirm({
+    						title: 'Resultados',
+    						content: 'Resultados guardados con Exito! ',
+    						type: 'blue',
+    						typeAnimated: true,
+    						buttons: {
+        						tryAgain: {
+            					text: 'Volver',
+            					btnClass: 'btn-blue',
+            					action: function(){
+            						location.reload();
+            					}
+        						}
+        					}
+						});
+					}
 			
 		},
 		error:function(e){
@@ -150,4 +183,7 @@ function parametros(data){
 	});
 
 }
+//-----------------------------------------------------------------------------------------------------------------
+
+
 
