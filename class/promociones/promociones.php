@@ -188,4 +188,7 @@ function tablaFooter()
 	echo '</tbody>
 	</table>';
 }
+
+mysqli_close($conexion);
+
 ?> 

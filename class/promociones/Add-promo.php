@@ -16,6 +16,8 @@
   // crea la conexion entre promociones y la lista de examenes
   $sql = "INSERT INTO `PROMOCIONES_X_EXAMENES`(`TBL_PROMOCIONES_ID_PROMOCIONES`, `TBL_EXAMENES_ID_EXAMEN`) VALUES (".$row['ID_PROMOCIONES'].",".$_POST['ie'].")";
   mysqli_query($conexion, $sql);
+  mysqli_close($conexion);
+
 
   echo "1";
 

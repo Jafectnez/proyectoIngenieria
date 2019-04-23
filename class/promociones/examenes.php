@@ -9,5 +9,6 @@ while( $row = mysqli_fetch_array($result))
 {
 	echo '<option value="'.$row['ID_EXAMEN'].'">'.$row['NOMBRE'].'</option>';
 }
+mysqli_close($conexion);
 
 ?> 
