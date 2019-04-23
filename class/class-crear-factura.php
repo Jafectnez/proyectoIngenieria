@@ -304,7 +304,7 @@
 				   $idCliente = $cliente['id'];
 				   
 				}
-				echo '<input type="text" style="display:none" name="" id="txt-id-usuario" value="'.$idCliente['idPersona'].'">';
+				echo '<input type="text" style="display:none" name="" id="txt-id-usuario" value="'.$idCliente.'">';
 
 			}
 			else{
