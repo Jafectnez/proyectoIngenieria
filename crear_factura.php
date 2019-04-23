@@ -50,8 +50,8 @@
 								<input type="text" name="" id="txt-codigo-factura" readonly="readonly" style="width: 150px">
 							</h6>
 							<h6>
-								<strong>Cliente: </strong>
-								<input type="text" id="txt-nombre-cliente" name="" onKeyPress="return ValidateAlpha(event);">
+								<strong>Identidad: </strong>
+								<input type="text" id="txt-nombre-cliente" name="" onkeypress="return validaNumericos(event)">
 
 								<input type="text" name="" id="txt-id-cliente" style="display:none">
 

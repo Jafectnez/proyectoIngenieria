@@ -255,16 +255,13 @@
 
 		//Funcion para verificar si el cliente esta registrado en el sistema
 		public static function verificarUsuario($conexion,$nombreUsuario){
-			//Dividir el nombre obtenido en el campo para obtener el nombre y el apellido
-			$nombre = strtok($nombreUsuario, ' ');
-			$apellido = strtok(' ');
-			//echo $nombre;
-			//echo $apellido;
+
+
 
 			$sql = 'select p.id_persona idPersona from tbl_personas p 
 					inner join tbl_cliente c
 					on c.id_persona = p.id_persona
-					where (p.nombre = "'.$nombre.'" and p.apellido = "'.$apellido.'")';
+					where (p.identidad = '.$nombreUsuario.')';
 			//echo $sql;
 
 			$resultado = $conexion->ejecutarConsulta($sql);
@@ -274,9 +271,46 @@
 				echo '<input type="text" style="display:none" name="" id="txt-id-usuario" value="'.$usuario['idPersona'].'">';
 			}
 			else{
-				echo "Se debe registrar el cliente";
+
+			$persona = 'select p.id_persona id,p.nombre nombre,p.apellido apellido from tbl_personas p where p.identidad = '.$nombreUsuario;
+			//echo $persona;
+			$encontrarPersona = $conexion->ejecutarConsulta($persona);
+
+			if(($personaEncontrada=$conexion->obtenerFila($encontrarPersona))){
+				$fecha = time();
+				$fechaActual = date("Y-m-d",$fecha);
+				$usuario = $personaEncontrada['nombre'].$personaEncontrada['apellido'];
+				//echo $fechaActual;
+
+				$sql2 = 'insert into tbl_usuarios (id_tipo_usuario,usuario,contraseña,fecha_registro) values (3,"'.$usuario.'","asd.456",'.$fechaActual.')';
+				//echo $sql2;
+				$resultado2 = $conexion->ejecutarConsulta($sql2);
+
+				$sql2 = 'SELECT MAX(ID_USUARIO) id FROM TBL_USUARIOS';
+				$resultado2 = $conexion->ejecutarConsulta($sql2);
+				while(($usuario=$conexion->obtenerFila($resultado2))){
+				   $idUsuario = $usuario['id'];
+				   
+				}
+	
+
+				$sql3 = 'insert into tbl_cliente (id_persona,id_usuario) values ('.$personaEncontrada['id'].','.$idUsuario.')';
+				$resultado3 = $conexion->ejecutarConsulta($sql3);
+
+				$sql4 = 'SELECT MAX(ID_CLIENTE) id FROM TBL_CLIENTE';
+				$resultado4 = $conexion->ejecutarConsulta($sql4);
+
+				while(($cliente=$conexion->obtenerFila($resultado4))){
+				   $idCliente = $cliente['id'];
+				   
+				}
+				echo '<input type="text" style="display:none" name="" id="txt-id-usuario" value="'.$idCliente['idPersona'].'">';
 
 			}
+			else{
+				echo "Se debe registrar el cliente";
+			}
+}
 
 		}
 

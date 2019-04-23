@@ -219,7 +219,7 @@ function almacenarRegistrosFinales(){
 
 function registrarFactura(){
 	var nombreCliente = $("#txt-nombre-cliente").val();
-	if (nombreCliente != '') {
+	if (nombreCliente != '' && nombreCliente.length == 13 ) {
 	//---------------------------------------------------------------
 	//Se hace la peticion ajax para ver si el usuario esta registrado
 	//---------------------------------------------------------------
@@ -440,12 +440,8 @@ function registrarFactura(){
 
   						'<div class="form-group">'+
   						  '<label for="txt-direccion" class="col-lg-1 col-md-1 control-label">Direccion:</label>'+
-  						  	'<div class="col-lg-4 col-md-4">'+
+  						  	'<div class="col-lg-10 col-md-10">'+
   						    '<input type="text" class="form-control" id="txt-direccion" placeholder="Direccion" onKeyPress="return ValidateAlpha(event);">'+
-  						  	'</div>'+
-  						  	'<label for="txt-identidad" class="col-lg-2 col-md-2 control-label">Identidad:</label>'+
-  						  	'<div class="col-lg-4 col-md-4">'+
-  						    	'<input type="text" class="form-control" id="txt-identidad" onkeypress="return validaNumericos(event)" placeholder="Identidad">'+
   						  	'</div>'+
   						  '</div>'+
 						
@@ -464,7 +460,7 @@ function registrarFactura(){
     				            var correo = $("#txt-correo").val();
     				            var fecha = $("#txt-fecha").val();
     				            var direccion = $("#txt-direccion").val();
-    				            var identidad = $("#txt-identidad").val();
+    				            var identidad = $("#txt-nombre-cliente").val();
 
     				            if ($("#genero option[value=F]").attr("selected",true)) {
     				            	var genero = '1';
@@ -476,7 +472,7 @@ function registrarFactura(){
     				            }
     				            
 				
-                          		if(genero != '' && nombre != '' && (telefono != '' && (telefono.length < 9)) && correo != '' && fecha != '' && direccion != '' && (identidad !='' && (identidad.length < 14))){
+                          		if(genero != '' && nombre != '' && (telefono != '' && (telefono.length == 8)) && correo != '' && fecha != '' && direccion != '' && (identidad !='' && (identidad.length < 14))){
                 					var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
                 					if (regex.test($('#txt-correo').val().trim())) {
                 						$("#txt-usuario-genero").val(genero);
@@ -486,10 +482,10 @@ function registrarFactura(){
                 						$("#txt-usuario-correo").val(correo);
                 				    	$("#txt-usuario-fecha").val(fecha);
                 				    	$("#txt-usuario-direccion").val(direccion);
-                				    	$("#txt-usuario-identidad").val(identidad);
+                				    	//$("#txt-usuario-identidad").val(identidad);
 
-                				    	var cliente = nombre +''+ apellido;
-                				    	$("#txt-nombre-cliente").val(cliente);
+                				    	//var cliente = nombre +''+ apellido;
+                				    	//$("#txt-nombre-cliente").val(cliente);
 
                 				    	//---------------------------------------------------------
                 				    	//---------Peticion ajax para crear el nuevo usuario-------
@@ -739,7 +735,7 @@ function registrarFactura(){
 		
 		$.confirm({
     		title: 'Campo obligatorio',
-    		content: 'Por favor introduzca el nombre del cliente',
+    		content: 'Verifique el número de identidad',
     		type: 'blue',
     		typeAnimated: true,
     		buttons: {
