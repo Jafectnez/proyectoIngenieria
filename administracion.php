@@ -483,5 +483,4 @@
 	<script src="js/controladores/admin-promos.js"></script>	
 	<script src="js/controladores/administracion.js"></script>
 
-
 </html>

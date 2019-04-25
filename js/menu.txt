@@ -60,7 +60,7 @@
       <li id="li-catalogo">
         <a href="catalogo.php">
           <i class="glyphicon glyphicon-ok"></i>
-          <span>Catálogo de servicios</span>
+          <span>Catálogo de Servicios</span>
         </a>
       </li>
       <li id="li-cliente">
@@ -73,6 +73,12 @@
         <a href="administracion.php">
           <i class="glyphicon glyphicon-flag"></i>
           <span>Administración</span>
+        </a>
+      </li>
+      <li>
+        <a id="btn-logout" onclick="cerrarSesion();" style="cursor: pointer;">
+          <i class="glyphicon glyphicon-off"></i>
+          <span>Cerrar Sesión</span>
         </a>
       </li>
       <label for="chk" class="hide-menu-btn">

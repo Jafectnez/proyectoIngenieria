@@ -30,3 +30,16 @@ jQuery(document).ready(function() {
 	});
 });
 
+function cerrarSesion() {
+	$.ajax({
+		url:"ajax/acciones-sesion.php",
+		method: "POST",
+		data: {
+			"accion": "cerrar-sesion"
+		},
+		success: function(respuesta){
+			window.location="login.php";
+		}
+	});
+}
+
