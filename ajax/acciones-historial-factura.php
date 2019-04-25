@@ -12,7 +12,10 @@
 				$res=historialFacturas::cargarFacturasFechas($conexion,$_POST['fechaDesde'],$_POST['fechaHasta']);
 				echo $res;
 				break;
-			
+			case 'visualizar-factura':
+				$res=historialFacturas::visualizarFactura($conexion,$_POST['idFactura']);
+				echo $res;
+				break;			
 			default:
 				# code...
 				break;
