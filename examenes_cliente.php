@@ -1,5 +1,11 @@
 <?php
 	$id_cliente=$_GET['id'];
+        include("class/class-conexion.php");
+	session_start();
+	if($_SESSION['status']==false) { // CUALQUIER USUARIO REGISTRADO PUEDE VER ESTA PAGINA
+	    session_destroy();
+	    header("Location: login.php");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -20,12 +26,11 @@
  <div class="container-fluid">
    	<div class="row">
         <!--Aqui Esta Contenida La Barra De Menu-->
-        <div id="barraNav" class="col-lg-2 col-sm-2 lista">
-        </div>
+        <div id="barraNav" class="col-lg-2 col-sm-2 lista" style="width: 20%"></div>
         <!--Aqui Finaliza La Barra De Menu-->
               
         <!--Contenido de Cliente-->
-        <div class="col-lg-10 col-sm-10 well sector-contenido" style="border: black 1px solid;background-image:url(img/catalogo.jpg);">
+        <div class="col-lg-10 col-sm-10 well" style="border: black 1px solid;width: 80%; background-image:url(img/catalogo.jpg);"> 
 			<div style="background-color: rgba(255,255,255,0.9) ;border-radius: 25px">
 				<!--Encabezado informacion del laboratorio-->
 				<div class="row">
