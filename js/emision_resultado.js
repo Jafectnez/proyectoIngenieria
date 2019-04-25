@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	cargarAreas();
+	cargarExamenes();
 });
 function cargarAreas(){
 
@@ -134,11 +135,13 @@ function parametros(data){
 	//En este punto es en donde se guardara la data en la base de datos
 	//console.log(data);
 	var cliente=$('#txt-nombre-cliente').val();
+	var examenes=$("input[type='radio'][name='rbt-examenes']:checked").val()
 	$.ajax({
 		url:"ajax/gestionar-resultados.php",
-		data:{"accion":"guardar-resultado","cliente":cliente,"arreglo":JSON.stringify(data)},
+		data:{"accion":"guardar-resultado","cliente":cliente,"arreglo":JSON.stringify(data),"examenes":examenes},
 		method:"post",
 		success:function(respuesta){
+			console.log(respuesta);
 			var cliente="";
 			cliente=respuesta;
 
@@ -152,7 +155,7 @@ function parametros(data){
         						tryAgain: {
             					text: 'Volver',
             					btnClass: 'btn-blue',
-            					action: function(){}
+            					action: function(){	}
         						}
         					}
 						});
@@ -165,10 +168,11 @@ function parametros(data){
     						typeAnimated: true,
     						buttons: {
         						tryAgain: {
-            					text: 'Volver',
+            					text: 'Ok',
             					btnClass: 'btn-blue',
             					action: function(){
-            						location.reload();
+            						cargarUltimoResultado();
+            						$("#mod-emitido").modal("show");
             					}
         						}
         					}
@@ -184,6 +188,78 @@ function parametros(data){
 
 }
 //-----------------------------------------------------------------------------------------------------------------
+//Aqui se llamara el resultado que se acaba de insertar
+//-----------------------------------------------------------------------------------------------------------------
+function cargarUltimoResultado(){
+	$.ajax({
+		url:"ajax/gestionar-resultados.php",
+		data:{"accion":"obtener-ultimo-resultado"},
+		method:"post",
+		success:function(respuesta){
+			var type = JSON.parse(respuesta);
+			var row='';
+			var referencia="";
+			for (var i = 0; i < type.length; i++) {
+				if (type[i].valor_ref==null) {
+					referencia="N/A";
+				} else {
+					referencia=type[i].valor_ref;
+				}
+
+				row=	'<tr>'+
+							'<td>'+
+								type[i].caracteristica+
+							'</td>'+
+							'<td>'+
+								referencia+
+							'/<td>'+
+							'<td>'+
+								type[i].valor_resultado+
+							'</td>'+
+							'<td>'+
+								type[i].nombre+
+							'</td>'+
+						'</tr>';
+					
+			$('#div-resultado-emitido').append(row);
+			console.log(row);
+			}
+			
+		},
+		error:function(e){
+		alert(e);
+		}
+
+	});
+
+}
+//-----------------------------------------------------------------------------------------------------------------
 
 
+//-----------------------------------------------------------------------------------------------------------------
+//Aqui se listan los examenes disponibles
+//-----------------------------------------------------------------------------------------------------------------
+function cargarExamenes(){
+	$.ajax({
+		url:"ajax/gestionar-resultados.php",
+		data:{"accion":"obtener-examenes"},
+		method:"post",
+		datatype:'JSON',
+		success:function(respuesta){
+			var type = JSON.parse(respuesta);
+			//console.log(type);
+			var row='<table><tr>';	
+			for (var i = 0; i < type.length; i++) {
+				row+='<td><label><input type="radio" style="opacity:100" name="rbt-examenes" value="'+type[i].id_examen+'">'+type[i].nombre+' </label></td>';
+				
+			}
+			row+='</tr></table>';
+			$('#div-examen').append(row);
+		},
+		error:function(e){
+		alert(e);
+		}
 
+	});	
+
+}

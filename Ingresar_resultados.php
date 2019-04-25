@@ -16,8 +16,7 @@ include("class/class-conexion.php");
 	<script src="js/carousel.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/barra-menu.css">
-	<link rel="stylesheet" type="text/css" href="css/carousel.css">
+	<!-- <link rel="stylesheet" type="text/css" href="css/barra-menu.css"> -->
 	<link rel="stylesheet" type="text/css" href="css/styleBarra.css">
 	<link rel="stylesheet" type="text/css" href="css/materialize.min.css">
 	<link rel="stylesheet" href="css/jquery-confirm.min.css">
@@ -51,33 +50,86 @@ include("class/class-conexion.php");
 		         <div class="input-field col s2">
 		          <input id="txt-edad" type="text" class="validate">
 		          <label for="txt-edad">Edad</label>
-		         </div><div class="input-field col s12">
-		          <!-- <input id="txt-medico" type="text" class="validate">
-		          <label for="txt-medico">Medico</label>
-		         </div> -->
+		         </div>
+		         
 		        </div>
 
 		        <!-- Fin de los Encabezados -->
 				<!--Contenido-->
+				<div id="div-examen"></div>
 				 <ul class="collapsible" id="ul-area">
 				 	
 				 </ul>
-				 <button class="btn waves-effect waves-light" id="btn-guardar">Guardar </button>		
+				 <button class="btn waves-effect waves-light" id="btn-guardar">Guardar </button>
 
+  				<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
+  Resultado
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="mod-emitido" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5> -->
+        <h5><strong>Laboratorio Clínico Emanuel</strong></h5>
+							<h6><strong>SIRVIENDO A DIOS ATRAVES DE SU SALUD</strong></h6>
+							<h6><strong>La libertad, Comayagua, Honduras, C.A</strong></h6>
+							<h6><strong>Telefonos: 2784-0292, 2784-0699</strong></h6>
+							<hr>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!--Cuerpo Del Resultado Recien Emitido-->
+        <div >
+        	<table  >
+        		<thead>
+        		<tr>
+        			<th>Caracteristica</th>
+        			<th>Valor de referencia</th>
+        			<th>Resultado</th>
+        			<th>Area</th>
+        		</tr>
+
+        		</thead>
+        		<tbody id="div-resultado-emitido">
+        			
+        		</tbody>
+        		
+        	</table>
+        	
+        </div>
+
+        <!--Fin del resultado que se acaba de emitir-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> 
+<!--Fin Modal -->
+  
 								
 				<!--Fin Contenido-->
 
 					
 			</div>
 		</div>
+
 	</div>
 	<!--Fin Del Contenedor-->
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/carousel.js"></script>
 	<script src="js/menu.js"></script>
-	<script src="js/materialize.min.js"></script>	
 	<script src="js/emision_resultado.js"></script>	
 	<script src="js/jquery-confirm.min.js"></script>
+	<script src="js/materialize.min.js"></script>	
+	<script type="text/javascript" src="js/bootstrap.js"></script>
 
 </body>
 </html>
