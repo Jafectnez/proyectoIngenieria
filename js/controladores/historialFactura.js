@@ -60,3 +60,70 @@ function regresarAtras(){
 	cargarFacturas();
 
 }
+
+function visualizarFactura(idFactura){
+	$.ajax({
+		url: 'ajax/acciones-historial-factura.php',
+		data:{'accion':'visualizar-factura',
+			  'idFactura' : idFactura
+
+		},
+		method:'post',
+		success:function(respuesta){
+			console.log(respuesta);
+			$("#div-factura").html(respuesta);
+			var nombreCliente = $("#input-nombre").attr("value");
+			var fechaFactura = $("#input-fecha").attr("value");
+			var contenidoTabla = $("#input-tabla").attr("value");
+			var totalFactura = $("#input-total").attr("value");
+			$.confirm({
+		    	title: '',
+		    	columnClass: 'col-md-6 col-lg-6',
+		    	content: '<div style="text-align: center">'+
+							'<h5><strong>Laboratorio Clínico Emanuel</strong></h5>'+
+							'<h6><strong>SIRVIENDO A DIOS ATRAVES DE SU SALUD</strong></h6>'+
+							'<h6><strong>La libertad, Comayagua, Honduras, C.A</strong></h6>'+
+							'<h6><strong>Telefonos: 2784-0292, 2784-0699</strong></h6>'+
+							'<hr>'+
+							'<span style="text-align:left;"><strong>Nombre cliente:</strong> '+nombreCliente+'</span>'+
+							'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+
+							'<span style="text-align:left;"><strong>Fecha:</strong> '+fechaFactura+'</span>'+
+							'<br>'+
+							'<div class="well row">'+
+								'<table class="table table-striped" style="font-size:12px">'+
+									'<thead>'+
+										'<tr>'+
+											'<th>Examén</th>'+
+											'<th>Costo</th>'+
+											'<th>Promocion</th>'+
+										'</tr>'+
+									'</thead>'+
+									'<tbody>'+
+										contenidoTabla+
+										'<tr></tr>'+
+										'<tr></tr>'+
+									'</tbody>'+
+								'</table>'+
+							'</div>'+
+							'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+
+							'<span><strong>Total factura: </strong>'+
+								totalFactura+
+							'</span>'+
+						'</div>'
+		    	,
+		    	type: 'blue',
+		    	typeAnimated: true,
+		    	buttons: {
+		    	    ok: function () {
+		    	    },
+		    	}
+			});
+		},
+		error:function(error){}
+	});
+
+}
+
+function mostrarTabla(){
+
+}

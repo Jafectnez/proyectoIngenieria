@@ -71,10 +71,9 @@
 								<th scope="col">Cod</th>
 								<th scope="col">Fecha</th>
 								<th scope="col">Cliente</th>
-								<th scope="col">Tipo examen</th>
 								<th scope="col">Estado</th>
 								<th scope="col">Cajero</th>
-								<th scope="col">Costo</th>
+								<th scope="col">Total</th>
 							</tr>
 						</thead>
 						<tbody id="tbl-cuerpo-historial">
@@ -137,7 +136,7 @@
 							
 							<td>
 								<span>
-									Total: <input type="number" name="" readonly="readonly" style="width: 150px">
+									 <input type="number" name="" readonly="readonly" style="width: 150px;display: none">
 								</span>
 							</td>
 							<td>
@@ -158,6 +157,9 @@
 						</tr>
 					</table>
 					<!--Fin del conteo-->
+					<div class="well" id="div-factura" style="display: none">
+						
+					</div>
 				</div>
 				<!--Fin del formato-->
 			</div>
