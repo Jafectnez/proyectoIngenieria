@@ -8,7 +8,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- DROP DB_EMANUEL
 -- -----------------------------------------------------
-DROP DATABASE `db_emanuel`;
+
 
 -- -----------------------------------------------------
 -- Schema DB_EMANUEL

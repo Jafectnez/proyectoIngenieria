@@ -11,7 +11,7 @@
 
   <div class="login-page">
     <div class="form">
-      <form class="login-form">
+      <div class="login-form">
         <input type="text" class="form-control" placeholder="Usuario" id="txt-Usuario" />
         <input type="password" class="form-control" placeholder="Contraseña" id="txt-Password" />
         <button class="btn btn-primary" id="btn-iniciar-sesion" onclick="iniciarSesion();">Iniciar Sesion</button>
@@ -19,7 +19,7 @@
         <br><br><br>
         <a href="#">Olvidé mi contraseña</a>
         <br>
-      </form>
+      </div>
     </div>
   </div>
 

@@ -2,6 +2,7 @@
 let popUp = new Popup();
 
 $(document).ready(function() {
+  document.getElementById("descuento").defaultValue = "-1"; 
 
   //Carga las solicitudes registradas
   $("#table-solicitudes").DataTable({
@@ -274,11 +275,13 @@ function AddPromos() {
   var RestriccionPromo = $("#restricciones").val();
   var FIPromo = $("#fecha-inicio").val();
   var FFPromo = $("#fecha-final").val();
+  var porcentaje = $("#descuento").val();
   var idExamen = document.getElementById('selectTipo'); // esta linea y la siguiente recogen la opcion seleccionada en examen(crear promocion)
   var idExam = idExamen.options[idExamen.selectedIndex].value;
   var parametrosPromo = {
   "des": DescripcionPromo,
   "res": RestriccionPromo,
+  "porc": porcentaje,
   "fi": FIPromo,
   "ff": FFPromo,
   "ie": idExam
@@ -694,5 +697,23 @@ $("#denegar-solicitud").click(function(){
       verSolicitud(idSolicitudVisible);
     }
   });
-
 });
+
+function solonumeros(e) {
+  key = e.keyCode || e.which;
+  tecla = String.fromCharCode(key).toLowerCase();
+  letras = "0123456789";
+  especiales = [8, 9, 10, 11];
+
+  tecla_especial = false
+  for (var i in especiales) {
+    if (key == especiales[i]) {
+      tecla_especial = true;
+      break;
+    }
+  }
+
+  if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+   return false;
+  }
+}

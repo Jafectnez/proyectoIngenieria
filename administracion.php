@@ -394,8 +394,14 @@
 											<div class="form-group col-md-12">
 												<label for="restricciones">Restricciones:</label>
 												<br>													
-												<textarea id="restricciones" name="restricciones" class="col-md-12" cols="55" rows="3"></textarea>														
-											</div>												
+												<textarea id="restricciones" name="restricciones" class="col-md-12" cols="55" rows="3"></textarea>												
+											</div>
+											
+											<div class="form-group col-md-12">
+												<label for="descuento">Descuento porcentual:  <label style="color:red;">*</label></label>
+												<br>													
+												<input type="number" min="-1" max="100" defaultValue = "-1" id="descuento" name="descuento" class="col-md-3" placeholder="XX %" onkeypress="javascript:return solonumeros(event);">															
+											</div>						
 
 											<div class="form-group col-12 col-sm-6 col-md-6">
 												<label for="fecha-inicio">Fecha Inicio: <label style="color:red;">*</label></label>
@@ -407,7 +413,7 @@
 												<input type="date" id="fecha-final" class="form-control" placeholder="1999-12-31" style="padding-top:0">
 											</div>	
 
-											<div class="form-group col-12 col-sm-12 centroMsj">
+											<div class="form-group col-12 col-sm-12 centroMsj">												
 												<p id="msj"></p>
 												<p id="msj2"></p>												
 											</div>												
@@ -480,7 +486,6 @@
 
 	<script src="js/controladores/popUp.js"></script>
 	<script src="js/controladores/validaciones.js"></script>
-	<script src="js/controladores/admin-promos.js"></script>	
 	<script src="js/controladores/administracion.js"></script>
 
 
