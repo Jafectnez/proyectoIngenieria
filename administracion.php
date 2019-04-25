@@ -480,7 +480,6 @@
 
 	<script src="js/controladores/popUp.js"></script>
 	<script src="js/controladores/validaciones.js"></script>
-	<script src="js/controladores/admin-promos.js"></script>	
 	<script src="js/controladores/administracion.js"></script>
 
 </html>

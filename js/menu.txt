@@ -88,4 +88,4 @@
   </div>
   <!-- END MENU -->
 </div>
-
+<script src="js/controladores/popUp.js"></script>
