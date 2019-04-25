@@ -8,6 +8,10 @@
 				$res=historialFacturas::cargarFacturas($conexion);
 				echo $res;
 				break;
+			case 'cargar-historial-segun-fechas':
+				$res=historialFacturas::cargarFacturasFechas($conexion,$_POST['fechaDesde'],$_POST['fechaHasta']);
+				echo $res;
+				break;
 			
 			default:
 				# code...
