@@ -96,36 +96,73 @@
 				" Total: " . $this->total . 
 				" EstadoFactura: " . $this->estadoFactura;
 		}
-		public static function cargarFacturas($conexion){
-				$sql="SELECT f.ID_FACTURA,
-						   f.FECHA_EXAMEN, 
-						   c.NOMBRECLIENTE,
-						   e.NOMBRE,
-						   f.ESTADO_FACTURA,
-						   ep.NOMBREEMPLEADO,
-						   f.TOTAL
-					FROM TBL_FACTURA f
-					LEFT JOIN EXAMENES_X_FACTURA ef 
-					ON ef.ID_FACTURA=f.ID_FACTURA
-					LEFT JOIN TBL_EXAMENES e
-					ON e.ID_EXAMEN=ef.ID_EXAMEN
-					LEFT JOIN VW_CLIENTE c
-					ON c.ID_CLIENTE=f.ID_FACTURA
-					LEFT JOIN VW_EMPLEADO ep
-					ON ep.ID_EMPLEADO=f.ID_EMPLEADO";
 
-			$row=$conexion->ejecutarConsulta($sql);
-			while(($facturas=$conexion->obtenerFila($row))){
-				echo '<tr>';
-				echo 		'<td>'.$facturas['ID_FACTURA'].'</td>';
-				echo 		'<td>'.$facturas['FECHA_EXAMEN'].'</td>';
-				echo 		'<td>'.$facturas['NOMBRECLIENTE'].'</td>';
-				echo 		'<td>'.$facturas['NOMBRE'].'</td>';
-				echo 		'<td>'.$facturas['ESTADO_FACTURA'].'</td>';
-				echo 		'<td>'.$facturas['NOMBREEMPLEADO'].'</td>';
-				echo 		'<td>'.$facturas['TOTAL'].'</td>';
-				echo '</tr>';
+
+		public static function cargarFacturas($conexion){
+			$totalFacturas = 0;
+				$sql="select f.id_factura idFactura,f.fecha_examen fechaExamen,p.nombre nombreCliente, p.apellido apellidoCliente, e.nombre nombreExamen,f.estado_factura estadoFactura,em.id_empleado idEmpleado, e.precio precioExamen  from tbl_factura f
+					inner join tbl_cliente c
+					on f.id_cliente = c.id_cliente
+					inner join tbl_personas p
+					on p.id_persona = c.id_persona
+					inner join examenes_x_factura ef
+					on ef.id_factura = f.id_factura
+					inner join tbl_examenes e
+					on e.id_examen = ef.id_examen
+					inner join tbl_empleado em
+					on em.id_empleado = f.id_empleado
+					order by (f.id_factura)";
+					
+				$row=$conexion->ejecutarConsulta($sql);
+				while(($facturas=$conexion->obtenerFila($row))){
+					echo '<tr>';
+					echo 		'<td>'.$facturas['idFactura'].'</td>';
+					echo 		'<td>'.$facturas['fechaExamen'].'</td>';
+					echo 		'<td>'.$facturas['nombreCliente'].' '.$facturas['apellidoCliente'].'</td>';
+					echo 		'<td>'.$facturas['nombreExamen'].'</td>';
+					echo 		'<td>'.$facturas['estadoFactura'].'</td>';
+					echo 		'<td>'.$facturas['idEmpleado'].'</td>';
+					echo 		'<td>'.$facturas['precioExamen'].'</td>';
+					echo '</tr>';
+					$totalFacturas = $totalFacturas + 1;
 			}
+
+			echo '<input type="number" id="txt-total-facturas" value="'.$totalFacturas.'" style="backgroun-color:black;">';
+		}
+
+		public static function cargarFacturasFechas($conexion,$fechaDesde,$fechaHasta){
+			$totalFacturas = 0;
+			$sql="select f.id_factura idFactura,f.fecha_examen fechaExamen,p.nombre nombreCliente, p.apellido apellidoCliente, e.nombre nombreExamen,f.estado_factura estadoFactura,em.id_empleado idEmpleado, e.precio precioExamen  from tbl_factura f
+					inner join tbl_cliente c
+					on f.id_cliente = c.id_cliente
+					inner join tbl_personas p
+					on p.id_persona = c.id_persona
+					inner join examenes_x_factura ef
+					on ef.id_factura = f.id_factura
+					inner join tbl_examenes e
+					on e.id_examen = ef.id_examen
+					inner join tbl_empleado em
+					on em.id_empleado = f.id_empleado
+					where f.fecha_examen between '".$fechaDesde."' and '".$fechaHasta
+					."' order by (f.id_factura)";
+
+					
+				$row=$conexion->ejecutarConsulta($sql);
+				while(($facturas=$conexion->obtenerFila($row))){
+					echo '<tr>';
+					echo 		'<td>'.$facturas['idFactura'].'</td>';
+					echo 		'<td>'.$facturas['fechaExamen'].'</td>';
+					echo 		'<td>'.$facturas['nombreCliente'].' '.$facturas['apellidoCliente'].'</td>';
+					echo 		'<td>'.$facturas['nombreExamen'].'</td>';
+					echo 		'<td>'.$facturas['estadoFactura'].'</td>';
+					echo 		'<td>'.$facturas['idEmpleado'].'</td>';
+					echo 		'<td>'.$facturas['precioExamen'].'</td>';
+					echo '</tr>';
+					$totalFacturas = $totalFacturas + 1;
+			}
+
+			echo '<input type="number" id="txt-total-facturas" value="'.$totalFacturas.'" style="display:none;"></input>';
+
 		}
 
 		

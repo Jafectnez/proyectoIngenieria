@@ -1,11 +1,11 @@
-<?php
-include("class/class-conexion.php");
- session_start();
- if($_SESSION['status']==false) { // CUALQUIER USUARIO REGISTRADO PUEDE VER ESTA PAGINA
-      session_destroy();
-     header("Location: login.php");
- }
-?>
+//<?php
+//include("class/class-conexion.php");
+// session_start();
+// if($_SESSION['status']==false) { // CUALQUIER USUARIO REGISTRADO PUEDE VER ESTA PAGINA
+//      session_destroy();
+//     header("Location: login.php");
+// }
+//?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -16,6 +16,7 @@ include("class/class-conexion.php");
 		<link rel="stylesheet" type="text/css" href="css/barra-menu.css">
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
 		<link rel="stylesheet" type="text/css" href="css/styleBarra.css">
+		<link rel="stylesheet" href="css/jquery-confirm.min.css">
 	</head>
 	<body>
 
@@ -33,8 +34,35 @@ include("class/class-conexion.php");
 					<br>
 					<!--Encabezado con opciones de las facturas-->
 
-					<h1 style="text-align: center;" >Historial de facturas</h1>
+					<div style="text-align: center">
+							<h5><strong>Laboratorio Clínico Emanuel</strong></h5>
+							<h6><strong>SIRVIENDO A DIOS ATRAVES DE SU SALUD</strong></h6>
+							<h6><strong>La libertad, Comayagua, Honduras, C.A</strong></h6>
+							<h6><strong>Telefonos: 2784-0292, 2784-0699</strong></h6>
+							<h6><strong>R.T.N 03131965001420</strong></h6>
+							<h6><strong>C.A.I 289EFE-910C78-7C4C88-3CDEDF-FF9732-C7</strong></h6>
+							<h4>Historial de facturación</h4>
+							<hr>
+					</div>
+
+					<div class="row">
+						<div class="col-md-8 col-lg-8">
+							
+						</div>
+						<div class="col-md-4 col-lg-4">
+							<div style="text-align: left">
+								<button class="btn btn-default btn-lg" id="btn-regresar-atras" onclick="regresarAtras();">
+									<span class="glyphicon glyphicon-circle-arrow-left"></span> Regresar al Historial
+								</button>
+							</div>
+						</div>
+						
+					</div>
+					<hr>
+					
 					<!--Fin del encabezado-->
+
+
 
 					<!--Tabla que contiene el historial de las pruebas-->
 					<table class="table table-striped">
@@ -106,10 +134,7 @@ include("class/class-conexion.php");
 					</div> -->
 					<table class="table">
 						<tr>
-							<td><span>
-									Facturas: <input type="number" name="" readonly="readonly" style="width: 150px">
-								</span>
-							</td>
+							
 							<td>
 								<span>
 									Total: <input type="number" name="" readonly="readonly" style="width: 150px">
@@ -117,16 +142,18 @@ include("class/class-conexion.php");
 							</td>
 							<td>
 								<span>
-									De: <input placeholder="03/09/2019" type="text" name=""  style="width: 150px">
+									De: <input placeholder="03/09/2019" type="date" id="txt-fecha-desde"  style="width: 170px">
 								</span>
 							</td>
 							<td>
 								<span>
-									Hasta: <input placeholder="03/09/2019" type="text" name="" style="width: 150px">
+									Hasta: <input placeholder="03/09/2019" type="date" id="txt-fecha-hasta" style="width: 170px">
 								</span>
 							</td>
 							<td>
-								
+								<button type="button" class="btn btn-default btn-lg" id="btn-buscar" onclick="buscarFactura();">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
 							</td>
 						</tr>
 					</table>
@@ -142,4 +169,5 @@ include("class/class-conexion.php");
 	<script src="js/carousel.js"></script>
 	<script src="js/menu.js"></script>
 	<script src="js/controladores/historialFactura.js"></script>
+	<script src="js/jquery-confirm.min.js"></script>
 </html>

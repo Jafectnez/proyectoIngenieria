@@ -510,6 +510,7 @@ function registrarFactura(){
 												//-----------------------------------------------------------
 												//Cuando retorna los parametros se debe confirmar el registro
 												//-----------------------------------------------------------
+												console.log(respuesta);
 												arreglotokens=[];
 												separador=":";
 												arreglo=respuesta.split(separador);

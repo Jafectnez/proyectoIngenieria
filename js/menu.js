@@ -30,3 +30,26 @@ jQuery(document).ready(function() {
 	});
 });
 
+function cerrarSesion() {
+	popUp = new Popup();
+  popUp.setTextoDecision('¿Desea cerrar la sesión?');
+  Popup.mantenerDecision();
+  $("#decision-no").click(function() { 
+    Popup.ocultarDecision();
+  });
+
+  $("#decision-si").click(function() {
+    Popup.ocultarDecision();
+		$.ajax({
+			url:"ajax/acciones-sesion.php",
+			method: "POST",
+			data: {
+				"accion": "cerrar-sesion"
+			},
+			success: function(respuesta){
+				window.location="login.php";
+			}
+		});
+	});
+}
+
