@@ -87,7 +87,7 @@
 		//-----------------------------------------------------------------------------------------------------
 		public static function obtener_inputs($conexion){
 			$sql="
-				  SELECT  C.CARACTERISTICA, A.ID_AREA, c.ID_CARACTERISTICAS
+				  SELECT  C.CARACTERISTICA, A.ID_AREA, c.ID_CARACTERISTICAS, A.NOMBRE
 				  FROM TBL_AREA A
 				  INNER JOIN AREA_X_CARACTERISTICAS AC 
                   ON (AC.ID_AREA=A.ID_AREA)
@@ -102,32 +102,37 @@
 		//-----------------------------------------------------------------------------------------
 		//Aqui Es donde se realiza el proceso de guardrn los resultados del paciente
 		//-----------------------------------------------------------------------------------------
-		public static function guardar_resultado($conexion,$parametros,$cliente){
+		public static function guardar_resultado($conexion,$parametros,$cliente,$examenes){
 			//Llamado a una funcion para validar nombre
 			$usuario=emision_resultado::verificarUsuario($conexion,$cliente);
 			if ($usuario!=0) {
+				//Se inicia sesion para poder obtener las variables globales
 				session_start();
 				$fecha=date("y").'-'.date("m").'-'.date("d");
-				//Registro es cada registro que se agregara a la tabla
-				$sql = 'INSERT INTO TBL_RESULTADOS (
+	           
+				
+				//Esta es la insersion de el resultado
+				
+					$sql = 'INSERT INTO TBL_RESULTADOS (
 	                                  ID_EXAMEN,
 	                                  ID_CLIENTE, 
 	                                  ID_EMPLEADO, 
 	                                  FECHA_EMISION,
 	                                  OBSERVACIONES)
 	                          VALUES ( 
-	                                  1,
+	                                  '.$examenes.',
 	                                  '.$usuario.', 
 	                                  '.$_SESSION['id_empleado'].',
 	                                  "'.$fecha.'",
 	                                  "N/A")';
-	            $resultado = $conexion->ejecutarConsulta($sql);
-	            //Consulta que btiene el id del resltado que se acaba de guardar
+	                $resultado = $conexion->ejecutarConsulta($sql);
+				
+				//Se obtiene el tamanio del arreglo que es equivalente al numero de caracteristicas a insertar
+				$tamanio=count($parametros);
+				 //Consulta que btiene el id del ultimo registro insertado
 	            $sql1 = 'SELECT MAX(ID_RESULTADO) id FROM TBL_RESULTADOS';
 	            $resultado1 = $conexion->ejecutarConsulta($sql1);
 				$id=$conexion->obtenerFila($resultado1);
-				//Se obtiene el tamanio del arreglo que es equivalente al numero de caracteristicas a insertar
-				$tamanio=count($parametros);
 				//Se hace un for para ir insertando las caracteristicas en la base de datos
 				for ($i=0; $i < $tamanio ; $i++) { 
 					list($valor,$idcaracteristica)=explode(':', $parametros[$i]) ;
@@ -152,14 +157,11 @@
 	//-----------------------------------------------------------------------------------------
 
 	public static function verificarUsuario($conexion,$nombreUsuario){
-			//Dividir el nombre obtenido en el campo para obtener el nombre y el apellido
-			$nombre = strtok($nombreUsuario, ' ');
-			$apellido = strtok(' ');
-
+	
 			$sql = 'select c.id_cliente idPersona from tbl_personas p 
 					inner join tbl_cliente c
 					on c.id_persona = p.id_persona
-					where (p.nombre = "'.$nombre.'" and p.apellido = "'.$apellido.'")';
+					where (p.identidad='.$nombreUsuario.')';
 			//echo $sql;
 
 			$resultado = $conexion->ejecutarConsulta($sql);
@@ -176,5 +178,36 @@
 			}
 
 		}
+	//-----------------------------------------------------------------------------------------
+	//Funcion que obtiene el resultado que se acaba de emitir
+	//-----------------------------------------------------------------------------------------
+	public static function ultimo_resultado($conexion){
+		 $sql='
+
+				SELECT c.caracteristica, cr.valor_resultado, c.valor_ref
+				FROM tbl_caracteristicas c 
+				INNER JOIN caracteristicas_x_resultados cr 
+				on cr.ID_CARACTERISTICAS=c.ID_CARACTERISTICAS
+				INNER JOIN area_x_caracteristicas ac 
+				on ac.ID_CARACTERISTICAS=c.ID_CARACTERISTICAS
+				WHERE (cr.ID_RESULTADO=(SELECT MAX(ID_RESULTADO) FROM TBL_RESULTADOS) )';
+		$row=$conexion->query($sql);
+
+		return $row;
+
 	}
+
+
+
+	//-----------------------------------------------------------------------------------------
+	//Funcion que obtiene los examenes disponibles en la base de datos
+	//-----------------------------------------------------------------------------------------
+	
+	public static function listar_examenes($conexion){
+		$sql='select id_examen, id_area,nombre from tbl_examenes';
+		$row=$conexion->query($sql);
+		return $row;
+
+	}
+}
 ?>

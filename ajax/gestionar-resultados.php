@@ -20,12 +20,18 @@
 				break;
 			case 'guardar-resultado':
 			    $data = json_decode($_POST['arreglo']);
-				//	var_dump($data);
-				//	var_dump($_POST['arreglo']);
-				$res=emision_resultado::guardar_resultado($conexion,$data,$_POST['cliente']);
+					// var_dump($data);
+					// var_dump($_POST['examenes']);
+				$res=emision_resultado::guardar_resultado($conexion,$data,$_POST['cliente'],$_POST['examenes']);
 				echo $res;
-				// echo $res;
-				# code...
+				break;
+			case 'obtener-ultimo-resultado':
+				$res=emision_resultado::ultimo_resultado($conexion);
+				echo json_encode($res);
+				break;
+			case 'obtener-examenes':
+				$res=emision_resultado::listar_examenes($conexion);
+				echo json_encode($res);
 				break;
 			
 			default:

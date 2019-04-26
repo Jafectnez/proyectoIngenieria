@@ -73,7 +73,7 @@
 			$resultado=$conexion->ejecutarConsulta($sql);
 			$cantidadRegistros=$conexion->cantidadRegistros($resultado);
 			
-			if ($cantidadRegistros==1)  {
+			if ($cantidadRegistros!=0)  {
 				$fila = $conexion->obtenerFila($resultado);
 				session_start();
 				$_SESSION['status']=true;
