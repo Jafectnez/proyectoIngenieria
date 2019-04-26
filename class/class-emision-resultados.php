@@ -188,8 +188,6 @@
 				FROM tbl_caracteristicas c 
 				INNER JOIN caracteristicas_x_resultados cr 
 				on cr.ID_CARACTERISTICAS=c.ID_CARACTERISTICAS
-				INNER JOIN area_x_caracteristicas ac 
-				on ac.ID_CARACTERISTICAS=c.ID_CARACTERISTICAS
 				WHERE (cr.ID_RESULTADO=(SELECT MAX(ID_RESULTADO) FROM TBL_RESULTADOS) )';
 		$row=$conexion->query($sql);
 
@@ -208,6 +206,18 @@
 		$row=$conexion->query($sql);
 		return $row;
 
+	}
+	//-----------------------------------------------------------------------------------------
+	//Funcion que obtiene los examenes disponibles en la base de datos
+	//-----------------------------------------------------------------------------------------
+	
+	public static function obtener_datos_cliente($conexion,$cliente){
+		$sql='SELECT concat(nombre," ",apellido ) nombreUsuario, 
+			TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) edad
+			from tbl_personas
+			where identidad="'.$cliente.'"';
+		$row=$conexion->query($sql);
+		return $row;
 	}
 }
 ?>

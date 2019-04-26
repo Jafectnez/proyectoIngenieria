@@ -135,13 +135,44 @@ function parametros(data){
 	//En este punto es en donde se guardara la data en la base de datos
 	//console.log(data);
 	var cliente=$('#txt-nombre-cliente').val();
-	var examenes=$("input[type='radio'][name='rbt-examenes']:checked").val()
-	$.ajax({
+	var examenes=$("input[type='radio'][name='rbt-examenes']:checked").val();
+	if(cliente==null || cliente==""){
+		$.confirm({
+    						title: 'Lo sentimos...',
+    						content: 'Ingrese numero de identidad',
+    						type: 'blue',
+    						typeAnimated: true,
+    						buttons: {
+        						tryAgain: {
+            					text: 'Volver',
+            					btnClass: 'btn-blue',
+            					action: function(){	}
+        						}
+        					}
+						});
+	}
+	if (examenes==null || examenes=="") {
+		$.confirm({
+    						title: 'Lo sentimos...',
+    						content: 'No tiene un examen seleccionado',
+    						type: 'blue',
+    						typeAnimated: true,
+    						buttons: {
+        						tryAgain: {
+            					text: 'Volver',
+            					btnClass: 'btn-blue',
+            					action: function(){	}
+        						}
+        					}
+						});
+	}
+	else{
+		$.ajax({
 		url:"ajax/gestionar-resultados.php",
 		data:{"accion":"guardar-resultado","cliente":cliente,"arreglo":JSON.stringify(data),"examenes":examenes},
 		method:"post",
 		success:function(respuesta){
-			console.log(respuesta);
+			//console.log(respuesta);
 			var cliente="";
 			cliente=respuesta;
 
@@ -186,12 +217,13 @@ function parametros(data){
 
 	});
 
+	}
 }
 //-----------------------------------------------------------------------------------------------------------------
 //Aqui se llamara el resultado que se acaba de insertar
 //-----------------------------------------------------------------------------------------------------------------
 function cargarUltimoResultado(){
-	cargarDatosUsuario();
+	 cargarDatosUsuario();
 	$.ajax({
 		url:"ajax/gestionar-resultados.php",
 		data:{"accion":"obtener-ultimo-resultado"},
@@ -215,12 +247,12 @@ function cargarUltimoResultado(){
 								referencia+
 							'/<td>'+
 							'<td>'+
-								type[i].valor_resultado+
+								'<input type="text" value="'+type[i].valor_resultado+'">'+
 							'</td>'+
 						'</tr>';
 					
 			$('#div-resultado-emitido').append(row);
-			console.log(row);
+			//console.log(row);
 			}
 			
 		},
@@ -261,7 +293,37 @@ function cargarExamenes(){
 	});	
 
 }
+//-----------------------------------------------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------------------------------------------
+//Esta funcion cumple con el objetivo de obtener los datos del cliente en el encabezado del resultado
+//-----------------------------------------------------------------------------------------------------------------
 function cargarDatosUsuario(){
 	var cliente=$('#txt-nombre-cliente').val();
+	$.ajax({
+		url:"ajax/gestionar-resultados.php",
+		data:{"accion":"obtener-datos-cliente","cliente":cliente},
+		method:"post",
+		datatype:'JSON',
+		success:function(respuesta){
+				 var type = JSON.parse(respuesta);
+				 for (var i = 0; i < type.length; i++) {
+				 	var row='<table>'+
+				 				'<tr>'+
+				 					'<td>Nombre: <label>'+type[i].nombreUsuario+'</label><td>'+
+				 				 	'<td>Edad: <label>'+type[i].edad+'</label></td>'+
+				 				 '<tr>'+
+				 		 '<table>';
+				 $('#datos').append(row);
+				 }
+			
+			
+		},
+		error:function(e){
+		alert(e);
+		}
+
+	});	
 
 }
