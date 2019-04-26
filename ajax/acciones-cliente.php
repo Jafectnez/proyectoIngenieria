@@ -29,6 +29,11 @@
 				echo json_encode($res);
 				break;
 
+			case 'actualizar_cliente':
+			    $res=cliente::Actualizar_Cliente($conexion);
+				echo json_encode($res);
+				break;
+
 			default:
 				echo " default ";
 				# code...
