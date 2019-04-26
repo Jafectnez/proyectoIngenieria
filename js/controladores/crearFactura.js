@@ -373,9 +373,51 @@ function registrarFactura(){
 					//alert('Registro almacenado con exito');
 
 					//----------------------------------------------------------------------
+					var inputTotalNeto = $("#txt-total-neto").val();
+					var inputTotal = $("#txt-total").val();
+					var inputDescuento = $("#txt-descuento").val();
 					$.confirm({
 					    title: 'Facturacion',
-					    content: 'Factura almacenada con éxito!',
+					    content: '<div style="text-align: center">'+
+								 '<h5><strong>Laboratorio Clínico Emanuel</strong></h5>'+
+								 '<h6><strong>SIRVIENDO A DIOS ATRAVES DE SU SALUD</strong></h6>'+
+								 '<h6><strong>La libertad, Comayagua, Honduras, C.A</strong></h6>'+
+								 '<h6><strong>Telefonos: 2784-0292, 2784-0699</strong></h6>'+
+								 '<hr>'+
+								 '<div class="well row">'+
+								'<table class="table table-striped" style="font-size:12px">'+
+									'<tbody>'+
+										'<tr>'+
+											'<td>SubTotal</td>'+
+											'<td>'+inputTotalNeto+'</td>'+
+										'</tr>'+
+										'<tr>'+
+											'<td>Descuento:</td>'+
+											'<td>'+inputDescuento+'</td>'+
+										'</tr>'+
+										'<tr>'+
+											'<td>Total:</td>'+
+											'<td>'+inputTotal+'</td>'+
+										'</tr>'+
+										'<tr>'+
+											'<td>Efectivo:</td>'+
+											'<td>'+
+												'<input type="text" id="txt-efectivo" onkeypress="return validaNumericos(event)" class="form-control">'+
+											'</td>'+
+										'</tr>'+
+										'<tr>'+
+											'<td>Cambio:</td>'+
+											'<td>'+
+												'<input type="text" id="txt-cambio" class="form-control" readonly="readonly">'+
+											'</td>'+
+										'</tr>'+
+									'</tbody>'+
+								'</table>'+
+								'<button style="width:150px" onclick="calcularCambio()" class="btn btn-primary">'+
+								'Calcular cambio'+
+								'</button>'+
+							'</div>'+
+						'</div>',
 					    type: 'blue',
 					    typeAnimated: true,
 					    buttons: {
@@ -834,4 +876,30 @@ function validaNumericos(event) {
       return true;
      }
      return false;        
+}
+
+function calcularCambio(){
+	var inputTotal = $("#txt-total").val();
+	var total =  parseInt(inputTotal);
+	var inputEfectivo = $("#txt-efectivo").val();
+	var efectivo = parseInt(inputEfectivo);
+	if (inputEfectivo == '' || efectivo == 0 || efectivo < total) {
+		$.confirm({
+    		title: 'Lo sentimos...',
+    		content: 'El monto de efectivo introducido es invalido',
+    		type: 'blue',
+    		typeAnimated: true,
+    		buttons: {
+        		tryAgain: {
+           		text: 'Volver',
+           		btnClass: 'btn-blue',
+           		action: function(){}
+        		}
+        	}
+		});
+	}
+	else{
+		var cambio = efectivo - total;
+		$("#txt-cambio").val(cambio);
+	}
 }
