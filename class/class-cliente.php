@@ -58,16 +58,26 @@
 		public static function Obtener_Datos($conexion, $id_cliente){
 			$sql='SELECT  A.ID_CLIENTE,
 						A.ID_PERSONA,
-						CONCAT_WS(" ",B.NOMBRE,B.APELLIDO) AS NOMBRE, 
-						B.IDENTIDAD, 
-				        B.EDAD,
-				        B.TELEFONO,
-				        B.EMAIL AS CORREO,
-				        B.FECHA_NAC AS FECHA_NACIMINETO,
-				        B.DIRECCION
+				        D.ID_USUARIO,
+						B.NOMBRE,
+						B.APELLIDO,
+						CONCAT_WS(" ",B.NOMBRE,B.APELLIDO) AS NOMBRE_COMPLETO, 
+						C.GENERO,
+				        B.IDENTIDAD, 
+						B.EDAD,
+						B.TELEFONO,
+						B.EMAIL AS CORREO,
+						B.FECHA_NAC AS FECHA_NACIMINETO,
+						B.DIRECCION,
+				        D.USUARIO,
+				        D.CONTRASEÑA
 				FROM TBL_PERSONAS B
 				INNER JOIN TBL_CLIENTE A
 				ON (A.ID_PERSONA=B.ID_PERSONA)
+				INNER JOIN TBL_GENERO C
+				ON (B.ID_GENERO = C.ID_GENERO)
+				INNER JOIN TBL_USUARIOS D
+				ON (A.ID_USUARIO = D.ID_USUARIO)
 				WHERE A.ID_CLIENTE='.$id_cliente;
 			$row=$conexion->query($sql);
 			return $row;
@@ -111,6 +121,45 @@
 			return $row;
 		}
 
+
+		public static function Actualizar_Cliente($conexion){
+			$id_cliente = $_POST["id_cliente"];
+			$id_usuario = $_POST["id_usuario"];
+			$nombre = $_POST["txt-nombre"];
+			$apellido = $_POST["txt-apellido"];
+			$genero = $_POST["genero"];
+			$fechaNacimiento = $_POST["txt-fecha"];
+			$telefono = $_POST["txt-telefono"];
+			$edad = $_POST["edad"];
+			$correo = $_POST["txt-correo"];
+			$numeroIdentidad = $_POST["txt-identidad"];
+			$usuario = $_POST["txt-usuario"];
+			$direccion = $_POST["txt-direccion"];
+			$contrasena = $_POST["txt-contrasena"];
+			$nueva_contrasena = $_POST["txt-nueva_contrasena"];
+
+			$sql  = 'CALL SP_ACTUALIZAR_CLIENTE(
+		        		'.$id_cliente.',
+		        		'.$id_usuario.',
+		        		"'.$nombre.'",
+		        		"'.$apellido.'",
+		        		"'.$genero.'",
+		        		"'.$direccion.'",
+		        		"'.$correo.'",
+		        		"'.$numeroIdentidad.'",
+		        		DATE("'.$fechaNacimiento.'"),
+		        		"'.$telefono.'",
+		        		"'.$edad.'",
+		        		"'.$usuario.'",
+		        		"'.$contrasena.'",
+		        		"'.$nueva_contrasena.'", 
+		        		@mensaje, 
+		        		@error
+		      		);';   
+    
+		    $rows = $conexion->query($sql);
+		    return $rows[0];
+		}
 	}
 
 ?>
