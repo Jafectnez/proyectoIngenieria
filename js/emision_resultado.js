@@ -191,6 +191,7 @@ function parametros(data){
 //Aqui se llamara el resultado que se acaba de insertar
 //-----------------------------------------------------------------------------------------------------------------
 function cargarUltimoResultado(){
+	cargarDatosUsuario();
 	$.ajax({
 		url:"ajax/gestionar-resultados.php",
 		data:{"accion":"obtener-ultimo-resultado"},
@@ -215,9 +216,6 @@ function cargarUltimoResultado(){
 							'/<td>'+
 							'<td>'+
 								type[i].valor_resultado+
-							'</td>'+
-							'<td>'+
-								type[i].nombre+
 							'</td>'+
 						'</tr>';
 					
@@ -261,5 +259,9 @@ function cargarExamenes(){
 		}
 
 	});	
+
+}
+function cargarDatosUsuario(){
+	var cliente=$('#txt-nombre-cliente').val();
 
 }

@@ -120,7 +120,7 @@
 	                                  FECHA_EMISION,
 	                                  OBSERVACIONES)
 	                          VALUES ( 
-	                                  '.$examenes[$i].',
+	                                  '.$examenes.',
 	                                  '.$usuario.', 
 	                                  '.$_SESSION['id_empleado'].',
 	                                  "'.$fecha.'",
@@ -157,14 +157,11 @@
 	//-----------------------------------------------------------------------------------------
 
 	public static function verificarUsuario($conexion,$nombreUsuario){
-			//Dividir el nombre obtenido en el campo para obtener el nombre y el apellido
-			$nombre = strtok($nombreUsuario, ' ');
-			$apellido = strtok(' ');
-
+	
 			$sql = 'select c.id_cliente idPersona from tbl_personas p 
 					inner join tbl_cliente c
 					on c.id_persona = p.id_persona
-					where (p.nombre = "'.$nombre.'" and p.apellido = "'.$apellido.'")';
+					where (p.identidad='.$nombreUsuario.')';
 			//echo $sql;
 
 			$resultado = $conexion->ejecutarConsulta($sql);
@@ -187,24 +184,13 @@
 	public static function ultimo_resultado($conexion){
 		 $sql='
 
-				SELECT c.caracteristica, cr.valor_resultado, a.nombre
+				SELECT c.caracteristica, cr.valor_resultado, c.valor_ref
 				FROM tbl_caracteristicas c 
 				INNER JOIN caracteristicas_x_resultados cr 
 				on cr.ID_CARACTERISTICAS=c.ID_CARACTERISTICAS
 				INNER JOIN area_x_caracteristicas ac 
 				on ac.ID_CARACTERISTICAS=c.ID_CARACTERISTICAS
-				INNER JOIN tbl_area a 
-				on a.ID_AREA=ac.ID_AREA
-				INNER JOIN tbl_resultados r
-				on r.ID_RESULTADO=cr.ID_RESULTADO
-				WHERE (cr.ID_RESULTADO=(SELECT MAX(ID_RESULTADO) FROM TBL_RESULTADOS) and (r.ID_EXAMEN in (
-
-					SELECT id_examen from tbl_resultados WHERE ID_RESULTADO=(SELECT MAX(ID_RESULTADO))
-
-
-
-				))  )
-				ORDER by a.NOMBRE';
+				WHERE (cr.ID_RESULTADO=(SELECT MAX(ID_RESULTADO) FROM TBL_RESULTADOS) )';
 		$row=$conexion->query($sql);
 
 		return $row;
