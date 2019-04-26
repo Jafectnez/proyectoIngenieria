@@ -40,77 +40,67 @@ SP:BEGIN
   SET uEstado='A';
   # ___________________________VALIDACIONES__________________________________________________________
   # Verificaciones de campos obligatorios que no esten vacios
-  # employee registers
+  
   IF P_ID_CLIENTE='' OR P_ID_CLIENTE IS NULL THEN 
-    SET mensaje=CONCAT(mensaje, 'Identificador de cliente vacio, ');
+    SET mensaje=CONCAT(mensaje, 'Identificador de cliente vacio');
   END IF;
   
   IF P_ID_USUARIO='' OR P_ID_USUARIO IS NULL THEN 
-    SET mensaje=CONCAT(mensaje, 'Identificador de usuario vacio, ');
+    SET mensaje=CONCAT(mensaje, 'Identificador de usuario vacio');
   END IF;
 
   IF P_DIRECCION='' OR P_DIRECCION IS NULL THEN
-    SET mensaje=CONCAT(mensaje,'Direccion vacia, ');
+    SET mensaje=CONCAT(mensaje,'Direccion vacia');
   END IF;
 
   IF P_EMAIL='' OR P_EMAIL IS NULL THEN
-    SET mensaje=CONCAT(mensaje,'Correo electronico vacio, ');
+    SET mensaje=CONCAT(mensaje,'Correo electronico vacio');
   END IF;
 
   IF P_FECHA_NAC='' OR P_FECHA_NAC IS NULL THEN
-    SET mensaje=CONCAT(mensaje,'Fecha de nacimiento vacia, ');
+    SET mensaje=CONCAT(mensaje,'Fecha de nacimiento vacia');
   END IF;
 
   IF P_EDAD='' OR P_EDAD IS NULL THEN
-    SET mensaje=CONCAT(mensaje,'Edad vacia, ');
+    SET mensaje=CONCAT(mensaje,'Edad vacia');
   END IF;
   
   IF P_USUARIO='' OR P_USUARIO IS NULL THEN 
-    SET mensaje=CONCAT(mensaje, 'Identificador de cliente vacio, ');
+    SET mensaje=CONCAT(mensaje, 'Identificador de cliente vacio');
   END IF;
   
   IF P_CONTRASEÑA='' OR P_CONTRASEÑA IS NULL THEN 
-    SET mensaje=CONCAT(mensaje, 'Identificador de usuario vacio, ');
+    SET mensaje=CONCAT(mensaje, 'Identificador de contraseña de usuario vacio');
   END IF;
   
 
   IF P_TELEFONO='' OR P_TELEFONO IS NULL THEN
-    SET mensaje=CONCAT(mensaje,'Telefono a actualizar vacio, ');
+    SET mensaje=CONCAT(mensaje,'Telefono a actualizar vacio');
   ELSE
     IF( P_TELEFONO REGEXP'^(2|3|6|7|8|9){1}[0-9]{3}-[0-9]{4}$')=0 THEN
-      SET mensaje=CONCAT(mensaje,'Formato del telefono a actualizar invalido, ');
+      SET mensaje=CONCAT(mensaje,'Formato del telefono a actualizar invalido');
     END IF;
   END IF;
   
-  # _________________________CUERPO DEL PL___________________________________________
-  # update n Commit
-  # verify employee registers
+  # _________________________CUERPO DEL PPROCEDIMINETO ALMACENADO ____________________________
+  
   SELECT COUNT(*) INTO contador
   FROM TBL_CLIENTE
   WHERE TBL_CLIENTE.ID_CLIENTE = P_ID_CLIENTE;
 
   IF contador=0 THEN  
-      SET mensaje = CONCAT(mensaje, 'El cliente no existe, ');
+      SET mensaje = CONCAT(mensaje, 'El cliente no existe');
   END IF;
 
-  IF mensaje <> '' THEN
-      SET mensaje=mensaje;
-      SET error=TRUE;
-      SET pO_mensaje=mensaje;
-      SET pO_error=error;
-      SELECT mensaje,error;
-      # SELECT mensaje, resultado;, usar para salida de parametros en caso de no utilizar
-      # parametros de salida
-      LEAVE SP;
-  END IF;
+
   
   IF mensaje <> '' THEN
-  SET mensaje=mensaje;
-  SET error = TRUE;
-  SET pO_mensaje=mensaje;
-  SET pO_error=error;
-  SELECT mensaje, error;
-  LEAVE SP;
+    SET mensaje=mensaje;
+    SET error = TRUE;
+    SET pO_mensaje=mensaje;
+    SET pO_error=error;
+    SELECT mensaje, error;
+    LEAVE SP;
   END IF;
   
   SELECT ID_PERSONA INTO idPersona 
@@ -146,10 +136,10 @@ SP:BEGIN
   
   IF P_NUEVA_CONTRASEÑA <>'' THEN 
     UPDATE TBL_USUARIOS 
-  SET
-    TBL_USUARIOS.CONTRASEÑA = P_NUEVA_CONTRASEÑA
-  WHERE TBL_USUARIOS.ID_USUARIO= P_ID_USUARIO;
-  COMMIT;
+    SET
+      TBL_USUARIOS.CONTRASEÑA = P_NUEVA_CONTRASEÑA
+    WHERE TBL_USUARIOS.ID_USUARIO= P_ID_USUARIO;
+    COMMIT;
   END IF;
   
   SET mensaje='Actualización exitosa';
