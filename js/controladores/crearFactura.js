@@ -369,6 +369,11 @@ function registrarFactura(){
 					});
 
 					almacenarRegistrosFinales();
+
+
+
+
+
 					setTimeout(function() {
 					//alert('Registro almacenado con exito');
 
@@ -512,9 +517,20 @@ function registrarFactura(){
     				            		var genero = '2';
     				            	}
     				            }
+
+    				            Date.prototype.yyyymmdd = function() {
+  									var yyyy = this.getFullYear().toString();
+  									var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+  									var dd  = this.getDate().toString();
+  									return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]); // padding
+								};
+
+								var date = new Date();
+								console.log( date.yyyymmdd()); 
+								var fechaActual = date.yyyymmdd();
     				            
 				
-                          		if(genero != '' && nombre != '' && (telefono != '' && (telefono.length == 8)) && correo != '' && fecha != '' && direccion != '' && (identidad !='' && (identidad.length < 14))){
+                          		if(genero != '' && nombre != '' && (telefono != '' && (telefono.length == 8)) && correo != '' && (fecha != '' && (fecha < fechaActual)) && direccion != '' && (identidad !='' && (identidad.length < 14))){
                 					var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
                 					if (regex.test($('#txt-correo').val().trim())) {
                 						$("#txt-usuario-genero").val(genero);
@@ -558,7 +574,7 @@ function registrarFactura(){
 												arreglo=respuesta.split(separador);
 												caracteres = arreglo[1].length;
 												codigo = arreglo[1].slice(1,(caracteres -3 ));
-												var idCliente = parseInt(codigo);
+												var idCliente = parseInt(codigo) + 1;
 												$("#txt-id-cliente").val(idCliente);
 
 												
@@ -707,22 +723,64 @@ function registrarFactura(){
 
 																	almacenarRegistrosFinales();
 																	setTimeout(function() {
-																	//alert('Registro almacenado con exito');
+					//alert('Registro almacenado con exito');
 
-																	//----------------------------------------------------------------------
+					//----------------------------------------------------------------------
+																	var inputTotalNeto = $("#txt-total-neto").val();
+																	var inputTotal = $("#txt-total").val();
+																	var inputDescuento = $("#txt-descuento").val();
 																	$.confirm({
 																	    title: 'Facturacion',
-																	    content: 'Factura almacenada con éxito!',
-																	    type: 'blue',
-																	    typeAnimated: true,
-																	    buttons: {
-																	        ok: function () {
-																	            location.reload();
-																	        },
-																	    }
-																	});
-																	//-----------------------------------------------------------------------------
-    																}, 200); 
+																	    content: '<div style="text-align: center">'+
+																				 '<h5><strong>Laboratorio Clínico Emanuel</strong></h5>'+
+																				 '<h6><strong>SIRVIENDO A DIOS ATRAVES DE SU SALUD</strong></h6>'+
+																				 '<h6><strong>La libertad, Comayagua, Honduras, C.A</strong></h6>'+
+																				 '<h6><strong>Telefonos: 2784-0292, 2784-0699</strong></h6>'+
+																				 '<hr>'+
+																				 '<div class="well row">'+
+																				'<table class="table table-striped" style="font-size:12px">'+
+																					'<tbody>'+
+																						'<tr>'+
+																							'<td>SubTotal</td>'+
+																							'<td>'+inputTotalNeto+'</td>'+
+																						'</tr>'+
+																						'<tr>'+
+																							'<td>Descuento:</td>'+
+																							'<td>'+inputDescuento+'</td>'+
+																						'</tr>'+
+																						'<tr>'+
+																							'<td>Total:</td>'+
+																							'<td>'+inputTotal+'</td>'+
+																						'</tr>'+
+																						'<tr>'+
+																							'<td>Efectivo:</td>'+
+																						'<td>'+
+																							'<input type="text" id="txt-efectivo" onkeypress="return validaNumericos(event)" class="form-control">'+
+																						'</td>'+
+																					'</tr>'+
+																					'<tr>'+
+																						'<td>Cambio:</td>'+
+																						'<td>'+
+																							'<input type="text" id="txt-cambio" class="form-control" readonly="readonly">'+
+																						'</td>'+
+																					'</tr>'+
+																				'</tbody>'+
+																			'</table>'+
+																		'<button style="width:150px" onclick="calcularCambio()" class="btn btn-primary">'+
+																		'Calcular cambio'+
+																		'</button>'+
+																	'</div>'+
+																'</div>',
+					    										type: 'blue',
+					    										typeAnimated: true,
+					    										buttons: {
+					    										    ok: function () {
+					    										        location.reload();
+					    										    },
+					    										}
+					});
+					//-----------------------------------------------------------------------------
+    				}, 200);
 																}
 														}
 													},
