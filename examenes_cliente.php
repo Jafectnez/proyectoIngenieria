@@ -48,15 +48,18 @@
 				<!--Fin del encabezado-->
 				<!-- Datos del Paciente-->
 				<div class="container-fluid">
+					<input type="hidden" id="id_cliente" name="id_cliente" value="<?php echo $id_cliente ?>">
 					<div id="div-datos_cliente" class="container-fluid" style="text-align: center;">
-						<input type="hidden" id="id_cliente" name="id_cliente" value="<?php echo $id_cliente ?>">
+						
 					</div>
 					<div style="width: 40%; margin: 0 auto;">
-						<table id="table-datos_cliente" align="center" style="width: 80%;">
+						<div id="div-datos_cliente">
+							<table id="table-datos_cliente" align="center" style="width: 80%;">
 							
-						</table>
+							</table>
+						</div>
 						<div align="right">
-							<a type="button" title="Editar" class="btn btn-secondary" onclick="Editar_Cliente($id_cliente)" data-toggle="modal" data-target="#modal-edicion_cliente"><span class="glyphicon glyphicon-pencil"></span></a>
+							<a type="button" title="Editar" onclick="Cargar_Cliente('<?php echo $id_cliente ?>')" class="btn btn-secondary" data-toggle="modal" data-target="#modal-edicion_cliente"><span class="glyphicon glyphicon-pencil"></span></a>
 						</div>
 					</div>
 				</div>
@@ -137,53 +140,18 @@
 	        <!--h2 class="modal-title" id="modal-titulo" align="center">Examen</h2-->
 	      </div>
 	      <div class="modal-body" id="div-body">
-	        
-			<form class="form-horizontal" role="form">
-				<div class="form-group">
-					<label for="txt-nombre" class="col-lg-1 col-md-1 control-label">Nombre</label>
-					<div class="col-lg-4 col-md-4">
-						<input type="text" class="form-control" id="txt-nombre" placeholder="Nombre" onKeyPress="return ValidateAlpha(event);">
-					</div>
-					<label for="txt-nombre" class="col-lg-2 col-md-2 control-label">Apellido</label>
-					<div class="col-lg-4 col-md-4">
-						<input type="text" class="form-control" id="txt-apellido" placeholder="Apellido" onKeyPress="return ValidateAlpha(event);">
-					</div>
-				</div>
 
-				<div class="form-group">
-					<label for="slc-genero" class="col-lg-1 col-md-1 control-label">Genero</label>
-					<div class="col-lg-4 col-md-4">
-						<select class="form-control" id="genero" name="genero" style="margin-left:10px">
-						<option value="F">Femenino</option>
-						<option value="M">Masculino</option>
-						</select>
-					</div>
-					<label for="txt-fecha" class="col-lg-2 col-md-2 control-label">Fecha Nacimiento:</label>
-					<div class="col-lg-4 col-md-4">
-						<input type="date" class="form-control" id="txt-fecha">
-					</div>
-				</div>
+	        <!--Forulario-->
+	        <div id="div-formulario"></div>
+	        <!-- Fin Forulario-->
 
-				<div class="form-group">
-					<label for="txt-telefono" class="col-lg-1 col-md-1 control-label">Telefono:</label>
-					<div class="col-lg-4 col-md-4">
-						<input type="text" class="form-control" onkeypress="return validaNumericos(event)" id="txt-telefono" placeholder="Telefono">
-					</div>
-					<label for="txt-correo" class="col-lg-2 col-md-2 control-label">Email</label>
-					<div class="col-lg-4 col-md-4">
-						<input type="mail" class="form-control" id="txt-correo" placeholder="Email">
-					</div>
-				</div>
+	        <!--Resultado-->
+	        <div id="div-resultado" style="width: 100%"></div>
+	        <!-- Fin Resultado-->
 
-				<div class="form-group">
-					<label for="txt-direccion" class="col-lg-1 col-md-1 control-label">Direccion:</label>
-					<div class="col-lg-10 col-md-10">
-						<input type="text" class="form-control" id="txt-direccion" placeholder="Direccion" onKeyPress="return ValidateAlpha(event);">
-					</div>
-				</div>
-			</form>	                
 	      </div>
 	      <div class="modal-footer">
+	      	<button type="button" id="btn-actualizar" onclick="Editar_Cliente('<?php echo $id_cliente ?>')" class="btn btn-primary">Actualizar</button>
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 	      </div>
 	    </div><!-- /.modal-content -->
