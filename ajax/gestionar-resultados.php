@@ -33,6 +33,10 @@
 				$res=emision_resultado::listar_examenes($conexion);
 				echo json_encode($res);
 				break;
+			case 'obtener-datos-cliente':
+				$res=emision_resultado::obtener_datos_cliente($conexion,$_POST['cliente']);
+				echo json_encode($res);
+				break;
 			
 			default:
 				# code...

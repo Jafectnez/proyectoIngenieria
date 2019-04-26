@@ -74,9 +74,7 @@ include("class/class-conexion.php");
 							<h6><strong>Telefonos: 2784-0292, 2784-0699</strong></h6>
 							<hr>
 							<div id="datos"></div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        
       </div>
       <div class="modal-body">
         <!--Cuerpo Del Resultado Recien Emitido-->
@@ -86,7 +84,7 @@ include("class/class-conexion.php");
         		<tr>
         			<th>Caracteristica</th>
         			<th>Valor de referencia</th>
-        			<th>Resultado</th>
+        			<th style=" margin-right: 30px;">Resultado</th>
         		</tr>
 
         		</thead>
@@ -95,14 +93,14 @@ include("class/class-conexion.php");
         		</tbody>
         		
         	</table>
-        	
+        		
         </div>
 
         <!--Fin del resultado que se acaba de emitir-->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
       </div>
     </div>
   </div>
