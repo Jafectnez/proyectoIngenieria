@@ -42,14 +42,9 @@ include("class/class-conexion.php");
 						</div>
 				<!-- Encabezado de los examenes -->
 				<div>
-		         <div class="input-field col s10">
+		         <div class="input-field col s12">
 		          <input id="txt-nombre-cliente" type="text" class="validate search">
-		          <label for="txt-nombre-cliente">Nombre Cliente</label>
-		         </div>
-		         <div id="display"></div>
-		         <div class="input-field col s2">
-		          <input id="txt-edad" type="text" class="validate">
-		          <label for="txt-edad">Edad</label>
+		          <label for="txt-nombre-cliente">identidad: 08011995xxxxx</label>
 		         </div>
 		         
 		        </div>
@@ -71,13 +66,14 @@ include("class/class-conexion.php");
 <div class="modal fade" id="mod-emitido" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="text-align: center;">
         <!-- <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5> -->
         <h5><strong>Laboratorio Clínico Emanuel</strong></h5>
 							<h6><strong>SIRVIENDO A DIOS ATRAVES DE SU SALUD</strong></h6>
 							<h6><strong>La libertad, Comayagua, Honduras, C.A</strong></h6>
 							<h6><strong>Telefonos: 2784-0292, 2784-0699</strong></h6>
 							<hr>
+							<div id="datos"></div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -91,7 +87,6 @@ include("class/class-conexion.php");
         			<th>Caracteristica</th>
         			<th>Valor de referencia</th>
         			<th>Resultado</th>
-        			<th>Area</th>
         		</tr>
 
         		</thead>
