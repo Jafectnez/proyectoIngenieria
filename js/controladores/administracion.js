@@ -180,6 +180,7 @@ function reporte(){
   var find = $("#buscarH").val();
   var desde = $("#desdeH").val();
   var hasta = $("#hastaH").val();
+
   if (hasta != "" && desde != "") {
   let fecha1 = new Date(desde);
   fecha1.setDate(fecha1.getDate()+1); // le sumo un dia, dado que la captura de la fecha la realizaba con un dia de retraso
@@ -189,7 +190,7 @@ function reporte(){
     if (find != "") {
        parametros = {
         "fi": find,
-        "de": desde,
+        "de": desde, 
         "ha": hasta,
         "ac": 3 // le envia  todos los parametros de busqueda
       }

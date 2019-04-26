@@ -38,6 +38,8 @@ if ($accion == 2) {//recibe como parametro solo busqueda de texto sin fechas
     	<td>'.$examen.'</td>
         <td>'.$row1["DESCRIPCION"].'</td>
         <td>'.$row1["RESTRICCIONES"].'</td>
+        <td>'.$row1["PROMOCION"].'</td>        
+
         <td>'.$row1["FECHA_INICIO"].'</td>
         <td>'.$row1["FECHA_FIN"].'</td>
       	</tr>';
@@ -73,12 +75,53 @@ if ($accion == 3) {// recibe fechas y texto
 		$sql1 = "SELECT * FROM `TBL_PROMOCIONES` WHERE `ID_PROMOCIONES` =".$cadena[$i];
 		$result1 = mysqli_query($conexion, $sql1);
 		$row1 = mysqli_fetch_array($result1);
+		/*
 		if (strtotime($desde) <= strtotime($row1["FECHA_FIN"]) && strtotime($hasta) >= strtotime($row1["FECHA_FIN"])) {
 			echo '<tr>
 		    <td>'.$contador.'</td>		
 			<td>'.$examen.'</td>
 		    <td>'.$row1["DESCRIPCION"].'</td>
 		    <td>'.$row1["RESTRICCIONES"].'</td>
+		    <td>'.$row1["FECHA_INICIO"].'</td>
+		    <td>'.$row1["FECHA_FIN"].'</td>
+		  	</tr>';
+			$contador++;
+		}
+		*/
+		if (strtotime($desde)<=strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) >= strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) <= strtotime($row1["FECHA_FIN"])) {
+			echo '<tr>
+		    <td>'.$contador.'</td>		
+			<td>'.$examen.'</td>
+		    <td>'.$row1["DESCRIPCION"].'</td>
+		    <td>'.$row1["RESTRICCIONES"].'</td>
+        	<td>'.$row1["PROMOCION"].'</td>        
+
+		    <td>'.$row1["FECHA_INICIO"].'</td>
+		    <td>'.$row1["FECHA_FIN"].'</td>
+		  	</tr>';
+			$contador++;
+		}
+		if (strtotime($desde)>=strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) <= strtotime($row1["FECHA_FIN"])) {
+			echo '<tr>
+		    <td>'.$contador.'</td>		
+			<td>'.$examen.'</td>
+		    <td>'.$row1["DESCRIPCION"].'</td>
+		    <td>'.$row1["RESTRICCIONES"].'</td>
+        	<td>'.$row1["PROMOCION"].'</td>        
+
+		    <td>'.$row1["FECHA_INICIO"].'</td>
+		    <td>'.$row1["FECHA_FIN"].'</td>
+		  	</tr>';
+			$contador++;
+		}
+		if (strtotime($desde)>=strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) > strtotime($row1["FECHA_FIN"]) && strtotime($desde) < strtotime($row1["FECHA_FIN"])) {
+			echo '<tr>
+		    <td>'.$contador.'</td>		
+			<td>'.$examen.'</td>
+		    <td>'.$row1["DESCRIPCION"].'</td>
+		    <td>'.$row1["RESTRICCIONES"].'</td>
+        	<td>'.$row1["PROMOCION"].'</td>        
+
 		    <td>'.$row1["FECHA_INICIO"].'</td>
 		    <td>'.$row1["FECHA_FIN"].'</td>
 		  	</tr>';
@@ -105,6 +148,7 @@ if ($accion == 4) {// recibe solamente fechas
 	$result1 = mysqli_query($conexion, $sql1);
 
 	while ($row1 = mysqli_fetch_array($result1)) {
+		/*
 		if (strtotime($row1["FECHA_INICIO"]) >= strtotime($desde) && strtotime($desde) <= strtotime($row1["FECHA_FIN"]) && strtotime($hasta) >= strtotime($row1["FECHA_FIN"])) {
 			$sql = "SELECT * FROM `PROMOCIONES_X_EXAMENES` WHERE `TBL_PROMOCIONES_ID_PROMOCIONES` =".$row1["ID_PROMOCIONES"];
 			$result = mysqli_query($conexion, $sql);
@@ -126,6 +170,76 @@ if ($accion == 4) {// recibe solamente fechas
 		  	</tr>';
 			$contador++;
 		}
+		*/
+		if (strtotime($desde)<=strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) >= strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) <= strtotime($row1["FECHA_FIN"])) {
+			$sql = "SELECT * FROM `PROMOCIONES_X_EXAMENES` WHERE `TBL_PROMOCIONES_ID_PROMOCIONES` =".$row1["ID_PROMOCIONES"];
+			$result = mysqli_query($conexion, $sql);
+			$row = mysqli_fetch_array($result);
+			$sql = "SELECT * FROM `TBL_EXAMENES` WHERE `ID_EXAMEN` =".$row["TBL_EXAMENES_ID_EXAMEN"];
+			$result = mysqli_query($conexion, $sql);
+			$numero = mysqli_num_rows($result);
+			if ($numero == 1) {
+			$row = mysqli_fetch_array($result);
+			$examen = $row["NOMBRE"];
+			}
+			echo '<tr>
+			<td>'.$contador.'</td>		
+			<td>'.$examen.'</td>
+			<td>'.$row1["DESCRIPCION"].'</td>
+			<td>'.$row1["RESTRICCIONES"].'</td>
+        	<td>'.$row1["PROMOCION"].'</td>        
+
+			<td>'.$row1["FECHA_INICIO"].'</td>
+			<td>'.$row1["FECHA_FIN"].'</td>
+			</tr>';
+			$contador++;
+		}
+		if (strtotime($desde)>=strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) <= strtotime($row1["FECHA_FIN"])) {
+			$sql = "SELECT * FROM `PROMOCIONES_X_EXAMENES` WHERE `TBL_PROMOCIONES_ID_PROMOCIONES` =".$row1["ID_PROMOCIONES"];
+			$result = mysqli_query($conexion, $sql);
+			$row = mysqli_fetch_array($result);
+			$sql = "SELECT * FROM `TBL_EXAMENES` WHERE `ID_EXAMEN` =".$row["TBL_EXAMENES_ID_EXAMEN"];
+			$result = mysqli_query($conexion, $sql);
+			$numero = mysqli_num_rows($result);
+			if ($numero == 1) {
+			$row = mysqli_fetch_array($result);
+			$examen = $row["NOMBRE"];
+			}
+			echo '<tr>
+			<td>'.$contador.'</td>		
+			<td>'.$examen.'</td>
+			<td>'.$row1["DESCRIPCION"].'</td>
+			<td>'.$row1["RESTRICCIONES"].'</td>
+        	<td>'.$row1["PROMOCION"].'</td>        
+
+			<td>'.$row1["FECHA_INICIO"].'</td>
+			<td>'.$row1["FECHA_FIN"].'</td>
+			</tr>';
+			$contador++;
+		}
+		if (strtotime($desde)>=strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) > strtotime($row1["FECHA_FIN"]) && strtotime($desde) < strtotime($row1["FECHA_FIN"])) {
+			$sql = "SELECT * FROM `PROMOCIONES_X_EXAMENES` WHERE `TBL_PROMOCIONES_ID_PROMOCIONES` =".$row1["ID_PROMOCIONES"];
+			$result = mysqli_query($conexion, $sql);
+			$row = mysqli_fetch_array($result);
+			$sql = "SELECT * FROM `TBL_EXAMENES` WHERE `ID_EXAMEN` =".$row["TBL_EXAMENES_ID_EXAMEN"];
+			$result = mysqli_query($conexion, $sql);
+			$numero = mysqli_num_rows($result);
+			if ($numero == 1) {
+			$row = mysqli_fetch_array($result);
+			$examen = $row["NOMBRE"];
+			}
+			echo '<tr>
+			<td>'.$contador.'</td>		
+			<td>'.$examen.'</td>
+			<td>'.$row1["DESCRIPCION"].'</td>
+			<td>'.$row1["RESTRICCIONES"].'</td>
+        	<td>'.$row1["PROMOCION"].'</td>        
+
+			<td>'.$row1["FECHA_INICIO"].'</td>
+			<td>'.$row1["FECHA_FIN"].'</td>
+			</tr>';
+			$contador++;
+		}
 	}
 	if ($contador == 1){
 		echo "<p>Sin resultados, intente con una nueva busqueda</p>";
@@ -142,6 +256,7 @@ function tablaHead()
         <th>Examen</th>
         <th>Descripción</th>
         <th>Restricción</th>
+        <th>Descuento %</th>        
         <th>Comienzo</th>
         <th>Final</th>
       </tr>

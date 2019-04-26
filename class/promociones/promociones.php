@@ -33,6 +33,7 @@ while( $row = mysqli_fetch_array($result)){
         <td>'.$examen.'</td>
         <td>'.$row["DESCRIPCION"].'</td>
         <td>'.$row["RESTRICCIONES"].'</td>
+        <td>'.$row["PROMOCION"].'</td>        
         <td>'.$row["FECHA_INICIO"].'</td>
         <td>'.$row["FECHA_FIN"].'</td>
       	</tr>';
@@ -72,6 +73,7 @@ if ($accion == 2) {//recibe como parametro solo busqueda de texto sin fechas
     	<td>'.$examen.'</td>
         <td>'.$row1["DESCRIPCION"].'</td>
         <td>'.$row1["RESTRICCIONES"].'</td>
+        <td>'.$row1["PROMOCION"].'</td>                
         <td>'.$row1["FECHA_INICIO"].'</td>
         <td>'.$row1["FECHA_FIN"].'</td>
       	</tr>';
@@ -107,25 +109,14 @@ if ($accion == 3) {// recibe fechas y texto
 		$sql1 = "SELECT * FROM `TBL_PROMOCIONES` WHERE `ID_PROMOCIONES` =".$cadena[$i];
 		$result1 = mysqli_query($conexion, $sql1);
 		$row1 = mysqli_fetch_array($result1);
-		/*
-		if (strtotime($desde) <= strtotime($row1["FECHA_FIN"]) && strtotime($hasta) >= strtotime($row1["FECHA_FIN"])) {
-			echo '<tr>
-		    <td>'.$contador.'</td>		
-			<td>'.$examen.'</td>
-		    <td>'.$row1["DESCRIPCION"].'</td>
-		    <td>'.$row1["RESTRICCIONES"].'</td>
-		    <td>'.$row1["FECHA_INICIO"].'</td>
-		    <td>'.$row1["FECHA_FIN"].'</td>
-		  	</tr>';
-			$contador++;
-		}
-		*/
 		if (strtotime($desde)<=strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) >= strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) <= strtotime($row1["FECHA_FIN"])) {
 			echo '<tr>
 		    <td>'.$contador.'</td>		
 			<td>'.$examen.'</td>
 		    <td>'.$row1["DESCRIPCION"].'</td>
 		    <td>'.$row1["RESTRICCIONES"].'</td>
+        	<td>'.$row1["PROMOCION"].'</td>        
+
 		    <td>'.$row1["FECHA_INICIO"].'</td>
 		    <td>'.$row1["FECHA_FIN"].'</td>
 		  	</tr>';
@@ -137,6 +128,8 @@ if ($accion == 3) {// recibe fechas y texto
 			<td>'.$examen.'</td>
 		    <td>'.$row1["DESCRIPCION"].'</td>
 		    <td>'.$row1["RESTRICCIONES"].'</td>
+        	<td>'.$row1["PROMOCION"].'</td>        
+
 		    <td>'.$row1["FECHA_INICIO"].'</td>
 		    <td>'.$row1["FECHA_FIN"].'</td>
 		  	</tr>';
@@ -148,6 +141,8 @@ if ($accion == 3) {// recibe fechas y texto
 			<td>'.$examen.'</td>
 		    <td>'.$row1["DESCRIPCION"].'</td>
 		    <td>'.$row1["RESTRICCIONES"].'</td>
+        	<td>'.$row1["PROMOCION"].'</td>        
+
 		    <td>'.$row1["FECHA_INICIO"].'</td>
 		    <td>'.$row1["FECHA_FIN"].'</td>
 		  	</tr>';
@@ -172,8 +167,7 @@ if ($accion == 4) {// recibe solamente fechas
 	$sql1 = "SELECT * FROM `TBL_PROMOCIONES`";
 	$result1 = mysqli_query($conexion, $sql1);
 
-	while ($row1 = mysqli_fetch_array($result1)) {
-		//if (strtotime($row1["FECHA_INICIO"]) >= strtotime($desde) && strtotime($desde) <= strtotime($row1["FECHA_FIN"]) && strtotime($hasta) <= strtotime($row1["FECHA_FIN"])) {
+	while ($row1 = mysqli_fetch_array($result1)) {		
 		if (strtotime($desde)<=strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) >= strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) <= strtotime($row1["FECHA_FIN"])) {
 			$sql = "SELECT * FROM `PROMOCIONES_X_EXAMENES` WHERE `TBL_PROMOCIONES_ID_PROMOCIONES` =".$row1["ID_PROMOCIONES"];
 			$result = mysqli_query($conexion, $sql);
@@ -190,6 +184,8 @@ if ($accion == 4) {// recibe solamente fechas
 			<td>'.$examen.'</td>
 			<td>'.$row1["DESCRIPCION"].'</td>
 			<td>'.$row1["RESTRICCIONES"].'</td>
+        	<td>'.$row1["PROMOCION"].'</td>        
+
 			<td>'.$row1["FECHA_INICIO"].'</td>
 			<td>'.$row1["FECHA_FIN"].'</td>
 			</tr>';
@@ -211,6 +207,8 @@ if ($accion == 4) {// recibe solamente fechas
 			<td>'.$examen.'</td>
 			<td>'.$row1["DESCRIPCION"].'</td>
 			<td>'.$row1["RESTRICCIONES"].'</td>
+        	<td>'.$row1["PROMOCION"].'</td>        
+
 			<td>'.$row1["FECHA_INICIO"].'</td>
 			<td>'.$row1["FECHA_FIN"].'</td>
 			</tr>';
@@ -232,6 +230,8 @@ if ($accion == 4) {// recibe solamente fechas
 			<td>'.$examen.'</td>
 			<td>'.$row1["DESCRIPCION"].'</td>
 			<td>'.$row1["RESTRICCIONES"].'</td>
+        	<td>'.$row1["PROMOCION"].'</td>        
+
 			<td>'.$row1["FECHA_INICIO"].'</td>
 			<td>'.$row1["FECHA_FIN"].'</td>
 			</tr>';
@@ -253,6 +253,7 @@ function tablaHead()
         <th>Examen</th>
         <th>Descripción</th>
         <th>Restricción</th>
+        <th>Descuento %</th>
         <th>Comienzo</th>
         <th>Final</th>
       </tr>
