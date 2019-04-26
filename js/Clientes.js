@@ -2,6 +2,7 @@ $(document).ready(function(){
 	Listar_Clientes();
 	Obtener_Datos();
 	Examenes_Cliente();	
+
 });
 
 
@@ -40,7 +41,7 @@ function Obtener_Datos(){
 			var row='<tr>'+
 						'<th></th>'+
 						'<th>Paciente:</th>'+
-						'<th>'+respuesta[0].NOMBRE+'</th>'+
+						'<th>'+respuesta[0].NOMBRE_COMPLETO+'</th>'+
 					'</tr>'+
 					'<tr>'+
 						'<th></th>'+
@@ -130,6 +131,118 @@ function Resultados_Examen(id_resultado){
 }
 
 
+
+function Cargar_Cliente(id_cliente){
+	$.ajax({
+		url:"ajax/acciones-cliente.php",
+		data:{"accion":"obtener_datos",id_cliente},
+		method:"POST",
+		dataType:"json",
+		success:function(respuesta){
+			//alert(respuesta);	
+			$('#formulario').remove();
+			var row='<form class="form-horizontal" id="formulario" role="form">'+
+						'<div class="form-group">'+
+							'<label for="txt-nombre" class="col-lg-2 col-md-2 control-label">Nombre</label>'+
+							'<div class="col-lg-4 col-md-4">'+
+								'<input type="text" class="form-control" id="txt-nombre" value="'+respuesta[0].NOMBRE+'">'+
+							'</div>'+
+							'<label for="txt-nombre" class="col-lg-2 col-md-2 control-label">Apellido</label>'+
+							'<div class="col-lg-4 col-md-4">'+
+								'<input type="text" class="form-control"  id="txt-apellido" value="'+respuesta[0].APELLIDO+'" placeholder="Apellido">'+
+							'</div>'+
+						'</div>'+
+
+						'<div class="form-group">'+
+							'<label for="slc-genero" class="col-lg-2 col-md-2 control-label">Genero</label>'+
+							'<div class="col-lg-4 col-md-4">'+
+								'<select class="form-control" id="genero" value="'+respuesta[0].GENERO+'" name="genero" style="margin-left:10px">'+
+								'<option value="2">Femenino</option>'+
+								'<option value="1">Masculino</option>'+
+								'</select>'+
+							'</div>'+
+							'<label for="txt-fecha" class="col-lg-2 col-md-2 control-label">Fecha Nacimiento:</label>'+
+							'<div class="col-lg-4 col-md-4">'+
+								'<input type="date" class="form-control" disabled value="'+respuesta[0].FECHA_NACIMINETO+'" id="txt-fecha">'+
+							'</div>'+
+						'</div>'+
+
+						'<div class="form-group">'+
+							'<label for="txt-telefono" class="col-lg-2 col-md-2 control-label">Telefono:</label>'+
+							'<div class="col-lg-4 col-md-4">'+
+								'<input type="text" class="form-control" value="'+respuesta[0].TELEFONO+'" id="txt-telefono" placeholder="Telefono">'+
+							'</div>'+
+							'<label for="txt-correo" class="col-lg-2 col-md-2 control-label">Email</label>'+
+							'<div class="col-lg-4 col-md-4">'+
+								'<input type="mail" class="form-control" value="'+respuesta[0].CORREO+'" id="txt-correo" placeholder="Email">'+
+							'</div>'+
+						'</div>'+
+
+						'<div class="form-group">'+
+							'<label for="txt-nombre" class="col-lg-2 col-md-2 control-label">Identidad</label>'+
+							'<div class="col-lg-4 col-md-4">'+
+								'<input type="text" class="form-control" id="txt-identidad" disabled value="'+respuesta[0].IDENTIDAD+'">'+
+							'</div>'+
+							'<label for="txt-nombre" class="col-lg-2 col-md-2 control-label">Usuario</label>'+
+							'<div class="col-lg-4 col-md-4">'+
+								'<input type="text" class="form-control" disabled id="txt-usuario" value="'+respuesta[0].USUARIO+'">'+
+							'</div>'+
+						'</div>'+
+
+						'<div class="form-group">'+
+							'<label for="txt-nombre" class="col-lg-2 col-md-2 control-label">contraseña</label>'+
+							'<div class="col-lg-4 col-md-4">'+
+								'<input type="password" class="form-control" id="txt-contrasena" value="'+respuesta[0].CONTRASEÑA+'">'+
+							'</div>'+
+							'<label for="txt-nombre" class="col-lg-2 col-md-2 control-label">Nueva contraseña</label>'+
+							'<div class="col-lg-4 col-md-4">'+
+								'<input type="password" class="form-control"  id="txt-nueva_contrasena" placeholder="Nueva contraseña">'+
+							'</div>'+
+						'</div>'+							
+
+						'<div class="form-group">'+
+							'<label for="txt-direccion" class="col-lg-2 col-md-2 control-label">Direccion:</label>'+
+							'<div class="col-lg-10 col-md-10">'+
+								'<input type="text" class="form-control" id="txt-direccion" value="'+respuesta[0].DIRECCION+'" placeholder="Direccion">'+
+							'</div>'+
+							'<input type="hidden" class="form-control" id="id_usuario" value="'+respuesta[0].ID_USUARIO+'">'+
+							'<input type="hidden" class="form-control" id="edad" value="'+respuesta[0].EDAD+'">'+
+						'</div>'+
+					'</form>';
+			$('#div-formulario').append(row);
+		}
+	});
+}
+
+
 function Editar_Cliente(id_cliente){
 
+	$.ajax({
+		url:"ajax/acciones-cliente.php",
+		data:{"accion":"actualizar_cliente",
+			"id_cliente": id_cliente,
+			"id_usuario":$("#id_usuario").val(),
+			"txt-nombre":$("#txt-nombre").val(),
+			"txt-apellido": $("#txt-apellido").val(),
+			"genero":$("#genero").val(),
+			"txt-fecha":$("#txt-fecha").val(),
+			"txt-telefono":$("#txt-telefono").val(),
+			"txt-correo":$("#txt-correo").val(),
+			"txt-usuario":$("#txt-usuario").val(),
+			"edad":$("#edad").val(),
+			"txt-identidad":$("#txt-identidad").val(),
+			"txt-direccion":$("#txt-direccion").val(),
+			"txt-contrasena":$("#txt-contrasena").val(),
+			"txt-nueva_contrasena":$("#txt-nueva_contrasena").val()
+			},
+		method:"POST",
+		dataType:"json",
+		success:function(respuesta){
+			if ((respuesta.error) == 0) {
+				$("#div-resultado").html('<div class="alert alert-success" style="text-align: center;"> '+respuesta.mensaje+"</div>");
+				location.reload();
+			}else
+				$("#div-resultado").html('<div class="alert alert-warning" style="text-align: center;"> '+respuesta.mensaje+"</div>");
+		}
+	});
 }
