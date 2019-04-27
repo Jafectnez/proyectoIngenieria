@@ -20,6 +20,6 @@
   mysqli_close($conexion);
 
 
-  echo "1";
+  echo "1"; 
 
 ?>

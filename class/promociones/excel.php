@@ -1,5 +1,8 @@
 <?php
 //excel.php exporta la informacion a una hoja de calculo
+
+// nota: se toman como parametros aceptables todas las fechas que intercepten en un punto
+// a las fechas especificadas en el filtro
 require_once('conexion.php');
 $conexion = conectar();
 $fecha_actual = strtotime(date("d-m-Y"));
@@ -75,19 +78,7 @@ if ($accion == 3) {// recibe fechas y texto
 		$sql1 = "SELECT * FROM `TBL_PROMOCIONES` WHERE `ID_PROMOCIONES` =".$cadena[$i];
 		$result1 = mysqli_query($conexion, $sql1);
 		$row1 = mysqli_fetch_array($result1);
-		/*
-		if (strtotime($desde) <= strtotime($row1["FECHA_FIN"]) && strtotime($hasta) >= strtotime($row1["FECHA_FIN"])) {
-			echo '<tr>
-		    <td>'.$contador.'</td>		
-			<td>'.$examen.'</td>
-		    <td>'.$row1["DESCRIPCION"].'</td>
-		    <td>'.$row1["RESTRICCIONES"].'</td>
-		    <td>'.$row1["FECHA_INICIO"].'</td>
-		    <td>'.$row1["FECHA_FIN"].'</td>
-		  	</tr>';
-			$contador++;
-		}
-		*/
+
 		if (strtotime($desde)<=strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) >= strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) <= strtotime($row1["FECHA_FIN"])) {
 			echo '<tr>
 		    <td>'.$contador.'</td>		
@@ -148,29 +139,6 @@ if ($accion == 4) {// recibe solamente fechas
 	$result1 = mysqli_query($conexion, $sql1);
 
 	while ($row1 = mysqli_fetch_array($result1)) {
-		/*
-		if (strtotime($row1["FECHA_INICIO"]) >= strtotime($desde) && strtotime($desde) <= strtotime($row1["FECHA_FIN"]) && strtotime($hasta) >= strtotime($row1["FECHA_FIN"])) {
-			$sql = "SELECT * FROM `PROMOCIONES_X_EXAMENES` WHERE `TBL_PROMOCIONES_ID_PROMOCIONES` =".$row1["ID_PROMOCIONES"];
-			$result = mysqli_query($conexion, $sql);
-			$row = mysqli_fetch_array($result);
-			$sql = "SELECT * FROM `TBL_EXAMENES` WHERE `ID_EXAMEN` =".$row["TBL_EXAMENES_ID_EXAMEN"];
-			$result = mysqli_query($conexion, $sql);
-			$numero = mysqli_num_rows($result);
-			if ($numero == 1) {
-				$row = mysqli_fetch_array($result);
-				$examen = $row["NOMBRE"];
-			}
-			echo '<tr>
-		    <td>'.$contador.'</td>		
-			<td>'.$examen.'</td>
-		    <td>'.$row1["DESCRIPCION"].'</td>
-		    <td>'.$row1["RESTRICCIONES"].'</td>
-		    <td>'.$row1["FECHA_INICIO"].'</td>
-		    <td>'.$row1["FECHA_FIN"].'</td>
-		  	</tr>';
-			$contador++;
-		}
-		*/
 		if (strtotime($desde)<=strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) >= strtotime($row1["FECHA_INICIO"]) && strtotime($hasta) <= strtotime($row1["FECHA_FIN"])) {
 			$sql = "SELECT * FROM `PROMOCIONES_X_EXAMENES` WHERE `TBL_PROMOCIONES_ID_PROMOCIONES` =".$row1["ID_PROMOCIONES"];
 			$result = mysqli_query($conexion, $sql);

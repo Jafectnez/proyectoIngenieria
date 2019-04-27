@@ -700,6 +700,8 @@ $("#denegar-solicitud").click(function(){
   });
 });
 
+
+// esta funcion evita que se introduzcan caracteres no numericos a un campo de texto
 function solonumeros(e) {
   key = e.keyCode || e.which;
   tecla = String.fromCharCode(key).toLowerCase();

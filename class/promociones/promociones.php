@@ -1,5 +1,8 @@
 <?php
 //promociones.php obtiene la informacion requerida en promociones actuales y el historico
+
+// nota para el segmento de filtros: se toman como parametros aceptables todas las fechas que intercepten en un punto
+// a las fechas especificadas en el filtro
 require_once('conexion.php');
 $conexion = conectar();
 $sql = "SELECT * FROM `TBL_PROMOCIONES`"; 
@@ -116,7 +119,6 @@ if ($accion == 3) {// recibe fechas y texto
 		    <td>'.$row1["DESCRIPCION"].'</td>
 		    <td>'.$row1["RESTRICCIONES"].'</td>
         	<td>'.$row1["PROMOCION"].'</td>        
-
 		    <td>'.$row1["FECHA_INICIO"].'</td>
 		    <td>'.$row1["FECHA_FIN"].'</td>
 		  	</tr>';
@@ -148,7 +150,6 @@ if ($accion == 3) {// recibe fechas y texto
 		  	</tr>';
 			$contador++;
 		}
-		//=============================================================================================================================================================================================================================
 	}
 	if ($contador == 1){
 		echo "<p>Sin resultados, intente con una nueva busqueda</p>";
